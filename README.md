@@ -27,10 +27,10 @@ A rewrite of [DanBotHostingStats](https://github.com/DanBot-Hosting/DanBotHostin
   - [ ] Premium fix command (possibly one which fixes all users?)
   - [ ] Premium add/remove commands
 - [ ] Add logging
-  - [ ] Message delete
+  - [x] Message delete
   - [ ] Message edit
-- [ ] Add DM functionality
-  - [ ] Allow users with the bot system administrator role to send messages using the bot through DMs
+- [x] Add DM functionality
+  - [x] Allow specific users to send messages using the bot through DMs
 - [ ] Proxy management
   - [ ] Proxy/unproxying domains
   - [ ] Domain list

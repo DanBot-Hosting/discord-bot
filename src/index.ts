@@ -13,6 +13,7 @@ import config from "./config";
 
 const client = new ExtendedClient({
     intents: 3276799,
+    partials: [Discord.Partials.Channel, Discord.Partials.Message],
     presence: {
         activities: [
             {

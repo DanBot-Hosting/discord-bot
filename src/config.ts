@@ -1,13 +1,15 @@
-import { ColorResolvable, EmojiResolvable, Snowflake } from "discord.js";
+import { ColorResolvable, Snowflake } from "discord.js";
 
-const channels: { [key: string]: Snowflake } = {}
-
-const embeds: { [key: string]: ColorResolvable } = {
-    default: "#0096FF",
-    error: "#E74C3C"
+const channels = {
+    messageLogs: "1150701154284601364"
 }
 
-const emojis: { [key: string]: EmojiResolvable } = {
+const embeds = {
+    default: "#0096FF" as ColorResolvable,
+    error: "#E74C3C" as ColorResolvable
+}
+
+const emojis = {
     connection_bad: "<:connection_bad:1149583879179612250>",
     connection_excellent: "<:connection_excellent:1149583873538260992>",
     connection_good: "<:connection_good:1149583875551539280>",
@@ -17,11 +19,18 @@ const emojis: { [key: string]: EmojiResolvable } = {
 }
 
 const main = {
+    dmAllowed: [
+        "137624084572798976", // Dan
+        "853158265466257448", // William
+        "757296951925538856", // DIBSTER
+        "459025800633647116"  // AVIXITY
+    ],
     legacyPrefix: "dbh!" as string,
-    owner: "137624084572798976" as Snowflake // Dan
+    owner: "137624084572798976" as Snowflake, // Dan
+    primaryGuild: "639477525927690240" as Snowflake, // DanBot Hosting
 }
 
-const roles: { [key: string]: Snowflake } = {
+const roles = {
     admin: "898041747219828796",
     dev: "898041747597295667",
     donator: "898041754564046869",

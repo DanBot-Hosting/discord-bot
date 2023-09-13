@@ -10,20 +10,15 @@
   "author": "DanBot Hosting",
   "license": "MIT",
   "dependencies": {
-    "@octokit/core": "^5.0.0",
     "@sentry/node": "^7.64.0",
-    "axios": "^1.4.0",
     "discord.js": "^14.12.1",
     "dotenv": "^16.3.1",
-    "mongoose": "^6.11.5",
-    "node-fetch": "^2.6.12",
-    "stop-discord-phishing": "^0.3.3"
+    "mongoose": "^6.11.5"
   },
   "devDependencies": {
     "@sentry/types": "^7.59.3",
     "@types/mongoose": "^5.11.97",
     "@types/node": "^20.4.2",
-    "@types/node-fetch": "^2.6.4",
     "typescript": "^5.2.2"
   }
 }

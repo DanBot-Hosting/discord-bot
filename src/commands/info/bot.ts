@@ -22,8 +22,7 @@ const command: Command = {
                 .setAuthor({ name: client.user.tag.endsWith("#0") ? client.user.username : client.user.tag, iconURL: client.user.displayAvatarURL({ extension: "png", forceStatic: false }), url: `https://discord.com/users/${client.user.id}` })
                 .setDescription(bot.description)
                 .addFields (
-                    { name: "📈 Version", value: bot.version, inline: true },
-                    { name: "🟢 Online Since", value: `<t:${(Date.now() - client.uptime).toString().slice(0, -3)}:f>`, inline: true },
+                    { name: "🟢 Online Since", value: `<t:${(Date.now() - client.uptime).toString().slice(0, -3)}:f> (<t:${(Date.now() - client.uptime).toString().slice(0, -3)}:R>)`, inline: true },
                     { name: "🔧 Maintainers", value: "[**DIBSTER**](https://discord.com/users/757296951925538856)\n📨 dibster@danbot.host\n[**William**](https://discord.com/users/853158265466257448)\n📨 william@danbot.host" }
                 )
 
