@@ -35,7 +35,7 @@ const event: Event = {
             if(!message.guild) return;
             if(!message.guild.members.me.permissions.has(requiredPerms)) return;
 
-            if(message.content.toLowerCase().startsWith(main.legacyPrefix) && message.content.length > main.legacyPrefix.length + 3) {
+            if(message.content.toLowerCase().startsWith(main.legacyPrefix.toLowerCase()) && message.content.length > main.legacyPrefix.length + 3) {
                 const description = [
                     `👋 Hey there ${message.author}!`,
                     "\nIn the recent rewrite of the DBH Discord bot we have decided to move away from prefix commands (e.g. `DBH!help`) and have moved to slash commands (e.g. `/help`).",

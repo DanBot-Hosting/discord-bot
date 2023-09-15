@@ -37,12 +37,6 @@ const command: Command = {
 
                     new Discord.ButtonBuilder()
                         .setStyle(Discord.ButtonStyle.Link)
-                        .setEmoji("🔗")
-                        .setLabel("Portal")
-                        .setURL("https://danbot.app"),
-
-                    new Discord.ButtonBuilder()
-                        .setStyle(Discord.ButtonStyle.Link)
                         .setEmoji("🐙")
                         .setLabel("GitHub")
                         .setURL("https://github.com/DanBot-Hosting")

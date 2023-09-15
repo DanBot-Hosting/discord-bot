@@ -9,11 +9,7 @@ const button: Button = {
     name: "null",
     startsWith: false,
     requiredRoles: [],
-    async execute(interaction: ButtonInteraction, client: ExtendedClient, Discord: any) {
-        try {} catch(err) {
-            client.logButtonError(err, interaction, Discord);
-        }
-    }
+    async execute(interaction: ButtonInteraction, client: ExtendedClient, Discord: any) {}
 }
 
 export = button;

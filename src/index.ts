@@ -17,7 +17,7 @@ const client = new ExtendedClient({
     presence: {
         activities: [
             {
-                name: "danbot.host",
+                name: "danbot.host » /help",
                 type: Discord.ActivityType.Custom
             }
         ],

@@ -22,10 +22,9 @@ const main = {
     dmAllowed: [
         "137624084572798976", // Dan
         "853158265466257448", // William
-        "757296951925538856", // DIBSTER
-        "459025800633647116"  // AVIXITY
+        "757296951925538856" // DIBSTER
     ],
-    legacyPrefix: "dbh!" as string,
+    legacyPrefix: "DBH!" as string,
     owner: "137624084572798976" as Snowflake, // Dan
     primaryGuild: "639477525927690240" as Snowflake, // DanBot Hosting
 }

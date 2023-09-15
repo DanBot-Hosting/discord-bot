@@ -37,7 +37,7 @@ const command: Command = {
                     const command = require(`../${file}`);
 
                     if(command.name) {
-                        if(!command.enabled || command.guildOnly) continue;
+                        if(!command.enabled) continue;
 
                         if(command.default_member_permissions) {
                             if(!interaction.member.permissions.has(command.default_member_permissions)) continue;
@@ -57,7 +57,7 @@ const command: Command = {
                     const command = require(`../${dir}/${file}`);
 
                     if(command.name) {
-                        if(!command.enabled || command.guildOnly) continue;
+                        if(!command.enabled) continue;
 
                         if(command.default_member_permissions) {
                             if(!interaction.member.permissions.has(command.default_member_permissions)) continue;

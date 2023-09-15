@@ -13,7 +13,7 @@ const command: Command = {
     requiredRoles: [],
     cooldown: 10,
     enabled: true,
-    deferReply: false,
+    deferReply: true,
     ephemeral: true,
     async execute(interaction: CommandInteraction, client: ExtendedClient, Discord: any) {
         try {
@@ -46,7 +46,7 @@ const command: Command = {
                     { name: "API Latency", value: apiLatencyValue, inline: true }
                 )
 
-            await interaction.reply({ embeds: [ping] });
+            await interaction.editReply({ embeds: [ping] });
         } catch(err) {
             client.logCommandError(err, interaction, Discord);
         }
