@@ -18,10 +18,28 @@ const event: Event = {
             if(!member.guild.members.me.permissions.has(requiredPerms)) return;
 
             // Kick members under 10 days old
-            if(client.autoKick && member.user.createdTimestamp > Date.now() - 999999999999999) {
+            if(client.autoKick && Date.now() - member.user.createdTimestamp < 10 * 24 * 60 * 60 * 1000) {
+                if(!member.guild.members.me.permissions.has(["KickMembers"])) return;
+
                 await member.kick("Account is under 10 days old.");
 
-                const channel = member.guild.channels.cache.get(channels.welcome) as TextChannel;
+                const channel = member.guild.channels.cache.get(channels.modLogs) as TextChannel;
+
+                const kicked = new Discord.EmbedBuilder()
+                    .setColor(client.config_embeds.default)
+                    .setTitle("Kicked")
+                    .setDescription(`You have been kicked from **${member.guild.name}**!`)
+                    .addFields (
+                        { name: "Reason", value: `Your account is under 10 days old.\nYou can join back on <t:${(member.user.createdTimestamp + 10 * 24 * 60 * 60 * 1000).toString().slice(0, -3)}:F>.` }
+                    )
+                    .setTimestamp()
+
+                let sentDM = false;
+
+                try {
+                    member.send({ embeds: [kicked] });
+                    sentDM = true;
+                } catch {}
 
                 const kickLog = new Discord.EmbedBuilder()
                     .setColor(client.config_embeds.default)

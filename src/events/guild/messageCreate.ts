@@ -6,7 +6,7 @@ import LegacyCommand from "../../classes/LegacyCommand";
 
 import cap from "../../util/cap";
 import Roles, { Role } from "../../classes/Roles";
-import { emojis as emoji, main } from "../../config";
+import { channels, emojis as emoji, main } from "../../config";
 import getRoles from "../../functions/roles/get";
 import { noPermissionCommand } from "../../util/embeds";
 
@@ -46,12 +46,53 @@ const event: Event = {
                 return;
             }
 
-            // If the message doesn't start with the bot's prefix, ignore the message
-            if(!message.content.toLowerCase().startsWith(main.legacyPrefix.toLowerCase())) return;
             // If the message wasn't sent in a guild or is not the primary guild, ignore the message
             if(!message.guild || message.guild.id !== main.primaryGuild) return;
             // If the bot doesn't have the required permissions, ignore the message
             if(!message.guild.members.me.permissions.has(requiredPerms)) return;
+
+            const userRoles = await getRoles(message.author.id, client);
+
+            if(message.mentions.members.size >= 20 && !userRoles.staff) {
+                if(!message.guild.members.me.permissions.has(["BanMembers"])) return;
+
+                await message.member.ban({ reason: "Mentioning 20 or more users in a message." });
+
+                const channel = message.guild.channels.cache.get(channels.modLogs) as TextChannel;
+
+                const banned = new Discord.EmbedBuilder()
+                    .setColor(client.config_embeds.default)
+                    .setTitle("Banned")
+                    .setDescription(`You have been banned from **${message.guild.name}**!`)
+                    .addFields (
+                        { name: "Reason", value: "Mentioning 20 or more users in a message." },
+                        { name: "Appeal", value: `Email **${main.appealEmail}** with your ban reason and why you should be unbanned.` }
+                    )
+                    .setTimestamp()
+
+                let sentDM = false;
+
+                try {
+                    message.author.send({ embeds: [banned] });
+                    sentDM = true;
+                } catch {}
+
+                const banLog = new Discord.EmbedBuilder()
+                    .setColor(client.config_embeds.default)
+                    .setTitle("Member Banned")
+                    .addFields (
+                        { name: "User", value: `${message.author} | \`${message.author.id}\`` },
+                        { name: "Reason", value: "Mentioning 20 or more users in a message." },
+                        { name: "User Notified", value: sentDM ? emoji.tick : emoji.cross }
+                    )
+                    .setTimestamp()
+
+                channel.send({ embeds: [banLog] });
+                return;
+            }
+
+            // If the message doesn't start with the bot's prefix, ignore the message
+            if(!message.content.toLowerCase().startsWith(main.legacyPrefix.toLowerCase())) return;
 
             const args = message.content.slice(main.legacyPrefix.length).split(/ +/);
 
@@ -79,7 +120,6 @@ const event: Event = {
             }
 
             const requiredRoles: Role[] = command.requiredRoles;
-            const userRoles: Roles = await getRoles(message.author.id, client);
 
             if(requiredRoles.length) {
                 const hasRoles = [];

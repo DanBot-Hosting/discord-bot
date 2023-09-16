@@ -26,6 +26,7 @@ const emojis = {
 }
 
 const main = {
+    appealEmail: "dan@danbot.host",
     dmAllowed: [
         "137624084572798976", // Dan
         "757296951925538856", // DIBSTER
