@@ -48,8 +48,8 @@ const event: Event = {
 
             // If the message doesn't start with the bot's prefix, ignore the message
             if(!message.content.toLowerCase().startsWith(main.legacyPrefix.toLowerCase())) return;
-            // If the message wasn't sent in a guild, ignore the message
-            if(!message.guild) return;
+            // If the message wasn't sent in a guild or is not the primary guild, ignore the message
+            if(!message.guild || message.guild.id !== main.primaryGuild) return;
             // If the bot doesn't have the required permissions, ignore the message
             if(!message.guild.members.me.permissions.has(requiredPerms)) return;
 

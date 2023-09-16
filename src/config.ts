@@ -1,6 +1,8 @@
 import { ColorResolvable, Snowflake } from "discord.js";
 
 const channels = {
+    announcements: "898050443446464532",
+    changelogs: "960242064338092202",
     gettingStarted: "898041837535776788",
     messageLogs: "898041913947602945",
     modLogs: "898041920071299142",
