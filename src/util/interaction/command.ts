@@ -62,7 +62,7 @@ export = async (client: ExtendedClient, Discord: any, interaction: CommandIntera
 
         command.deferReply ? command.ephemeral ? await interaction.deferReply({ ephemeral: true }) : await interaction.deferReply() : null;
 
-        if(interaction.user.id === client.config_main.owner) {
+        if(userRoles.owner || userRoles.sysAdmin) {
             try {
                 await command.execute(interaction, client, Discord);
                 return;

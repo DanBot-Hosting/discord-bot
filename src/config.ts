@@ -10,22 +10,26 @@ const embeds = {
 }
 
 const emojis = {
-    connection_bad: "<:connection_bad:1149583879179612250>",
-    connection_excellent: "<:connection_excellent:1149583873538260992>",
-    connection_good: "<:connection_good:1149583875551539280>",
-    cross: "<:cross:1149583869956329492>",
-    reply: "<:reply:1149583863333519390>",
-    tick: "<:tick:1149583861416730695>"
+    connection_bad: "<:connection_bad:1152422134124130417>",
+    connection_excellent: "<:connection_excellent:1152422118995279882>",
+    connection_good: "<:connection_good:1152422128457625670>",
+    cross: "<:cross:1152422111030292561>",
+    reply: "<:reply:1152422114792571070>",
+    tick: "<:tick:1152422108291399761>"
 }
 
 const main = {
     dmAllowed: [
         "137624084572798976", // Dan
-        "853158265466257448", // William
-        "757296951925538856" // DIBSTER
+        "757296951925538856", // DIBSTER
+        "853158265466257448" // William
     ],
-    legacyPrefix: "DBH!" as string,
-    owner: "137624084572798976" as Snowflake, // Dan
+    evalAllowed: [
+        "137624084572798976", // Dan
+        "757296951925538856", // DIBSTER
+        "853158265466257448" // William
+    ],
+    legacyPrefix: "DBHB!" as string,
     primaryGuild: "639477525927690240" as Snowflake, // DanBot Hosting
 }
 
@@ -35,6 +39,7 @@ const roles = {
     donator: "898041754564046869",
     helper: "898041750545903707",
     mod: "898041748817842176",
+    owner: "898041741695926282",
     staff: "898041751099539497",
     sysAdmin: "898041743566594049"
 }

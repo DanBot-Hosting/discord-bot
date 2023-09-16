@@ -17,12 +17,14 @@ const command: Command = {
     ephemeral: true,
     async execute(interaction: CommandInteraction, client: ExtendedClient, Discord: any) {
         try {
+            // Get ping
             const botLatency = Date.now() - interaction.createdTimestamp;
             const apiLatency = Math.round(client.ws.ping);
 
             let botLatencyValue;
             let apiLatencyValue;
 
+            // Set which connection emoji to use for botLatency
             if(botLatency >= 0 && botLatency <= 99) {
                 botLatencyValue = `${emoji.connection_excellent} ${botLatency}ms`;
             } else if(botLatency >= 100 && botLatency <= 199) {
@@ -31,6 +33,7 @@ const command: Command = {
                 botLatencyValue = `${emoji.connection_bad} ${botLatency}ms`;
             }
 
+            // Set which connection emoji to use for apiLatency
             if(apiLatency >= 0 && apiLatency <= 99) {
                 apiLatencyValue = `${emoji.connection_excellent} ${apiLatency}ms`;
             } else if(apiLatency >= 100 && apiLatency <= 199) {

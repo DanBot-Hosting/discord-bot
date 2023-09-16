@@ -12,10 +12,14 @@ const event: Event = {
         try {
             const requiredPerms: PermissionResolvable = ["SendMessages", "EmbedLinks"];
 
+            // Ignore interactions not in a guild
             if(!interaction.guild) return;
+            // Ignore interactions if the bot does not have the required permissions
             if(!interaction.guild.members.me.permissions.has(requiredPerms)) return;
 
+            // Button handler
             if(interaction.isButton()) return await buttonHandler(client, Discord, interaction);
+            // Command handler
             if(interaction.isCommand() && !interaction.isMessageContextMenuCommand() && !interaction.isUserContextMenuCommand()) return await commandHandler(client, Discord, interaction);
         } catch(err) {
             client.logError(err);

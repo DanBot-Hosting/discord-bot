@@ -8,7 +8,7 @@ import { getDirs } from "../../util/functions";
 
 const command: Command = {
     name: "help",
-    description: "Displays a list of all of Global Chat's commands.",
+    description: "Displays a list of all my commands.",
     options: [
         {
             type: 3,
@@ -88,6 +88,7 @@ const command: Command = {
                 .setDescription(cmds.sort().join("\n"))
                 .setTimestamp()
 
+            // If a command was specified, get info on that command
             const command = client.commands.get(cmd);
 
             if(command) {

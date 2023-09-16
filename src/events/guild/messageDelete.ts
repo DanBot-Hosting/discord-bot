@@ -13,8 +13,10 @@ const event: Event = {
         try {
             const requiredPerms: PermissionResolvable = ["SendMessages", "EmbedLinks"];
 
+            // Ignore messages from bots and messages not in the primary guild
             if(message.author.bot || !message.guild) return;
             if(message.guild.id !== main.primaryGuild) return;
+            // Ignore messages if the bot does not have the required permissions
             if(!message.guild.members.me.permissions.has(requiredPerms)) return;
 
             const logsChannel = client.channels.cache.get(channels.messageLogs);
@@ -30,6 +32,7 @@ const event: Event = {
                 )
                 .setTimestamp()
 
+            // If the message had an attachment, add it to the embed
             let attachment = null;
 
             if(message.attachments.first()) {
