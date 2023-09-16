@@ -2,9 +2,12 @@ import Command from "../../classes/Command";
 import ExtendedClient from "../../classes/ExtendedClient";
 import { CommandInteraction } from "discord.js";
 
+import Roles, { Role } from "../../classes/Roles";
+
 import { emojis as emoji } from "../../config";
 import fs from "fs";
 import { getDirs } from "../../util/functions";
+import getRoles from "../../functions/roles/get";
 
 const command: Command = {
     name: "help",
@@ -30,6 +33,8 @@ const command: Command = {
 
             const commands: string[] = [];
 
+            const userRoles: Roles = await getRoles(interaction.user.id, client);
+
             async function pushRoot() {
                 const files = fs.readdirSync(`./dist/commands`).filter(file => file.endsWith(".js"));
 
@@ -41,6 +46,18 @@ const command: Command = {
 
                         if(command.default_member_permissions) {
                             if(!interaction.member.permissions.has(command.default_member_permissions)) continue;
+                        }
+
+                        const requiredRoles: Role[] = command.requiredRoles;
+
+                        if(requiredRoles.length) {
+                            const hasRoles = [];
+
+                            for(const role of requiredRoles) {
+                                if(userRoles[role]) hasRoles.push(role);
+                            }
+
+                            if(requiredRoles.length !== hasRoles.length) continue;
                         }
 
                         commands.push(command.name);
@@ -61,6 +78,18 @@ const command: Command = {
 
                         if(command.default_member_permissions) {
                             if(!interaction.member.permissions.has(command.default_member_permissions)) continue;
+                        }
+
+                        const requiredRoles: Role[] = command.requiredRoles;
+
+                        if(requiredRoles.length) {
+                            const hasRoles = [];
+
+                            for(const role of requiredRoles) {
+                                if(userRoles[role]) hasRoles.push(role);
+                            }
+
+                            if(requiredRoles.length !== hasRoles.length) continue;
                         }
 
                         commands.push(command.name);

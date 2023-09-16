@@ -6,7 +6,7 @@ import { emojis as emoji } from "../../config";
 
 const command: Command = {
     name: "toggle-autokick",
-    description: "[STAFF ONLY] Toggle the status of auto-kicking accounts under 10 days old.",
+    description: "Toggle the status of auto-kicking accounts under 10 days old.",
     options: [],
     default_member_permissions: null,
     botPermissions: [],

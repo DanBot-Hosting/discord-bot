@@ -15,7 +15,7 @@ const command: Command = {
     enabled: true,
     deferReply: true,
     ephemeral: true,
-    async execute(interaction: CommandInteraction, client: ExtendedClient & any, Discord: any) {
+    async execute(interaction: CommandInteraction, client: ExtendedClient, Discord: any) {
         try {
             const info = new Discord.EmbedBuilder()
                 .setColor(client.config_embeds.default)
