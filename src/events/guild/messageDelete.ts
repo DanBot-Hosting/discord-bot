@@ -1,6 +1,6 @@
 import Event from "../../classes/Event";
 import ExtendedClient from "../../classes/ExtendedClient";
-import { Message, PermissionResolvable } from "discord.js";
+import { Message, PermissionResolvable, TextChannel } from "discord.js";
 
 import cap from "../../util/cap";
 import { channels, main } from "../../config";
@@ -13,13 +13,14 @@ const event: Event = {
         try {
             const requiredPerms: PermissionResolvable = ["SendMessages", "EmbedLinks"];
 
-            // Ignore messages from bots and messages not in the primary guild
-            if(message.author.bot || !message.guild) return;
+            // Ignore messages not in the primary guild
+            // Also ignore partial messages and messages that are only embeds
+            if(message.partial || (message.embeds.length && !message.content) || !message.guild) return;
             if(message.guild.id !== main.primaryGuild) return;
             // Ignore messages if the bot does not have the required permissions
             if(!message.guild.members.me.permissions.has(requiredPerms)) return;
 
-            const logsChannel = client.channels.cache.get(channels.messageLogs);
+            const channel = message.guild.channels.cache.get(channels.messageLogs) as TextChannel;
 
             const log = new Discord.EmbedBuilder()
                 .setColor(client.config_embeds.default)
@@ -27,8 +28,7 @@ const event: Event = {
                 .setTitle("Message Deleted")
                 .setDescription(cap(message.content, 2000) ?? "*Message contained no content.*")
                 .addFields (
-                    { name: "Channel", value: `<#${message.channel.id}>`, inline: true },
-                    { name: "Message ID", value: `\`${message.id}\``, inline: true }
+                    { name: "Channel", value: `<#${message.channel.id}>`, inline: true }
                 )
                 .setTimestamp()
 
@@ -46,7 +46,7 @@ const event: Event = {
                 }
             }
 
-            logsChannel.send({ embeds: [log] });
+            channel.send({ embeds: [log] });
         } catch(err) {
             client.logError(err);
         }

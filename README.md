@@ -26,6 +26,10 @@ A rewrite of [DanBotHostingStats](https://github.com/DanBot-Hosting/DanBotHostin
 - [ ] Add staff commands
   - [ ] Premium fix command (possibly one which fixes all users?)
   - [ ] Premium add/remove commands
+- [x] Guild member add event
+  - [x] Welcome messages
+  - [x] Auto-kick accounts under 10 days old
+    - [x] Add command to temp-disable
 - [ ] Add logging
   - [x] Message delete
   - [ ] Message edit

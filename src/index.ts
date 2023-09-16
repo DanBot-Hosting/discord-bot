@@ -13,11 +13,19 @@ import config from "./config";
 
 const client = new ExtendedClient({
     intents: 3276799,
-    partials: [Discord.Partials.Channel, Discord.Partials.Message],
+    partials: [
+        Discord.Partials.Channel,
+        Discord.Partials.GuildMember,
+        Discord.Partials.GuildScheduledEvent,
+        Discord.Partials.Message,
+        Discord.Partials.Reaction,
+        Discord.Partials.ThreadMember,
+        Discord.Partials.User
+    ],
     presence: {
         activities: [
             {
-                name: "danbot.host » /help",
+                name: "panel.danbot.host » /help",
                 type: Discord.ActivityType.Custom
             }
         ],
@@ -50,6 +58,7 @@ loadHandlers(client);
 client.login(process.env.token);
 
 // Constants
+client.autoKick = true;
 client.commandIds = new Discord.Collection();
 client.sentry = Sentry;
 

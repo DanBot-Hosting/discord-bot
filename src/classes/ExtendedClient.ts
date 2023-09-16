@@ -3,6 +3,7 @@ import { channels, embeds, main, roles } from "../config";
 import * as Sentry from "@sentry/node";
 
 export default class ExtendedClient extends Client {
+    public autoKick: boolean;
     public buttons: Collection<string, any>;
     public commandIds: Collection<string, Snowflake>;
     public commands: Collection<string, any>;
