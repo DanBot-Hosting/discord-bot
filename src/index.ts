@@ -55,6 +55,11 @@ client.legacyCommands = new Discord.Collection();
 import { loadHandlers } from "./util/functions";
 loadHandlers(client);
 
+// Check and update server status every 30 seconds
+import checker from "./util/server-status/checker";
+checker(client);
+setInterval(() => checker(client), 30000);
+
 // Login
 client.login(process.env.token);
 

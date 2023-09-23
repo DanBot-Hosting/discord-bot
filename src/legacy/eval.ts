@@ -9,7 +9,7 @@ import { noPermissionCommand } from "../util/embeds";
 const command: LegacyCommand = {
     name: "eval",
     description: "Evaluate some code on the bot.",
-    aliases: [],
+    aliases: ["e"],
     botPermissions: [],
     requiredRoles: [],
     cooldown: 5,
@@ -30,14 +30,15 @@ const command: LegacyCommand = {
             try {
                 // Run the code
                 let output = await eval(args.join(" "));
-                // Censor the database URL, Sentry DSN and bot token if they are returned
-                output = output.toString().replace(process.env.database, "CENSORED").replace(process.env.sentry_dsn, "CENSORED").replace(process.env.token, "CENSORED")
 
+                // Output was returned
                 if(output) {
-                    // Output was returned
-                    message.reply(`\`\`\`${cap(output, 1950)}\`\`\``);
+                    // Censor the database URL, Sentry DSN and bot token if they are returned
+                    output = output.toString().replace(process.env.database, "CENSORED").replace(process.env.sentry_dsn, "CENSORED").replace(process.env.token, "CENSORED");
+
+                    message.reply(`\`\`\`${cap(output, 2000)}\`\`\``);
+                // No output was returned
                 } else {
-                    // No output was returned
                     const noOutput = new Discord.EmbedBuilder()
                         .setColor(client.config_embeds.error)
                         .setDescription(`${emoji.cross} No output was returned.`)

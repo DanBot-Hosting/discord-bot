@@ -7,6 +7,7 @@ const channels = {
     gettingStarted: "898041837535776788",
     messageLogs: "898041913947602945",
     modLogs: "898041920071299142",
+    nodeStatus: "898041845878247487",
     otherLogs: "898041920071299142",
     rules: "898041835002400768",
     welcome: "898041844871618600"
