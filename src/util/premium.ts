@@ -27,3 +27,12 @@ export async function remove(user: Snowflake, amount: number): Promise<number> {
 
     return data.premium_servers;
 }
+
+export async function set(user: Snowflake, amount: number): Promise<number> {
+    const data = await User.findOne({ _id: user }) || new User({ _id: user, premium_servers: 0 });
+
+    data.premium_servers = amount;
+    await data.save();
+
+    return data.premium_servers;
+}

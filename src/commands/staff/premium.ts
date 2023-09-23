@@ -48,7 +48,28 @@ const command: Command = {
                     required: true
                 }
             ]
-        }
+        },
+
+        {
+            type: 1,
+            name: "set",
+            description: "Set a user's premium server count.",
+            options: [
+                {
+                    type: 6,
+                    name: "user",
+                    description: "The user who's premium server count to set.",
+                    required: true
+                },
+
+                {
+                    type: 10,
+                    name: "amount",
+                    description: "The amount of servers to set the premium server count to.",
+                    required: true
+                }
+            ]
+        },
     ],
     default_member_permissions: null,
     botPermissions: [],
@@ -67,14 +88,14 @@ const command: Command = {
 
                 const added = new Discord.EmbedBuilder()
                     .setColor(client.config_embeds.default)
-                    .setDescription(`${emoji.tick} ${amount} premium server${amount === 1 ? "" : "s"} have been added to ${user}! They now have ${newAmount} premium server${newAmount === 1 ? "" : "s"}.`)
+                    .setDescription(`${emoji.tick} Added **${amount}** premium server${amount === 1 ? "" : "s"} to ${user}! They now have ${newAmount} premium server${newAmount === 1 ? "" : "s"}.`)
 
                 await interaction.editReply({ embeds: [added] });
 
                 try {
                     const donation = new Discord.EmbedBuilder()
                         .setColor(client.config_embeds.default)
-                        .setDescription(`💖 Thank you ${user} for purchasing ${amount} premium server${amount === 1 ? "" : "s"}!`)
+                        .setDescription(`💖 Thank you ${user} for purchasing **${amount}** premium server${amount === 1 ? "" : "s"}!`)
 
                     const channel = await client.channels.fetch(client.config_channels.donations) as TextChannel;
 
@@ -100,9 +121,20 @@ const command: Command = {
 
                 const removed = new Discord.EmbedBuilder()
                     .setColor(client.config_embeds.default)
-                    .setDescription(`${emoji.tick} Removed ${amount} premium server${amount === 1 ? "" : "s"} from ${user}! They now have ${newAmount} premium server${newAmount === 1 ? "" : "s"}.`)
+                    .setDescription(`${emoji.tick} Removed **${amount}** premium server${amount === 1 ? "" : "s"} from ${user}! They now have ${newAmount} premium server${newAmount === 1 ? "" : "s"}.`)
 
                 await interaction.editReply({ embeds: [removed] });
+                return;
+            }
+
+            if(interaction.options.getSubcommand() === "set") {
+                await client.premium.set(user.id, amount);
+
+                const set = new Discord.EmbedBuilder()
+                    .setColor(client.config_embeds.default)
+                    .setDescription(`${emoji.tick} ${user}'s premium server count has been set to **${amount}**.`)
+
+                await interaction.editReply({ embeds: [set] });
                 return;
             }
         } catch(err) {

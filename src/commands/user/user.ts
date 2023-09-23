@@ -1,8 +1,6 @@
 import Command from "../../classes/Command";
 import ExtendedClient from "../../classes/ExtendedClient";
-import { CommandInteraction, TextChannel } from "discord.js";
-
-import { emojis as emoji } from "../../config";
+import { CommandInteraction } from "discord.js";
 
 const command: Command = {
     name: "user",
@@ -37,22 +35,9 @@ const command: Command = {
 
                 const count = new Discord.EmbedBuilder()
                     .setColor(client.config_embeds.default)
-                    .setDescription(`${user.id === interaction.user.id ? "You have" : `${user} has`} **${amount}** premium server${amount === 1 ? "" : "s"}.\nYou can buy ${amount === 0 ? "" : "more"} premium servers by donating on [PayPal](https://paypal.me/DanBotHosting) or [Donation Alerts](https://www.donationalerts.com/r/danbothosting).`)
+                    .setDescription(`✨ ${user.id === interaction.user.id ? "You have" : `${user} has`} **${amount}** premium server${amount === 1 ? "" : "s"}.\n💸 You can buy ${amount === 0 ? "" : "more"} premium servers by donating on [PayPal](https://paypal.me/DanBotHosting) or [Donation Alerts](https://www.donationalerts.com/r/danbothosting).`)
 
-                const buttons = new Discord.ActionRowBuilder()
-                    .addComponents (
-                        new Discord.ButtonBuilder()
-                            .setStyle(Discord.ButtonStyle.Link)
-                            .setLabel("PayPal")
-                            .setURL("https://paypal.me/DanBotHosting"),
-
-                        new Discord.ButtonBuilder()
-                            .setStyle(Discord.ButtonStyle.Link)
-                            .setLabel("Donation Alerts")
-                            .setURL("https://www.donationalerts.com/r/danbothosting")
-                    )
-
-                await interaction.editReply({ embeds: [count], components: [buttons] });
+                await interaction.editReply({ embeds: [count] });
                 return;
             }
         } catch(err) {
