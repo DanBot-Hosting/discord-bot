@@ -5,7 +5,7 @@ import { ChannelType, Message, PermissionResolvable, TextChannel } from "discord
 import LegacyCommand from "../../classes/LegacyCommand";
 
 import cap from "../../util/cap";
-import Roles, { Role } from "../../classes/Roles";
+import { Role } from "../../classes/Roles";
 import { channels, emojis as emoji, main } from "../../config";
 import getRoles from "../../functions/roles/get";
 import { noPermissionCommand } from "../../util/embeds";

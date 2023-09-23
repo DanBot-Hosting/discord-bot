@@ -61,6 +61,7 @@ client.login(process.env.token);
 // Constants
 client.autoKick = true;
 client.commandIds = new Discord.Collection();
+client.premium = require("./util/premium");
 client.sentry = Sentry;
 
 client.validPermissions = [

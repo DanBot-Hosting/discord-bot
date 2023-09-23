@@ -21,6 +21,7 @@ export default class ExtendedClient extends Client {
     public logContextError: Function;
     public logError: Function;
     public logLegacyError: Function;
+    public premium: typeof import("../util/premium");
     public sentry: typeof Sentry;
     public validPermissions: string[];
 }
