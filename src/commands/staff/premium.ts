@@ -70,6 +70,17 @@ const command: Command = {
                     .setDescription(`${emoji.tick} ${amount} premium server${amount === 1 ? "" : "s"} have been added to ${user}! They now have ${newAmount} premium server${newAmount === 1 ? "" : "s"}.`)
 
                 await interaction.editReply({ embeds: [added] });
+
+                try {
+                    const donation = new Discord.EmbedBuilder()
+                        .setColor(client.config_embeds.default)
+                        .setDescription(`💖 Thank you ${user} for purchasing ${amount} premium server${amount === 1 ? "" : "s"}!`)
+
+                    const channel = await client.channels.fetch(client.config_channels.donations) as TextChannel;
+
+                    await channel.send({ embeds: [donation] });
+                } catch {}
+
                 return;
             }
 
