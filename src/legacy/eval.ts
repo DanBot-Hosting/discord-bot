@@ -14,7 +14,7 @@ const command: LegacyCommand = {
     requiredRoles: [],
     cooldown: 5,
     enabled: true,
-    async execute(message: Message, args: string[], cmd: LegacyCommand, client: ExtendedClient, Discord: any) {
+    async execute(message: Message, args: string[], cmd: LegacyCommand, client: ExtendedClient, Discord: typeof import("discord.js")) {
         try {
             if(!client.config_main.evalAllowed.includes(message.author.id)) return message.reply({ embeds: [noPermissionCommand] });
 

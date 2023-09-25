@@ -13,9 +13,9 @@ const command: Command = {
     enabled: true,
     deferReply: true,
     ephemeral: true,
-    async execute(interaction: CommandInteraction, client: ExtendedClient, Discord: any) {
+    async execute(interaction: CommandInteraction, client: ExtendedClient, Discord: typeof import("discord.js")) {
         try {
-            const buttons = new Discord.ActionRowBuilder()
+            const buttons: any = new Discord.ActionRowBuilder()
                 .addComponents (
                     new Discord.ButtonBuilder()
                         .setStyle(Discord.ButtonStyle.Link)

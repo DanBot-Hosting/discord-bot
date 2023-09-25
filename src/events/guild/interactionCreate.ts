@@ -8,7 +8,7 @@ import commandHandler from "../../util/interaction/command";
 const event: Event = {
     name: "interactionCreate",
     once: false,
-    async execute(client: ExtendedClient, Discord: any, interaction: Interaction) {
+    async execute(client: ExtendedClient, Discord: typeof import("discord.js"), interaction: Interaction) {
         try {
             const requiredPerms: PermissionResolvable = ["SendMessages", "EmbedLinks"];
 

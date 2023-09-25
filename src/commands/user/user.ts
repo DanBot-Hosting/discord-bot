@@ -25,19 +25,32 @@ const command: Command = {
     cooldown: 5,
     enabled: true,
     deferReply: true,
-    ephemeral: false,
-    async execute(interaction: CommandInteraction & any, client: ExtendedClient, Discord: any) {
+    ephemeral: true,
+    async execute(interaction: CommandInteraction & any, client: ExtendedClient, Discord: typeof import("discord.js")) {
         try {
             if(interaction.options.getSubcommand() === "premium") {
                 const user = interaction.options.getUser("user") || interaction.user;
 
-                const amount = await client.premium.get(user.id);
+                const data = await client.premium.get(user.id);
 
                 const count = new Discord.EmbedBuilder()
                     .setColor(client.config_embeds.default)
-                    .setDescription(`✨ ${user.id === interaction.user.id ? "You have" : `${user} has`} **${amount}** premium server${amount === 1 ? "" : "s"}.\n💸 You can buy ${amount === 0 ? "" : "more"} premium servers by donating on [PayPal](https://paypal.me/DanBotHosting) or [Donation Alerts](https://www.donationalerts.com/r/danbothosting).`)
+                    .setDescription(`📊 ${user.id === interaction.user.id ? "You have" : `${user} has`} used **${data.used}** out of **${data.count}** premium servers.${user.id === interaction.user.id ? `\n💸 You can buy ${data.count === 0 ? "" : "more"} premium servers by donating on [PayPal](https://paypal.me/DanBotHosting) or [Donation Alerts](https://www.donationalerts.com/r/danbothosting).` : ""}`)
 
-                await interaction.editReply({ embeds: [count] });
+                const buttons = new Discord.ActionRowBuilder()
+                    .addComponents (
+                        new Discord.ButtonBuilder()
+                            .setStyle(Discord.ButtonStyle.Danger)
+                            .setCustomId(`premiumfix-${user.id}`)
+                            .setLabel("Incorrect premium count?")
+                    )
+
+                if(data.count > 0 && user.id === interaction.user.id) {
+                    await interaction.editReply({ embeds: [count], components: [buttons] });
+                } else {
+                    await interaction.editReply({ embeds: [count] });
+                }
+
                 return;
             }
         } catch(err) {

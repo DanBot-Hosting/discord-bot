@@ -21,9 +21,11 @@ const command: Command = {
                 },
 
                 {
-                    type: 10,
+                    type: 4,
                     name: "amount",
                     description: "The amount of servers to add.",
+                    min_value: 1,
+                    max_value: 10000,
                     required: true
                 }
             ]
@@ -42,9 +44,10 @@ const command: Command = {
                 },
 
                 {
-                    type: 10,
+                    type: 4,
                     name: "amount",
                     description: "The amount of servers to remove.",
+                    min_value: 1,
                     required: true
                 }
             ]
@@ -63,9 +66,11 @@ const command: Command = {
                 },
 
                 {
-                    type: 10,
+                    type: 4,
                     name: "amount",
-                    description: "The amount of servers to set the premium server count to.",
+                    description: "The amount of servers to set the user's premium server count to.",
+                    min_value: 0,
+                    max_value: 10000,
                     required: true
                 }
             ]
@@ -78,17 +83,26 @@ const command: Command = {
     enabled: true,
     deferReply: true,
     ephemeral: false,
-    async execute(interaction: CommandInteraction & any, client: ExtendedClient, Discord: any) {
+    async execute(interaction: CommandInteraction & any, client: ExtendedClient, Discord: typeof import("discord.js")) {
         try {
             const user = interaction.options.getUser("user");
             const amount = interaction.options.get("amount").value as number;
 
             if(interaction.options.getSubcommand() === "add") {
-                const newAmount = await client.premium.add(user.id, amount);
+                try {
+                    await client.premium.add(user.id, amount, client);
+                } catch(err) {
+                    const error = new Discord.EmbedBuilder()
+                        .setColor(client.config_embeds.error)
+                        .setDescription(`${emoji.cross} ${err.message}`)
+
+                    await interaction.editReply({ embeds: [error] });
+                    return;
+                }
 
                 const added = new Discord.EmbedBuilder()
                     .setColor(client.config_embeds.default)
-                    .setDescription(`${emoji.tick} Added **${amount}** premium server${amount === 1 ? "" : "s"} to ${user}! They now have ${newAmount} premium server${newAmount === 1 ? "" : "s"}.`)
+                    .setDescription(`${emoji.tick} Added **${amount}** premium server${amount === 1 ? "" : "s"} to ${user}!`)
 
                 await interaction.editReply({ embeds: [added] });
 
@@ -106,10 +120,8 @@ const command: Command = {
             }
 
             if(interaction.options.getSubcommand() === "remove") {
-                let newAmount = 0;
-
                 try {
-                    newAmount = await client.premium.remove(user.id, amount);
+                    await client.premium.remove(user.id, amount, client);
                 } catch(err) {
                     const error = new Discord.EmbedBuilder()
                         .setColor(client.config_embeds.error)
@@ -121,14 +133,23 @@ const command: Command = {
 
                 const removed = new Discord.EmbedBuilder()
                     .setColor(client.config_embeds.default)
-                    .setDescription(`${emoji.tick} Removed **${amount}** premium server${amount === 1 ? "" : "s"} from ${user}! They now have ${newAmount} premium server${newAmount === 1 ? "" : "s"}.`)
+                    .setDescription(`${emoji.tick} Removed **${amount}** premium server${amount === 1 ? "" : "s"} from ${user}!`)
 
                 await interaction.editReply({ embeds: [removed] });
                 return;
             }
 
             if(interaction.options.getSubcommand() === "set") {
-                await client.premium.set(user.id, amount);
+                try {
+                    await client.premium.set(user.id, amount, client);
+                } catch(err) {
+                    const error = new Discord.EmbedBuilder()
+                        .setColor(client.config_embeds.error)
+                        .setDescription(`${emoji.cross} ${err.message}`)
+
+                    await interaction.editReply({ embeds: [error] });
+                    return;
+                }
 
                 const set = new Discord.EmbedBuilder()
                     .setColor(client.config_embeds.default)

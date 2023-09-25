@@ -7,7 +7,7 @@ import { channels, main } from "../../config";
 const event: Event = {
     name: "guildMemberAdd",
     once: false,
-    async execute(client: ExtendedClient, Discord: any, member: GuildMember) {
+    async execute(client: ExtendedClient, Discord: typeof import("discord.js"), member: GuildMember) {
         try {
             const requiredPerms: PermissionResolvable = ["SendMessages", "EmbedLinks"];
 

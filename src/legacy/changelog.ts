@@ -13,7 +13,7 @@ const command: LegacyCommand = {
     requiredRoles: ["dev"],
     cooldown: 10,
     enabled: true,
-    async execute(message: Message, args: string[], cmd: LegacyCommand, client: ExtendedClient, Discord: any) {
+    async execute(message: Message, args: string[], cmd: LegacyCommand, client: ExtendedClient, Discord: typeof import("discord.js")) {
         try {
             if(!args[0]) {
                 const error = new Discord.EmbedBuilder()

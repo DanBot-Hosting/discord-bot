@@ -9,7 +9,7 @@ import path from "path";
 const event: Event = {
     name: "messageDelete",
     once: false,
-    async execute(client: ExtendedClient & any, Discord: any, message: Message) {
+    async execute(client: ExtendedClient & any, Discord: typeof import("discord.js"), message: Message) {
         try {
             const requiredPerms: PermissionResolvable = ["SendMessages", "EmbedLinks"];
 

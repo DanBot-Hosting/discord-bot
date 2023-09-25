@@ -32,7 +32,7 @@ export = async (client: ExtendedClient) => {
     await loadRoot();
     (await getDirs("./dist/commands")).forEach((dir: String) => loadDir(dir));
 
-    client.logCommandError = async function (err: Error, interaction: CommandInteraction, Discord: any) {
+    client.logCommandError = async function (err: Error, interaction: CommandInteraction, Discord: typeof import("discord.js")) {
         const id = client.sentry.captureException(err);
         console.error(err);
 

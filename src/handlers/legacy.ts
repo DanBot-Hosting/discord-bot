@@ -32,7 +32,7 @@ export = async (client: ExtendedClient) => {
     await loadRoot();
     (await getDirs("./dist/legacy")).forEach((dir: String) => loadDir(dir));
 
-    client.logLegacyError = async function (err: Error, message: Message, Discord: any) {
+    client.logLegacyError = async function (err: Error, message: Message, Discord: typeof import("discord.js")) {
         const id = client.sentry.captureException(err);
         console.error(err);
 

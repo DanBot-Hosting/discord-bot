@@ -15,7 +15,7 @@ const command: Command = {
     enabled: true,
     deferReply: true,
     ephemeral: false,
-    async execute(interaction: CommandInteraction, client: ExtendedClient, Discord: any) {
+    async execute(interaction: CommandInteraction, client: ExtendedClient, Discord: typeof import("discord.js")) {
         try {
             const channel = client.channels.cache.get(client.config_channels.otherLogs) as TextChannel;
 

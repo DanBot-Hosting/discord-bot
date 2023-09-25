@@ -22,15 +22,21 @@ const servers: any = [
 ]
 
 export default async function (client: ExtendedClient): Promise<ServerStatus[]> {
-    const statuses = [];
+    const statuses: ServerStatus[] = [];
 
     for(const server of servers) {
         const res = await ping.promise.probe(server.ip, { timeout: 3 });
 
         if(res.alive) {
-            statuses.push({ server: server, online: true });
+            statuses.push({
+                server: server,
+                online: true
+            })
         } else {
-            statuses.push({ server: server, online: false });
+            statuses.push({
+                server: server,
+                online: false
+            })
         }
     }
 
@@ -42,7 +48,7 @@ export type ServerStatus = {
     server: {
         name: string;
         ip: string;
-        type: "free" | "premium" | "donator" | "vpn";
+        type: string;
     }
     online: boolean;
 }

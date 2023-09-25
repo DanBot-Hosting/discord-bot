@@ -27,7 +27,7 @@ const command: Command = {
     enabled: true,
     deferReply: true,
     ephemeral: true,
-    async execute(interaction: CommandInteraction & any, client: ExtendedClient, Discord: any) {
+    async execute(interaction: CommandInteraction & any, client: ExtendedClient, Discord: typeof import("discord.js")) {
         try {
             const cmd: any = interaction.options.get("command")?.value;
 

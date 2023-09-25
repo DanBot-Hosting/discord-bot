@@ -32,7 +32,7 @@ export = async (client: ExtendedClient) => {
     await loadRoot();
     (await getDirs("./dist/buttons")).forEach((dir: String) => loadDir(dir));
 
-    client.logButtonError = async function (err: Error, interaction: ButtonInteraction, Discord: any) {
+    client.logButtonError = async function (err: Error, interaction: ButtonInteraction, Discord: typeof import("discord.js")) {
         const id = client.sentry.captureException(err);
         console.error(err);
 

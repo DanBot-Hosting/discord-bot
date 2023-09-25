@@ -8,7 +8,7 @@ import { emojis as emoji } from "../../config";
 import getRoles from "../../functions/roles/get";
 import { noPermissionButton } from "../embeds";
 
-export = async (client: ExtendedClient, Discord: any, interaction: ButtonInteraction) => {
+export = async (client: ExtendedClient, Discord: typeof import("discord.js"), interaction: ButtonInteraction) => {
     try {
         const button: Button = client.buttons.get(interaction.customId);
 

@@ -58,7 +58,7 @@ loadHandlers(client);
 // Check and update server status every 30 seconds
 import checker from "./util/server-status/checker";
 checker(client);
-setInterval(() => checker(client), 30000);
+setInterval(() => checker(client), 60000);
 
 // Login
 client.login(process.env.token);

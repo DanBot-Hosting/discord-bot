@@ -10,7 +10,7 @@ import { noPermissionCommand } from "../embeds";
 
 const cooldowns = new Map();
 
-export = async (client: ExtendedClient, Discord: any, interaction: CommandInteraction) => {
+export = async (client: ExtendedClient, Discord: typeof import("discord.js"), interaction: CommandInteraction) => {
     try {
         const command: Command = client.commands.get(interaction.commandName);
 

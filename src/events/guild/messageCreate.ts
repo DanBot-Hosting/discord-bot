@@ -15,7 +15,7 @@ const cooldowns = new Map();
 const event: Event = {
     name: "messageCreate",
     once: false,
-    async execute(client: ExtendedClient, Discord: any, message: Message) {
+    async execute(client: ExtendedClient, Discord: typeof import("discord.js"), message: Message) {
         try {
             // Required permissions for the bot to function
             const requiredPerms: PermissionResolvable = ["SendMessages", "EmbedLinks"];

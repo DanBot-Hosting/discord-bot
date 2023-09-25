@@ -4,7 +4,7 @@ import { ServerStatus } from "./checker";
 
 import { emojis as emoji } from "../../config";
 
-const serverTypes = {
+const serverTypes: any = {
     "free": "Free Nodes",
     "premium": "Premium Nodes",
     "donator": "Donator Nodes",
@@ -19,7 +19,8 @@ export default async function (statuses: ServerStatus[], client: ExtendedClient)
 
     const embed = new EmbedBuilder()
         .setTitle("DanBot Hosting Status")
-        .setFooter({ text: "Updated every 30 seconds." })
+        .setDescription(`<t:${Date.now().toString().slice(0, -3)}:f> (<t:${Date.now().toString().slice(0, -3)}:R>)`)
+        .setFooter({ text: "Updated every 60 seconds." })
         .setTimestamp()
 
     const data: any = {};
@@ -38,7 +39,7 @@ export default async function (statuses: ServerStatus[], client: ExtendedClient)
     }
 
     for(const item in data) {
-        embed.addFields({ name: `***${item}***`, value: data[item].map((i: any) => `${i.name}: ${i.online ? `${emoji.tick} Online` : `${emoji.cross} **Offline**`}`).join("\n"), inline: true });
+        embed.addFields({ name: `***${item}***`, value: data[item].map((i: any) => `${i.name}: ${i.online ? "🟢 Online" : "🔴 **Offline**"}`).join("\n"), inline: true });
     }
 
     if(message) {
