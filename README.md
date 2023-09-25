@@ -24,8 +24,11 @@ A rewrite of [DanBotHostingStats](https://github.com/DanBot-Hosting/DanBotHostin
   - [ ] Server count
 - [x] Add Sentry for error tracking
 - [ ] Add staff commands
-  - [ ] Premium fix command (possibly one which fixes all users?)
-  - [ ] Premium add/remove commands
+  - [x] Premium fix command
+    - [x] Fix count using a button for users
+  - [ ] Fix donator role assigning command
+    - Checks and adds the donator role to users that are meant to have it but do not have it
+  - [x] Premium add/remove/set commands
 - [x] Guild member add event
   - [x] Welcome messages
   - [x] Auto-kick accounts under 10 days old
@@ -33,13 +36,14 @@ A rewrite of [DanBotHostingStats](https://github.com/DanBot-Hosting/DanBotHostin
 - [ ] Add logging
   - [x] Message delete
   - [ ] Message edit
+  - [ ] Nickname changes
 - [x] Add DM functionality
   - [x] Allow specific users to send messages using the bot through DMs
 - [ ] Proxy management
   - [ ] Proxy/unproxying domains
   - [ ] Domain list
   - [ ] Info about a specific proxied domain
-    - [ ] What server it is attached to, SSL status, etc
+    - What server it is attached to, SSL status, etc
   - [ ] Remove proxied domains when a server is deleted
 - [ ] Client management
   - [ ] Suspend users (administrator only)

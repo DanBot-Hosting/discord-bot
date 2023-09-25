@@ -33,6 +33,20 @@ const command: Command = {
 
         {
             type: 1,
+            name: "fix",
+            description: "Fix a user's premium server count.",
+            options: [
+                {
+                    type: 6,
+                    name: "user",
+                    description: "The user who's premium server count to fix.",
+                    required: true
+                }
+            ]
+        },
+
+        {
+            type: 1,
             name: "remove",
             description: "Remove premium servers from a user.",
             options: [
@@ -86,9 +100,10 @@ const command: Command = {
     async execute(interaction: CommandInteraction & any, client: ExtendedClient, Discord: typeof import("discord.js")) {
         try {
             const user = interaction.options.getUser("user");
-            const amount = interaction.options.get("amount").value as number;
 
             if(interaction.options.getSubcommand() === "add") {
+                const amount = interaction.options.get("amount").value as number;
+
                 try {
                     await client.premium.add(user.id, amount, client);
                 } catch(err) {
@@ -119,7 +134,30 @@ const command: Command = {
                 return;
             }
 
+            if(interaction.options.getSubcommand() === "fix") {
+                const oldData = await client.premium.get(user.id);
+                const newCount = await client.premium.fix(user.id);
+
+                if(oldData.used === newCount) {
+                    const error = new Discord.EmbedBuilder()
+                        .setColor(client.config_embeds.default)
+                        .setDescription(`${emoji.tick} ${user}'s premium count is correct!`)
+
+                    await interaction.editReply({ embeds: [error], ephemeral: true });
+                    return;
+                }
+
+                const fixed = new Discord.EmbedBuilder()
+                    .setColor(client.config_embeds.default)
+                    .setDescription(`${emoji.tick} ${user}'s premium count has been fixed!`)
+
+                await interaction.editReply({ embeds: [fixed] });
+                return;
+            }
+
             if(interaction.options.getSubcommand() === "remove") {
+                const amount = interaction.options.get("amount").value as number;
+
                 try {
                     await client.premium.remove(user.id, amount, client);
                 } catch(err) {
@@ -140,6 +178,8 @@ const command: Command = {
             }
 
             if(interaction.options.getSubcommand() === "set") {
+                const amount = interaction.options.get("amount").value as number;
+
                 try {
                     await client.premium.set(user.id, amount, client);
                 } catch(err) {
