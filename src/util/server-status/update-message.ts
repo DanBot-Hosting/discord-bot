@@ -2,8 +2,6 @@ import ExtendedClient from "../../classes/ExtendedClient";
 import { EmbedBuilder, TextChannel } from "discord.js";
 import { ServerStatus } from "./checker";
 
-import { emojis as emoji } from "../../config";
-
 const serverTypes: any = {
     "free": "Free Nodes",
     "premium": "Premium Nodes",
@@ -13,7 +11,6 @@ const serverTypes: any = {
 
 export default async function (statuses: ServerStatus[], client: ExtendedClient) {
     const channel = await client.channels.fetch(client.config_channels.nodeStatus) as TextChannel;
-    
     const recentMessages = await channel.messages.fetch({ limit: 10 });
     const message = recentMessages.find(m => m.author.id === client.user.id && m.embeds.length > 0);
 
