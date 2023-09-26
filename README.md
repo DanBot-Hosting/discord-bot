@@ -23,10 +23,10 @@ A rewrite of [DanBotHostingStats](https://github.com/DanBot-Hosting/DanBotHostin
   - [ ] Server list
   - [ ] Server count
 - [x] Add Sentry for error tracking
-- [ ] Add staff commands
+- [x] Add staff commands
   - [x] Premium fix command
     - [x] Fix count using a button for users
-  - [ ] Fix donator role assigning command
+  - [x] Fix donator role assigning command
     - Checks and adds the donator role to users that are meant to have it but do not have it
   - [x] Premium add/remove/set commands
 - [x] Guild member add event
