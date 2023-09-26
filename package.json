@@ -17,7 +17,7 @@
     "ping": "^0.4.4"
   },
   "devDependencies": {
-    "@sentry/types": "^7.59.3",
+    "@sentry/types": "^7.72.0",
     "@types/mongoose": "^5.11.97",
     "@types/node": "^20.7.0",
     "@types/ping": "^0.4.2",
