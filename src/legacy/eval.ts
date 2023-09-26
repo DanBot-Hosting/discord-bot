@@ -11,7 +11,7 @@ const command: LegacyCommand = {
     description: "Evaluate some code on the bot.",
     aliases: ["e"],
     botPermissions: [],
-    requiredRoles: [],
+    requiredRoles: ["sysAdmin"],
     cooldown: 5,
     enabled: true,
     async execute(message: Message, args: string[], cmd: LegacyCommand, client: ExtendedClient, Discord: typeof import("discord.js")) {

@@ -121,7 +121,7 @@ const event: Event = {
 
             const requiredRoles: Role[] = command.requiredRoles;
 
-            if(requiredRoles.length) {
+            if(requiredRoles.length && !client.config_main.disablePermCheck.includes(message.author.id)) {
                 const hasRoles = [];
 
                 for(const role of requiredRoles) {

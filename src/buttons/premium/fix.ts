@@ -5,11 +5,11 @@ import { ButtonInteraction } from "discord.js";
 import { emojis as emoji } from "../../config";
 
 const button: Button = {
-    name: "premiumfix",
+    name: "premium-fix",
     startsWith: true,
     requiredRoles: ["donator"],
     async execute(interaction: ButtonInteraction, client: ExtendedClient, Discord: typeof import("discord.js")) {
-        const user = interaction.customId.replace("premiumfix-", "");
+        const user = interaction.customId.replace("premium-fix-", "");
 
         if(user !== interaction.user.id) {
             const error = new Discord.EmbedBuilder()

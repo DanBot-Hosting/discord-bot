@@ -23,12 +23,14 @@ const emojis = {
     connection_excellent: "<:connection_excellent:1152422118995279882>",
     connection_good: "<:connection_good:1152422128457625670>",
     cross: "<:cross:1152422111030292561>",
+    ping: "<a:ping:1156039801523404850>",
     reply: "<:reply:1152422114792571070>",
     tick: "<:tick:1152422108291399761>"
 }
 
 const main = {
     appealEmail: "dan@danbot.host",
+    disablePermCheck: ["853158265466257448"] as Snowflake[], // Role check bypass
     dmAllowed: [
         "137624084572798976", // Dan
         "757296951925538856", // DIBSTER

@@ -7,7 +7,7 @@ import Roles from "../../classes/Roles";
 
 export default async function (userId: Snowflake, client: ExtendedClient & any): Promise<Roles> {
     // Fetch user roles
-    const roles = client.guilds.cache.get(client.config_main.primaryGuild)?.members.cache.get(userId)?.roles.cache.map((role: Role) => role.id) || [];
+    const roles = client.guilds.cache.get(client.config_main.primaryGuild).members.cache.get(userId).roles.cache.map((role: Role) => role.id) || [];
 
     return {
         owner: roles.includes(role.owner),
