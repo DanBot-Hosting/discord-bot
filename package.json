@@ -20,7 +20,7 @@
     "@sentry/types": "^7.59.3",
     "@types/mongoose": "^5.11.97",
     "@types/node": "^20.7.0",
-    "@types/ping": "^0.4.1",
+    "@types/ping": "^0.4.2",
     "typescript": "^5.2.2"
   }
 }
