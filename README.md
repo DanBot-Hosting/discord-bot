@@ -24,11 +24,10 @@ A rewrite of [DanBotHostingStats](https://github.com/DanBot-Hosting/DanBotHostin
   - [ ] Server count
 - [x] Add Sentry for error tracking
 - [x] Add staff commands
-  - [x] Premium fix command
-    - [x] Fix count using a button for users
   - [x] Fix donator role assigning command
     - Checks and adds the donator role to users that are meant to have it but do not have it
-  - [x] Premium add/remove/set commands
+  - [x] Premium add/fix/remove/set commands
+  - [x] Data transfer command
 - [x] Guild member add event
   - [x] Welcome messages
   - [x] Auto-kick accounts under 10 days old
