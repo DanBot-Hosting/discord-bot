@@ -1,6 +1,6 @@
 export default class Roles {
     public owner: Boolean;
-    public sysAdmin: Boolean;
+    public botAdmin: Boolean;
     public admin: Boolean;
     public dev: Boolean;
     public mod: Boolean;
@@ -9,13 +9,13 @@ export default class Roles {
     public donator: Boolean;
 }
 
-export type Role = "owner" | "sysAdmin" | "admin" | "dev" | "mod" | "helper" | "staff" | "donator";
+export type Role = "owner" | "botAdmin" | "admin" | "dev" | "mod" | "helper" | "staff" | "donator";
 
 export function getRoleArray(object: Roles): Role[] {
     const roles: Role[] = [];
 
     if(object.owner) roles.push("owner");
-    if(object.sysAdmin) roles.push("sysAdmin");
+    if(object.botAdmin) roles.push("botAdmin");
     if(object.admin) roles.push("admin");
     if(object.dev) roles.push("dev");
     if(object.mod) roles.push("mod");
@@ -28,7 +28,7 @@ export function getRoleArray(object: Roles): Role[] {
 
 export function getRoleWithEmoji(role: Role): string {
     if(role === "owner") return "👑 Owner";
-    if(role === "sysAdmin") return "🤖 Bot System Admin";
+    if(role === "botAdmin") return "🤖 Bot Admin";
     if(role === "admin") return "⚒️ Admin";
     if(role === "dev") return "💻 Developer";
     if(role === "mod") return "🔨 Moderator";

@@ -161,7 +161,7 @@ const event: Event = {
                 }
             }
 
-            if(userRoles.owner || userRoles.sysAdmin) {
+            if(userRoles.owner || userRoles.botAdmin) {
                 try {
                     await command.execute(message, args, cmd, client, Discord);
                     return;

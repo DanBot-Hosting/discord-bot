@@ -10,12 +10,14 @@ const channels = {
     nodeStatus: "898041845878247487",
     otherLogs: "898041920071299142",
     rules: "898041835002400768",
+    starboard: "898354771927400538", // temporarily #beta-lounge
     welcome: "898041844871618600"
 }
 
 const embeds = {
     default: "#0096FF" as ColorResolvable,
-    error: "#E74C3C" as ColorResolvable
+    error: "#E74C3C" as ColorResolvable,
+    gold: "#F1C40F" as ColorResolvable
 }
 
 const emojis = {
@@ -47,13 +49,27 @@ const main = {
 
 const roles = {
     admin: "898041747219828796",
+    botAdmin: "898041743566594049",
     dev: "898041747597295667",
     donator: "898041754564046869",
     helper: "898041750545903707",
     mod: "898041748817842176",
     owner: "898041741695926282",
-    staff: "898041751099539497",
-    sysAdmin: "898041743566594049"
+    staff: "898041751099539497"
+}
+
+const starboard = {
+    allowed: [
+        "898041849783148585", // #lounge
+        "898041857550995506", // #memes
+        "898041861040664576", // #setups
+        "898041858666668092", // #pets
+        "898041865616650240", // #dono-lounge
+        "898041875192234054", // #vps-chat
+        "898354771927400538" // #beta-lounge
+    ],
+    emoji: "⭐", // The emoji to react with
+    threshold: 5 // Minimum reactions required to post on starboard
 }
 
 export {
@@ -61,7 +77,8 @@ export {
     embeds,
     emojis,
     main,
-    roles
+    roles,
+    starboard
 }
 
 export default {
@@ -69,5 +86,6 @@ export default {
     embeds,
     emojis,
     main,
-    roles
+    roles,
+    starboard
 }

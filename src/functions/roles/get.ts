@@ -11,7 +11,7 @@ export default async function (userId: Snowflake, client: ExtendedClient & any):
 
     return {
         owner: roles.includes(role.owner),
-        sysAdmin: roles.includes(role.sysAdmin),
+        botAdmin: roles.includes(role.botAdmin),
         admin: roles.includes(role.admin),
         dev: roles.includes(role.dev),
         mod: roles.includes(role.mod),

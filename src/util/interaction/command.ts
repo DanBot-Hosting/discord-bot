@@ -61,7 +61,7 @@ export = async (client: ExtendedClient, Discord: typeof import("discord.js"), in
 
         command.deferReply ? command.ephemeral ? await interaction.deferReply({ ephemeral: true }) : await interaction.deferReply() : null;
 
-        if(userRoles.owner || userRoles.sysAdmin) {
+        if(userRoles.owner || userRoles.botAdmin) {
             try {
                 await command.execute(interaction, client, Discord);
                 return;
