@@ -44,7 +44,7 @@ const command: Command = {
 
             const checkingUsers = new Discord.EmbedBuilder()
                 .setColor(client.config_embeds.default)
-                .setDescription(`${emoji.ping} Checking users...`)
+                .setDescription(`${emoji.ping} Verifying users...`)
 
             await i.edit({ embeds: [checkingUsers] });
 
@@ -107,6 +107,15 @@ const command: Command = {
                 return;
             }
 
+            if(fromUser.premium_count + toUser.premium_count > 10000) {
+                const error = new Discord.EmbedBuilder()
+                    .setColor(client.config_embeds.error)
+                    .setDescription(`${emoji.cross} The total premium server count is higher than 10000!`)
+
+                await i.edit({ embeds: [error] });
+                return;
+            }
+
             const confirm = new Discord.EmbedBuilder()
                 .setColor(client.config_embeds.default)
                 .setTitle("Transfer Data")
@@ -162,7 +171,7 @@ const command: Command = {
                         .setColor(client.config_embeds.default)
                         .setDescription(`${emoji.ping} Deleting old data...`)
 
-                    await i.edit({ embeds: [deleting], components: [] });
+                    await i.edit({ embeds: [deleting] });
 
                     await fromUser.delete();
 
@@ -170,7 +179,7 @@ const command: Command = {
                         .setColor(client.config_embeds.default)
                         .setDescription(`${emoji.ping} Assigning roles...`)
 
-                    await i.edit({ embeds: [assigningRoles], components: [] });
+                    await i.edit({ embeds: [assigningRoles] });
 
                     if(fromGuildMember.roles.cache.get(client.config_roles.donator)) {
                         await fromGuildMember.roles.remove(client.config_roles.donator);
@@ -184,7 +193,7 @@ const command: Command = {
                         .setColor(client.config_embeds.default)
                         .setDescription(`${emoji.tick} All data associated with ${from} has been transferred to ${to}!`)
 
-                    await i.edit({ embeds: [transferred], components: [] });
+                    await i.edit({ embeds: [transferred] });
                     return;
                 }
 
