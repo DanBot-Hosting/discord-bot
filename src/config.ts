@@ -10,7 +10,7 @@ const channels = {
     nodeStatus: "898041845878247487",
     otherLogs: "898041920071299142",
     rules: "898041835002400768",
-    starboard: "898354771927400538", // temporarily #beta-lounge
+    starboard: "898041905340907581", // temporarily staff commands
     welcome: "898041844871618600"
 }
 
