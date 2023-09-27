@@ -3,8 +3,7 @@ import { EmbedBuilder, TextChannel } from "discord.js";
 import { ServerStatus } from "./checker";
 
 const serverTypes: any = {
-    "free": "Free Nodes",
-    "premium": "Premium Nodes",
+    "performance": "Performance Nodes",
     "donator": "Donator Nodes",
     "vpn": "VPN Servers"
 }

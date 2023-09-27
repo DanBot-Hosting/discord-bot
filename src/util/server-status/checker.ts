@@ -4,13 +4,8 @@ import ping from "ping";
 import updateMessage from "./update-message";
 
 const servers: any = [
-    { name: "Node 4", ip: "n4.danbot.host", type: "free" },
-    { name: "Node 5", ip: "n5.danbot.host", type: "free" },
-    { name: "Node 6", ip: "n6.danbot.host", type: "free" },
-    { name: "Node 7", ip: "n7.danbot.host", type: "free" },
-    { name: "Node 8", ip: "n8.danbot.host", type: "free" },
-    { name: "PNode 1", ip: "pnode1.danbot.host", type: "premium" },
-    { name: "PNode 2", ip: "pnode2.danbot.host", type: "premium" },
+    { name: "PNode 1", ip: "pnode1.danbot.host", type: "performance" },
+    { name: "PNode 2", ip: "pnode2.danbot.host", type: "performance" },
     { name: "Dono 1", ip: "dono-01.danbot.host", type: "donator" },
     { name: "Dono 2", ip: "dono-02.danbot.host", type: "donator" },
     { name: "Dono 3", ip: "dono-03.danbot.host", type: "donator" },
