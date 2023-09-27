@@ -101,6 +101,15 @@ const command: Command = {
         try {
             const user = interaction.options.getUser("user");
 
+            if(user.bot) {
+                const error = new Discord.EmbedBuilder()
+                    .setColor(client.config_embeds.error)
+                    .setDescription(`${emoji.cross} Only users can have premium servers!`)
+
+                await interaction.editReply({ embeds: [error] });
+                return;
+            }
+
             if(interaction.options.getSubcommand() === "add") {
                 const amount = interaction.options.get("amount").value as number;
 
