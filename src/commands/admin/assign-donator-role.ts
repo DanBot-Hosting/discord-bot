@@ -7,7 +7,7 @@ import { emojis as emoji } from "../../config";
 import User from "../../models/User";
 
 const command: Command = {
-    name: "fix-donator-role",
+    name: "assign-donator-role",
     description: "Ensure all donators have the donator role.",
     options: [],
     default_member_permissions: null,
@@ -58,16 +58,24 @@ const command: Command = {
                 }
             }
 
-            const fileContent = roleChanges.join("\n");
+            if(!roleChanges.length) {
+                const result = new Discord.EmbedBuilder()
+                    .setColor(client.config_embeds.error)
+                    .setDescription(`${emoji.cross} No role changes were made.`)
+
+                await i.edit({ embeds: [result] });
+                return;
+            }
+
+            const additions = roleChanges.filter(r => r.startsWith("+"));
+            const removals = roleChanges.filter(r => r.startsWith("-"));
+
+            const fileContent = `Role: ${client.config_roles.donator}\n${additions.length ? `\nAdditions:\n${additions.join("\n")}` : ""}${removals.length ? `${additions.length ? "\n" : ""}\nRemovals:\n${removals.join("\n")}` : ""}`;
             const buffer = Buffer.from(fileContent, "utf-8");
 
             const file = new Discord.AttachmentBuilder(buffer, { name: "result.txt" });
 
-            const result = new Discord.EmbedBuilder()
-                .setColor(client.config_embeds.default)
-                .setDescription(`${emoji.tick} All donator roles have been assigned.`)
-
-            await i.edit({ embeds: [result], files: roleChanges.length ? [file] : [] });
+            await i.edit({ embeds: [], files: roleChanges.length ? [file] : [] });
         } catch(err) {
             client.logCommandError(err, interaction, Discord);
         }
