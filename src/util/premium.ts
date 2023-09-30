@@ -40,7 +40,7 @@ export async function remove(user: Snowflake, amount: number, client: ExtendedCl
     const data = await User.findOne({ _id: user }) || new User({ _id: user, premium_count: 0, premium_used: 0 });
 
     if(data.premium_count < amount) throw new Error(`<@${user}> does not have that many premium servers to remove.`);
-    if(data.premium_used > data.premium_count - amount) throw new Error(`You cannot remove more premium servers from <@${user}> than they have used.`);
+    if(data.premium_used > data.premium_count - amount) throw new Error(`Cannot remove premium servers from <@${user}> that are in use.`);
 
     data.premium_count -= amount;
     await data.save();

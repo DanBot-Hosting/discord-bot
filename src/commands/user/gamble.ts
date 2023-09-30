@@ -42,7 +42,17 @@ const command: Command = {
             if(premiumServers.count - 1 < premiumServers.used) {
                 const error = new Discord.EmbedBuilder()
                     .setColor(client.config_embeds.error)
-                    .setDescription(`${emoji.tick} You can't gamble away a premium server as you cannot have a premium count smaller than the used count.`)
+                    .setDescription(`${emoji.tick} You cannot gamble a premium server away since your total count of premium servers can't be less than the amount in use.`)
+
+                await interaction.editReply({ embeds: [error] });
+                return;
+            }
+
+            // Stop a user from gambling if their premium server count will exceed 10,000
+            if(premiumServers.count + 1 > 10000) {
+                const error = new Discord.EmbedBuilder()
+                    .setColor(client.config_embeds.error)
+                    .setDescription(`${emoji.tick} You cannot gamble a premium server away since your total count of premium servers cannot exceed **10000**.`)
 
                 await interaction.editReply({ embeds: [error] });
                 return;
@@ -149,14 +159,32 @@ const command: Command = {
                             .setDescription(`${emoji.tick} You won a premium server! You now have **${premiumServers.count + 1}** premium servers.`)
 
                         await interaction.editReply({ embeds: [win] });
-                        await client.premium.add(interaction.user.id, 1, client);
+
+                        try {
+                            await client.premium.add(interaction.user.id, 1, client);
+                        } catch(err) {
+                            const error = new Discord.EmbedBuilder()
+                                .setColor(client.config_embeds.error)
+                                .setDescription(`${emoji.cross} ${err.message}`)
+
+                            await interaction.editReply({ embeds: [error] });
+                        }
                     } else {
                         const lose = new Discord.EmbedBuilder()
                             .setColor(client.config_embeds.error)
                             .setDescription(`${emoji.cross} You lost a premium server! You now have **${premiumServers.count - 1}** premium server${premiumServers.count - 1 === 1 ? "" : "s"}.`)
 
                         await interaction.editReply({ embeds: [lose] });
-                        await client.premium.remove(interaction.user.id, 1, client);
+
+                        try {
+                            await client.premium.remove(interaction.user.id, 1, client);
+                        } catch(err) {
+                            const error = new Discord.EmbedBuilder()
+                                .setColor(client.config_embeds.error)
+                                .setDescription(`${emoji.cross} ${err.message}`)
+
+                            await interaction.editReply({ embeds: [error] });
+                        }
                     }
                 }, 7000);
             }
