@@ -33,21 +33,15 @@ const emojis = {
 
 const main = {
     appealEmail: "dan@danbot.host",
-    disablePermCheck: ["853158265466257448"] as Snowflake[], // Role check bypass
+    disablePermCheck: [
+        "853158265466257448" // William
+    ] as Snowflake[],
     dmAllowed: [
         "137624084572798976", // Dan
         "757296951925538856", // DIBSTER
         "853158265466257448" // William
     ],
     legacyPrefix: "DBHB!" as string,
-    pollPingAllowed: [
-        "137624084572798976", // Dan
-        "405771597761216522", // Mike
-        "599204289088585738", // Dotto
-        "757296951925538856", // DIBSTER
-        "712560683216011274", // FC
-        "853158265466257448" // William
-    ],
     primaryGuild: "639477525927690240" as Snowflake, // DanBot Hosting
 }
 
@@ -60,6 +54,7 @@ const roles = {
     mod: "898041748817842176",
     owner: "898041741695926282",
     pollPing: "898041781927682090",
+    pollPingAllowed: "1157497265708093520",
     staff: "898041751099539497"
 }
 
@@ -74,7 +69,7 @@ const starboard = {
         "898354771927400538" // #beta-lounge
     ],
     emoji: "⭐", // The emoji to react with
-    threshold: 5 // Minimum reactions required to post on starboard
+    threshold: 3 // Minimum reactions required to post on starboard
 }
 
 export {

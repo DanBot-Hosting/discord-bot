@@ -27,7 +27,7 @@ const event: Event = {
             if(message.channel.type === ChannelType.DM && main.dmAllowed.includes(message.author.id)) {
                 const args = message.content.trim().split(/ +/g);
 
-                if(!args[1]) return message.reply("Please provide the text you would like to send to the channel.");
+                if(!args[1]) return message.reply("Please provide the message you would like to send.");
 
                 try {
                     const channel = client.channels.cache.get(args[0]) as TextChannel;
@@ -102,10 +102,9 @@ const event: Event = {
             if(!command) {
                 // Prefix command deprecation
                 const description = [
-                    `👋 Hey there ${message.author}!`,
-                    `\nIn the recent rewrite of the DBH Discord bot we have decided to move away from prefix commands (e.g. \`${main.legacyPrefix}help\`) and have moved to slash commands (e.g. \`/help\`).`,
+                    `👋 Hey there, **${message.author.globalName || message.author.username}**!`,
+                    `\nIn the recent rewrite of the DBH Discord bot we have decided to move away from prefix commands (e.g. \`${main.legacyPrefix}help\`) and have moved to slash commands (e.g. </help:${client.commandIds.get("help")}>).`,
                     "\nThis change has been made to help make development easier of the Discord bot and allow us to maintain it easily.",
-                    `\nTry out one of the new slash commands: </help:${client.commandIds.get("help")}>`,
                     "\nRegards,",
                     "The **DanBot Team**"
                 ]

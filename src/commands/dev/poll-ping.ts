@@ -21,13 +21,25 @@ const command: Command = {
     requiredRoles: [],
     cooldown: 0,
     enabled: true,
-    deferReply: false,
-    ephemeral: false,
+    deferReply: true,
+    ephemeral: true,
     async execute(interaction: CommandInteraction, client: ExtendedClient, Discord: typeof import("discord.js")) {
         try {
-            // Return error if the user is not allowed to use the command
-            if(!client.config_main.pollPingAllowed.includes(interaction.user.id)) {
-                await interaction.reply({ embeds: [noPermissionCommand], ephemeral: true });
+            // Return error if the command is not in the primary guild
+            if(interaction.guild.id !== client.config_main.primaryGuild) {
+                const error = new Discord.EmbedBuilder()
+                    .setColor(client.config_embeds.error)
+                    .setDescription(`${emoji.cross} This command can only be used in the primary guild.`)
+
+                await interaction.editReply({ embeds: [error] });
+                return;
+            }
+
+            // Return error if the user does not have the pollPingAllowed role
+            const roles = await interaction.guild.members.fetch(interaction.user.id).then(member => member.roles.cache.map(role => role.id));
+
+            if(!roles.includes(client.config_roles.pollPingAllowed)) {
+                await interaction.editReply({ embeds: [noPermissionCommand] });
                 return;
             }
 
@@ -37,7 +49,7 @@ const command: Command = {
                     .setColor(client.config_embeds.error)
                     .setDescription(`${emoji.cross} This command can only be used in <#${client.config_channels.devQuestions}>.`)
 
-                await interaction.reply({ embeds: [error], ephemeral: true });
+                await interaction.editReply({ embeds: [error] });
                 return;
             }
 
@@ -48,7 +60,7 @@ const command: Command = {
                     .setColor(client.config_embeds.error)
                     .setDescription(`${emoji.cross} This command is on cooldown, it can be used <t:${Math.floor((client.lastPoll + 3600000) / 1000)}:R>.`)
 
-                await interaction.reply({ embeds: [error], ephemeral: true });
+                await interaction.editReply({ embeds: [error] });
                 return;
             }
 
@@ -58,12 +70,13 @@ const command: Command = {
             client.lastPoll = Date.now();
 
             // Ping the role
-            await interaction.reply({ content: `<@&${client.config_roles.pollPing}>` });
+            await interaction.channel.send({ content: `testing` });
+            await interaction.deleteReply();
 
             // Log the command
             const log = new Discord.EmbedBuilder()
                 .setColor(client.config_embeds.default)
-                .setTitle("Poll Ping Command Used")
+                .setTitle("Poll Ping")
                 .addFields (
                     { name: "User", value: `${interaction.user}` },
                     { name: "Reason", value: reason }
