@@ -23,6 +23,7 @@ A rewrite of [DanBotHostingStats](https://github.com/DanBot-Hosting/DanBotHostin
   - [ ] Server list
   - [ ] Server count
   - [ ] Move files from one server to another (if possible)
+  - [ ] Start/restart/stop a server
 - [x] Add Sentry for error tracking
   - [ ] Add Sentry bot to the server and set it up in a dedicated channel
 - [x] Add staff commands
