@@ -1,3 +1,6 @@
+// This command will not actually be used in the final release
+// It was only created for educational purposes
+
 import Command from "../../classes/Command";
 import ExtendedClient from "../../classes/ExtendedClient";
 import { CommandInteraction } from "discord.js";
@@ -22,7 +25,7 @@ const command: Command = {
             if(premiumServers.count === 0) {
                 const error = new Discord.EmbedBuilder()
                     .setColor(client.config_embeds.error)
-                    .setDescription(`${emoji.tick} You don't have any premium servers!`)
+                    .setDescription(`${emoji.cross} You don't have any premium servers!`)
 
                 await interaction.editReply({ embeds: [error] });
                 return;
@@ -32,7 +35,7 @@ const command: Command = {
             if(premiumServers.count === 1) {
                 const error = new Discord.EmbedBuilder()
                     .setColor(client.config_embeds.error)
-                    .setDescription(`${emoji.tick} You only have **1** premium server! You can't gamble it away.`)
+                    .setDescription(`${emoji.cross} You only have **1** premium server! You can't gamble it away.`)
 
                 await interaction.editReply({ embeds: [error] });
                 return;
@@ -42,7 +45,7 @@ const command: Command = {
             if(premiumServers.count - 1 < premiumServers.used) {
                 const error = new Discord.EmbedBuilder()
                     .setColor(client.config_embeds.error)
-                    .setDescription(`${emoji.tick} You cannot gamble a premium server away since your total count of premium servers can't be less than the amount in use.`)
+                    .setDescription(`${emoji.cross} You cannot gamble a premium server away since your total count of premium servers can't be less than the amount in use.`)
 
                 await interaction.editReply({ embeds: [error] });
                 return;
@@ -52,7 +55,7 @@ const command: Command = {
             if(premiumServers.count + 1 > 10000) {
                 const error = new Discord.EmbedBuilder()
                     .setColor(client.config_embeds.error)
-                    .setDescription(`${emoji.tick} You cannot gamble a premium server away since your total count of premium servers cannot exceed **10000**.`)
+                    .setDescription(`${emoji.cross} You cannot gamble a premium server away since your total count of premium servers cannot exceed **10000**.`)
 
                 await interaction.editReply({ embeds: [error] });
                 return;
