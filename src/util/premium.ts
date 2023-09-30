@@ -14,7 +14,9 @@ export async function add(user: Snowflake, amount: number, client: ExtendedClien
     const guild = client.guilds.cache.get(client.config_main.primaryGuild);
     const member = guild.members.cache.get(user);
 
-    await member.roles.add(client.config_roles.donator).catch(() => null);
+    if(!member.roles.cache.has(client.config_roles.donator)) {
+        await member.roles.add(client.config_roles.donator).catch(() => null);
+    }
 
     return data.premium_count;
 }
@@ -73,7 +75,9 @@ export async function set(user: Snowflake, amount: number, client: ExtendedClien
         const guild = client.guilds.cache.get(client.config_main.primaryGuild);
         const member = guild.members.cache.get(user);
 
-        await member.roles.add(client.config_roles.donator).catch(() => null);
+        if(!member.roles.cache.has(client.config_roles.donator)) {
+            await member.roles.add(client.config_roles.donator).catch(() => null);
+        }
     }
 
     return data.premium_count;
