@@ -11,7 +11,7 @@ const command: LegacyCommand = {
     aliases: ["cl"],
     botPermissions: [],
     requiredRoles: ["dev"],
-    cooldown: 10,
+    cooldown: 60,
     enabled: true,
     async execute(message: Message, args: string[], cmd: LegacyCommand, client: ExtendedClient, Discord: typeof import("discord.js")) {
         try {
@@ -36,7 +36,7 @@ const command: LegacyCommand = {
 
             const sent = new Discord.EmbedBuilder()
                 .setColor(client.config_embeds.default)
-                .setDescription(`${emoji.tick} Your changelog was sent: ${msg.url}`)
+                .setDescription(`${emoji.tick} ${msg.url}`)
 
             message.reply({ embeds: [sent] });
         } catch(err) {

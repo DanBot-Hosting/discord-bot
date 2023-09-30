@@ -3,6 +3,7 @@ import { ColorResolvable, Snowflake } from "discord.js";
 const channels = {
     announcements: "898050443446464532",
     changelogs: "960242064338092202",
+    devQuestions: "1083142107977486389",
     donations: "898041841939783732",
     gettingStarted: "898041837535776788",
     messageLogs: "898041913947602945",
@@ -38,12 +39,15 @@ const main = {
         "757296951925538856", // DIBSTER
         "853158265466257448" // William
     ],
-    evalAllowed: [
+    legacyPrefix: "DBHB!" as string,
+    pollPingAllowed: [
         "137624084572798976", // Dan
+        "405771597761216522", // Mike
+        "599204289088585738", // Dotto
         "757296951925538856", // DIBSTER
+        "712560683216011274", // FC
         "853158265466257448" // William
     ],
-    legacyPrefix: "DBHB!" as string,
     primaryGuild: "639477525927690240" as Snowflake, // DanBot Hosting
 }
 
@@ -55,6 +59,7 @@ const roles = {
     helper: "898041750545903707",
     mod: "898041748817842176",
     owner: "898041741695926282",
+    pollPing: "898041781927682090",
     staff: "898041751099539497"
 }
 

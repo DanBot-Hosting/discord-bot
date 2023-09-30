@@ -4,20 +4,17 @@ import { Message } from "discord.js";
 
 import cap from "../util/cap";
 import { emojis as emoji } from "../config";
-import { noPermissionCommand } from "../util/embeds";
 
 const command: LegacyCommand = {
     name: "eval",
-    description: "Evaluate some code on the bot.",
-    aliases: ["e"],
+    description: "Evaluate code on the bot.",
+    aliases: [],
     botPermissions: [],
     requiredRoles: ["botAdmin"],
-    cooldown: 5,
+    cooldown: 0,
     enabled: true,
     async execute(message: Message, args: string[], cmd: LegacyCommand, client: ExtendedClient, Discord: typeof import("discord.js")) {
         try {
-            if(!client.config_main.evalAllowed.includes(message.author.id)) return message.reply({ embeds: [noPermissionCommand] });
-
             if(!args[0]) {
                 const error = new Discord.EmbedBuilder()
                     .setColor(client.config_embeds.error)

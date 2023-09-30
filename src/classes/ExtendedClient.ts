@@ -15,6 +15,7 @@ export default class ExtendedClient extends Client {
     public config_main: typeof main;
     public config_roles: typeof roles;
     public events: Collection<string, Event>;
+    public lastPoll: number;
     public legacyCommands: Collection<string, LegacyCommand>;
     public logButtonError: Function;
     public logCommandError: Function;
