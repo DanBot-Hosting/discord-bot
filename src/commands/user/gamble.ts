@@ -1,4 +1,4 @@
-// This command will not actually be used in the final release
+// This command will not actually be in the final release
 // It was only created for educational purposes
 
 import Command from "../../classes/Command";
