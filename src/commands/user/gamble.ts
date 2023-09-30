@@ -3,11 +3,10 @@ import ExtendedClient from "../../classes/ExtendedClient";
 import { CommandInteraction } from "discord.js";
 
 import { emojis as emoji } from "../../config";
-import { time } from "console";
 
 const command: Command = {
     name: "gamble",
-    description: "Gamble a premium server away just like your dad.",
+    description: "Gamble a premium server away for the chance to win one.",
     options: [],
     default_member_permissions: null,
     botPermissions: [],
