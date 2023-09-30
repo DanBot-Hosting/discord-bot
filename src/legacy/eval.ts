@@ -31,8 +31,8 @@ const command: LegacyCommand = {
                 .setTimestamp()
 
             try {
-                // Run the code in an async function to be able to use await
-                let output = await eval(`(async () => { ${args.join(" ")} })()`);
+                // Run the code
+                let output = await eval(args.join(" "));
 
                 if(output) {
                     output = output.toString();
