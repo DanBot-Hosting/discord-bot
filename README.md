@@ -19,10 +19,12 @@ A rewrite of [DanBotHostingStats](https://github.com/DanBot-Hosting/DanBotHostin
 - [ ] Add panel-related commands
   - [ ] Server creation
   - [ ] Server deletion
-  - [ ] Server info (information about a server, could be useful)
+  - [ ] Server info
   - [ ] Server list
   - [ ] Server count
+  - [ ] Move files from one server to another (if possible)
 - [x] Add Sentry for error tracking
+  - [ ] Add Sentry bot to the server and set it up in a dedicated channel
 - [x] Add staff commands
   - [x] Fix donator role assigning command
     - Checks and adds the donator role to users that are meant to have it but do not have it
@@ -38,8 +40,15 @@ A rewrite of [DanBotHostingStats](https://github.com/DanBot-Hosting/DanBotHostin
   - [ ] Nickname changes
 - [x] Add DM functionality
   - [x] Allow specific users to send messages using the bot through DMs
+- [x] Testing channels
+  - [x] Creation of testing channels
+  - [x] Deletion of testing channels
+    - [x] Auto-delete all channels after 24 hours
+  - [x] Adding/removing users from a testing channel
 - [ ] Proxy management
   - [ ] Proxy/unproxying domains
+    - For proxying, use modals
+    - Allow user to provide an optional note
   - [ ] Domain list
   - [ ] Info about a specific proxied domain
     - What server it is attached to, SSL status, etc
@@ -49,5 +58,5 @@ A rewrite of [DanBotHostingStats](https://github.com/DanBot-Hosting/DanBotHostin
   - [ ] Delete own client account
   - [ ] Creating an account (in DMs)
   - [ ] Resetting password
-  - [ ] Premium server count
+  - [x] Premium server count
   - [ ] Linking/unlinking account

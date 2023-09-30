@@ -14,13 +14,28 @@ const command: Command = {
         {
             type: 1,
             name: "create",
-            description: "Create a testing channel."
+            description: "Create a testing channel.",
+            options: [
+                {
+                    type: 3,
+                    name: "topic",
+                    description: "The topic of the testing channel.",
+                    max_length: 1024,
+                    required: false
+                }
+            ]
         },
 
         {
             type: 1,
             name: "delete",
             description: "Delete a testing channel. Can only be used in a testing channel."
+        },
+
+        {
+            type: 1,
+            name: "delete-all",
+            description: "Delete all of your testing channels."
         },
 
         {
@@ -61,22 +76,37 @@ const command: Command = {
     default_member_permissions: null,
     botPermissions: ["ManageChannels"],
     requiredRoles: ["botAdmin"],
-    cooldown: 10,
+    cooldown: 0,
     enabled: true,
     deferReply: true,
     ephemeral: true,
     async execute(interaction: CommandInteraction & any, client: ExtendedClient, Discord: typeof import("discord.js")) {
         try {
+            // Return if not in the primary guild
+            if(interaction.guild.id !== client.config_main.primaryGuild) {
+                const error = new Discord.EmbedBuilder()
+                    .setColor(client.config_embeds.error)
+                    .setDescription(`${emoji.cross} This command can only be used in the primary guild.`)
+
+                await interaction.editReply({ embeds: [error] });
+                return;
+            }
+
             if(interaction.options.getSubcommand() === "create") {
+                const channelTopic = interaction.options.get("topic");
+
                 const creating = new Discord.EmbedBuilder()
                     .setColor(client.config_embeds.default)
                     .setDescription(`${emoji.ping} Creating a testing channel...`)
 
                 await interaction.editReply({ embeds: [creating] });
 
+                const id = randomUUID().slice(0, 8);
+
                 const channel = await interaction.guild.channels.create({
-                    name: `testing-${randomUUID().slice(0, 8)}`,
+                    name: `testing-${id}`,
                     type: Discord.ChannelType.GuildText,
+                    topic: channelTopic ? channelTopic.value : null,
                     permissionOverwrites: [
                         {
                             id: interaction.guild.id,
@@ -96,7 +126,14 @@ const command: Command = {
                     ]
                 })
 
+                const registering = new Discord.EmbedBuilder()
+                    .setColor(client.config_embeds.default)
+                    .setDescription(`${emoji.ping} Registering channel in the database...`)
+
+                await interaction.editReply({ embeds: [registering] });
+
                 const data = await new TestingChannel({
+                    _id: id,
                     channel: channel.id,
                     created: Date.now(),
                     owner: interaction.user.id
@@ -104,7 +141,7 @@ const command: Command = {
 
                 const welcome = new Discord.EmbedBuilder()
                     .setColor(client.config_embeds.default)
-                    .setTitle("Your Testing Channel")
+                    .setTitle("Testing Channels")
                     .setDescription(`Welcome to your testing channel, **${interaction.user.globalName || interaction.user.username}**!\n\nThis channel has been setup with overrides so only you and server admins can access it.\n\n**This channel will be automatically deleted after 24 hours.**`)
                     .addFields (
                         { name: "Your Permissions", value: "```yaml\n- Embed Links\n- Read Message History\n- Send Messages\n- Use External Emojis\n- View Channel\n```" },
@@ -128,7 +165,7 @@ const command: Command = {
 
                 const created = new Discord.EmbedBuilder()
                     .setColor(client.config_embeds.default)
-                    .setDescription(`${emoji.tick} Created testing channel: ${channel}`)
+                    .setDescription(`${emoji.tick} Your testing channel has been created: ${channel}`)
 
                 await interaction.editReply({ embeds: [created] });
                 return;
@@ -148,7 +185,7 @@ const command: Command = {
 
                 const data = await TestingChannel.findOne({ channel: channel.id });
 
-                if(interaction.user.id !== data.owner) {
+                if(data && interaction.user.id !== data.owner) {
                     const error = new Discord.EmbedBuilder()
                         .setColor(client.config_embeds.error)
                         .setDescription(`${emoji.cross} You do not own this testing channel!`)
@@ -164,7 +201,71 @@ const command: Command = {
                 await interaction.editReply({ embeds: [deleting] });
 
                 await channel.delete();
-                await data.delete();
+                if(data) await data.delete();
+                return;
+            }
+
+            if(interaction.options.getSubcommand() === "delete-all") {
+                // Return if the command is run in a testing channel
+                if(interaction.channel.name.startsWith("testing-")) {
+                    const error = new Discord.EmbedBuilder()
+                        .setColor(client.config_embeds.error)
+                        .setDescription(`${emoji.cross} This command cannot be used in a testing channel.`)
+
+                    await interaction.editReply({ embeds: [error] });
+                    return;
+                }
+
+                const deleting = new Discord.EmbedBuilder()
+                    .setColor(client.config_embeds.default)
+                    .setDescription(`${emoji.ping} Fetching testing channels...`)
+
+                await interaction.editReply({ embeds: [deleting] });
+
+                const data = await TestingChannel.find({ owner: interaction.user.id });
+
+                if(!data.length) {
+                    const error = new Discord.EmbedBuilder()
+                        .setColor(client.config_embeds.error)
+                        .setDescription(`${emoji.cross} You do not have any testing channels!`)
+
+                    await interaction.editReply({ embeds: [error] });
+                    return;
+                }
+
+                for(const item of data) {
+                    const fetching = new Discord.EmbedBuilder()
+                        .setColor(client.config_embeds.default)
+                        .setDescription(`${emoji.ping} Fetching channel \`${item._id}\`...`)
+
+                    await interaction.editReply({ embeds: [fetching] });
+
+                    try {
+                        const channel = await interaction.guild.channels.fetch(item.channel);
+
+                        const deleting = new Discord.EmbedBuilder()
+                            .setColor(client.config_embeds.default)
+                            .setDescription(`${emoji.ping} Deleting channel \`${item._id}\`...`)
+
+                        await interaction.editReply({ embeds: [deleting] });
+
+                        await channel.delete();
+                    } catch(err) {
+                        const error = new Discord.EmbedBuilder()
+                            .setColor(client.config_embeds.error)
+                            .setDescription(`${emoji.cross} Unable to fetch channel \`${item._id}\`, deleting from database...`)
+
+                        await interaction.editReply({ embeds: [error] });
+                    }
+
+                    await item.delete();
+                }
+
+                const deleted = new Discord.EmbedBuilder()
+                    .setColor(client.config_embeds.default)
+                    .setDescription(`${emoji.tick} All of your testing channels have been deleted.`)
+
+                await interaction.editReply({ embeds: [deleted] });
                 return;
             }
 
