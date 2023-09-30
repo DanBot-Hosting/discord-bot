@@ -2,7 +2,7 @@ import LegacyCommand from "../classes/LegacyCommand";
 import ExtendedClient from "../classes/ExtendedClient";
 import { Message } from "discord.js";
 
-import cap from "../util/cap";
+import cap from "../util/plainCap";
 import { emojis as emoji } from "../config";
 
 const command: LegacyCommand = {
