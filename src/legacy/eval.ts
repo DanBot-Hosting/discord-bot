@@ -24,26 +24,53 @@ const command: LegacyCommand = {
                 return;
             }
 
+            const evalInput = new Discord.EmbedBuilder()
+                .setColor(client.config_embeds.default)
+                .setTitle("📥 Input")
+                .setDescription(`\`\`\`js\n${cap(args.join(" "), 4000)}\`\`\``)
+                .setTimestamp()
+
             try {
                 // Run the code
                 let output = await eval(args.join(" "));
 
-                // Output was returned
                 if(output) {
+                    output = output.toString();
+
                     // Censor the database URL, Sentry DSN and bot token if they are returned
-                    output = output.toString().replace(process.env.database, "CENSORED").replace(process.env.sentry_dsn, "CENSORED").replace(process.env.token, "CENSORED");
+                    if(output.includes(process.env.database) && process.env.database) output = output.replace(process.env.database, "[CENSORED_DATABASE_URL]");
+                    if(output.includes(process.env.sentry_dsn) && process.env.sentry_dsn) output = output.replace(process.env.sentry_dsn, "[CENSORED_SENTRY_DSN]");
+                    if(output.includes(process.env.token) && process.env.token) output = output.replace(process.env.token, "[CENSORED_BOT_TOKEN]");
 
-                    message.reply(`\`\`\`${cap(output, 2000)}\`\`\``);
-                // No output was returned
+                    const evalOutput = new Discord.EmbedBuilder()
+                        .setColor(client.config_embeds.default)
+                        .setTitle("📤 Output")
+                        .setDescription(`\`\`\`js\n${cap(output, 4000)}\`\`\``)
+                        .setTimestamp()
+
+                    message.reply({ embeds: [evalInput, evalOutput] });
                 } else {
-                    const noOutput = new Discord.EmbedBuilder()
+                    const evalOutput = new Discord.EmbedBuilder()
                         .setColor(client.config_embeds.error)
-                        .setDescription(`${emoji.cross} No output was returned.`)
+                        .setTitle("📤 Output")
+                        .setDescription("No output was returned.")
+                        .setTimestamp()
 
-                    message.reply({ embeds: [noOutput] });
+                    message.reply({ embeds: [evalInput, evalOutput] });
                 }
             } catch(err) {
-                message.reply(`\`\`\`${err.message}\`\`\``);
+                // Censor the database URL, Sentry DSN and bot token if they are returned
+                if(err.message.includes(process.env.database) && process.env.database) err.message = err.message.replace(process.env.database, "[CENSORED_DATABASE_URL]");
+                if(err.message.includes(process.env.sentry_dsn) && process.env.sentry_dsn) err.message = err.message.replace(process.env.sentry_dsn, "[CENSORED_SENTRY_DSN]");
+                if(err.message.includes(process.env.token) && process.env.token) err.message = err.message.replace(process.env.token, "[CENSORED_BOT_TOKEN]");
+
+                const evalOutput = new Discord.EmbedBuilder()
+                    .setColor(client.config_embeds.error)
+                    .setTitle("📤 Output")
+                    .setDescription(`\`\`\`js\n${cap(err.message, 4000)}\`\`\``)
+                    .setTimestamp()
+
+                message.reply({ embeds: [evalInput, evalOutput] });
             }
         } catch(err) {
             client.logLegacyError(err, message, Discord);
