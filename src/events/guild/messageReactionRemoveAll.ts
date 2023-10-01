@@ -15,6 +15,7 @@ const event: Event = {
             // Ignore messages not in the primary guild and messages by bots
             if(message.author.bot || !message.guild) return;
             if(message.guild.id !== main.primaryGuild) return;
+
             // Return if the bot does not have the required permissions
             if(!message.guild.members.me.permissions.has(requiredPerms)) return;
 

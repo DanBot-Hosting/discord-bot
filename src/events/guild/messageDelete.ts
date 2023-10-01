@@ -13,10 +13,10 @@ const event: Event = {
         try {
             const requiredPerms: PermissionResolvable = ["SendMessages", "EmbedLinks"];
 
-            // Ignore messages not in the primary guild
-            // Also ignore partial messages and messages that are only embeds
+            // Ignore messages not in the primary guild and messages without content or attachments
             if(!message.guild || !message.content && !message.attachments.size) return;
             if(message.guild.id !== main.primaryGuild) return;
+
             // Ignore messages if the bot does not have the required permissions
             if(!message.guild.members.me.permissions.has(requiredPerms)) return;
 

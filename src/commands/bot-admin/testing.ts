@@ -121,7 +121,7 @@ const command: Command = {
 
                         {
                             id: interaction.user.id,
-                            allow: ["ViewChannel"]
+                            allow: ["ManageChannels", "ViewChannel"]
                         }
                     ]
                 })
@@ -144,7 +144,7 @@ const command: Command = {
                     .setTitle("Testing Channels")
                     .setDescription(`Welcome to your testing channel, **${interaction.user.globalName || interaction.user.username}**!\n\nThis channel has been setup with overrides so only you and server admins can access it.\n\n**This channel will be automatically deleted after 24 hours.**`)
                     .addFields (
-                        { name: "Your Permissions", value: "```yaml\n- Embed Links\n- Read Message History\n- Send Messages\n- Use External Emojis\n- View Channel\n```" },
+                        { name: "Your Permissions", value: "```yaml\n- Embed Links\n- Manage Channels\n- Read Message History\n- Send Messages\n- Use External Emojis\n- View Channel\n```" },
                         { name: "Delete Channel", value: `To delete this channel, use the command: \`/testing delete\`` }
                     )
                     .setTimestamp()
@@ -200,8 +200,8 @@ const command: Command = {
 
                 await interaction.editReply({ embeds: [deleting] });
 
-                await channel.delete();
                 if(data) await data.delete();
+                await channel.delete();
                 return;
             }
 
@@ -249,6 +249,7 @@ const command: Command = {
 
                         await interaction.editReply({ embeds: [deleting] });
 
+                        await item.delete();
                         await channel.delete();
                     } catch(err) {
                         const error = new Discord.EmbedBuilder()
@@ -256,9 +257,9 @@ const command: Command = {
                             .setDescription(`${emoji.cross} Unable to fetch channel \`${item._id}\`, deleting from database...`)
 
                         await interaction.editReply({ embeds: [error] });
-                    }
 
-                    await item.delete();
+                        await item.delete();
+                    }
                 }
 
                 const deleted = new Discord.EmbedBuilder()

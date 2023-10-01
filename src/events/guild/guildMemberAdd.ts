@@ -11,9 +11,9 @@ const event: Event = {
         try {
             const requiredPerms: PermissionResolvable = ["SendMessages", "EmbedLinks"];
 
-            // Ignore bots and messages not in the primary guild
             if(member.user.bot || !member.guild) return;
             if(member.guild.id !== main.primaryGuild) return;
+
             // Return if the bot does not have the required permissions
             if(!member.guild.members.me.permissions.has(requiredPerms)) return;
 
