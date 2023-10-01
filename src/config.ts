@@ -35,7 +35,7 @@ const main = {
     appealEmail: "dan@danbot.host",
     disablePermCheck: [
         "853158265466257448" // William
-    ] as Snowflake[],
+    ],
     dmAllowed: [
         "137624084572798976", // Dan
         "757296951925538856", // DIBSTER
@@ -43,6 +43,10 @@ const main = {
     ],
     legacyPrefix: "DBHB!" as string,
     primaryGuild: "639477525927690240" as Snowflake, // DanBot Hosting
+    suggestionChannels: [
+        "976371313901965373", // #vpn-suggestions
+        "980595293768802327" // #staff-suggestions
+    ]
 }
 
 const roles = {

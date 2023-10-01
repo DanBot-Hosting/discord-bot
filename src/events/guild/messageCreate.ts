@@ -91,6 +91,13 @@ const event: Event = {
                 return;
             }
 
+            // React to messages in the suggestion channels
+            if(main.suggestionChannels.includes(message.channel.id) && !message.content.startsWith(">")) {
+                await message.react("👍");
+                await message.react("👎");
+                return;
+            }
+
             // If the message doesn't start with the bot's prefix, ignore the message
             if(!message.content.toLowerCase().startsWith(main.legacyPrefix.toLowerCase())) return;
 

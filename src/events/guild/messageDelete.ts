@@ -4,7 +4,6 @@ import { Message, PermissionResolvable, TextChannel } from "discord.js";
 
 import cap from "../../util/cap";
 import { channels, main, starboard } from "../../config";
-import path from "path";
 
 const event: Event = {
     name: "messageDelete",
@@ -13,14 +12,12 @@ const event: Event = {
         try {
             const requiredPerms: PermissionResolvable = ["SendMessages", "EmbedLinks"];
 
-            // Ignore messages not in the primary guild and messages without content or attachments
-            if(!message.guild || !message.content && !message.attachments.size) return;
+            // Ignore messages not in the primary guild, partial messages and messages without content or attachments
+            if(!message.guild || message.partial || !message.content && !message.attachments.size) return;
             if(message.guild.id !== main.primaryGuild) return;
 
             // Ignore messages if the bot does not have the required permissions
             if(!message.guild.members.me.permissions.has(requiredPerms)) return;
-
-            if(message.partial) await message.fetch();
 
             const channel = message.guild.channels.cache.get(channels.messageLogs) as TextChannel;
 
