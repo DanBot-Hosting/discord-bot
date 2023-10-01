@@ -17,7 +17,8 @@ const command: Command = {
                 {
                     type: 6,
                     name: "user",
-                    description: "The user who's premium server count to get."
+                    description: "The user who's premium server count to get.",
+                    required: false
                 }
             ]
         }
