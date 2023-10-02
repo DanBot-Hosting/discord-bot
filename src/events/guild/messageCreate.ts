@@ -2,6 +2,7 @@ import Event from "../../classes/Event";
 import ExtendedClient from "../../classes/ExtendedClient";
 import { ChannelType, Message, PermissionResolvable, TextChannel } from "discord.js";
 
+import Keyword from "../../classes/Keyword";
 import LegacyCommand from "../../classes/LegacyCommand";
 
 import cap from "../../util/cap";
@@ -102,7 +103,47 @@ const event: Event = {
             }
 
             // If the message doesn't start with the bot's prefix, ignore the message
-            if(!message.content.toLowerCase().startsWith(main.legacyPrefix.toLowerCase())) return;
+            if(!message.content.toLowerCase().startsWith(main.legacyPrefix.toLowerCase())) {
+                // Keyword handler
+                const args = message.content.toLowerCase().split(/ +/g);
+
+                const keywords = client.keywords.filter((keyword: Keyword) => {
+                    if(keyword.matchAll) {
+                        // If the message includes all of the keywords, continue
+                        return keyword.keywords.every((k: string) => args.includes(k.toLowerCase()));
+                    } else {
+                        // If the message includes any of the keywords, continue
+                        return keyword.keywords.some((k: string) => args.includes(k.toLowerCase()));
+                    }
+                })
+
+                const keyword = keywords.sort((a: Keyword, b: Keyword) => { return b.keywords.filter((k: string) => args.includes(k.toLowerCase())).length - a.keywords.filter((k: string) => args.includes(k.toLowerCase())).length }).first();
+
+                if(!keyword) return;
+                if(!keyword.enabled) return;
+
+                const matched = keyword.keywords.filter((k: string) => args.includes(k.toLowerCase()));
+
+                if(matched.length < keyword.minimumKeywords + keyword.requiredKeywords.length) return;
+                if(!keyword.requiredKeywords.every((k: string) => matched.includes(k.toLowerCase()))) return;
+
+                const confidence = Number((matched.length / args.length * 100).toFixed(0));
+
+                if(confidence < 20) return;
+
+                const response = new Discord.EmbedBuilder()
+                    .setColor(client.config_embeds.default)
+                    .setTitle(keyword.name)
+                    .setDescription(keyword.response)
+                    .addFields (
+                        { name: "Keywords", value: `\`${matched.join("\`, \`")}\`` }
+                    )
+                    .setFooter({ text: `${confidence}% confidence` })
+                    .setTimestamp()
+
+                message.reply({ embeds: [response] });
+                return;
+            }
 
             const args = message.content.slice(main.legacyPrefix.length).split(/ +/);
 
