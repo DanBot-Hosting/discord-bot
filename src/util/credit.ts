@@ -1,14 +1,14 @@
-import { ButtonInteraction, Snowflake } from "discord.js";
+import { Snowflake } from "discord.js";
 import ExtendedClient from "../classes/ExtendedClient";
+
+import { premium } from "../config";
 
 import User from "../models/User";
 
 export async function add(user: Snowflake, amount: number, client: ExtendedClient): Promise<number> {
-    const data = await User.findOne({ _id: user }) || new User({ _id: user, hide_premium: false, premium_count: 0, premium_used: 0 });
+    const data = await User.findOne({ _id: user }) || new User({ _id: user, hide_credit: false, credit_amount: 0, credit_used: 0 });
 
-    if(data.premium_count + amount > 10000) throw new Error(`A user cannot have more than 10000 premium servers.`);
-
-    data.premium_count += amount;
+    data.credit_amount += amount;
     await data.save();
 
     const guild = client.guilds.cache.get(client.config_main.primaryGuild);
@@ -18,55 +18,59 @@ export async function add(user: Snowflake, amount: number, client: ExtendedClien
         await member.roles.add(client.config_roles.donator).catch(() => null);
     }
 
-    return data.premium_count;
+    return data.credit_amount;
 }
 
 export async function fix(user: Snowflake): Promise<number> {
-    const data = await User.findOne({ _id: user }) || { premium_used: 0 };
+    const data = await User.findOne({ _id: user }) || { credit_used: 0 };
 
     // TODO: Fetch user's premium servers & fix count
-    return data.premium_used;
+
+    return data.credit_used;
 }
 
 export async function get(user: Snowflake): Promise<PremiumData> {
-    const data = await User.findOne({ _id: user }) || { hide_premium: false, premium_count: 0, premium_used: 0 };
+    const data = await User.findOne({ _id: user }) || { hide_credit: false, credit_amount: 0, credit_used: 0 };
 
     return {
-        hidden: data.hide_premium,
-        count: data.premium_count,
-        used: data.premium_used
+        hidden: data.hide_credit,
+        donated: data.credit_amount,
+        used: data.credit_used
     }
 }
 
+export function getPrice(): number {
+    return premium.price;
+}
+
 export async function remove(user: Snowflake, amount: number, client: ExtendedClient): Promise<number> {
-    const data = await User.findOne({ _id: user }) || new User({ _id: user, premium_count: 0, premium_used: 0 });
+    const data = await User.findOne({ _id: user }) || new User({ _id: user, credit_amount: 0, credit_used: 0 });
 
-    if(data.premium_count < amount) throw new Error(`<@${user}> does not have that many premium servers to remove.`);
-    if(data.premium_used > data.premium_count - amount) throw new Error(`Cannot remove premium servers from <@${user}> that are in use.`);
+    if(data.credit_amount < amount) throw new Error(`<@${user}> does not have that many credits to remove.`);
+    if(data.credit_used > data.credit_amount - amount) throw new Error(`Cannot remove credits from <@${user}> that are in use.`);
 
-    data.premium_count -= amount;
+    data.credit_amount -= amount;
     await data.save();
 
-    if(data.premium_count === 0) {
+    if(data.credit_amount === 0) {
         const guild = client.guilds.cache.get(client.config_main.primaryGuild);
         const member = guild.members.cache.get(user);
 
         await member.roles.remove(client.config_roles.donator).catch(() => null);
     }
 
-    return data.premium_count;
+    return data.credit_amount;
 }
 
 export async function set(user: Snowflake, amount: number, client: ExtendedClient): Promise<number> {
-    const data = await User.findOne({ _id: user }) || new User({ _id: user, premium_count: 0, premium_used: 0 });
+    const data = await User.findOne({ _id: user }) || new User({ _id: user, credit_amount: 0, credit_used: 0 });
 
-    if(amount > 10000) throw new Error(`A user cannot have more than 10000 premium servers.`);
-    if(data.premium_used > amount) throw new Error(`You cannot set <@${user}>'s premium server count to less than they have used.`);
+    if(data.credit_used > amount) throw new Error(`You cannot set <@${user}>'s credit amount to less than they have used.`);
 
-    data.premium_count = amount;
+    data.credit_amount = amount;
     await data.save();
 
-    if(data.premium_count === 0) {
+    if(data.credit_amount === 0) {
         const guild = client.guilds.cache.get(client.config_main.primaryGuild);
         const member = guild.members.cache.get(user);
 
@@ -80,11 +84,11 @@ export async function set(user: Snowflake, amount: number, client: ExtendedClien
         }
     }
 
-    return data.premium_count;
+    return data.credit_amount;
 }
 
 export type PremiumData = {
     hidden: boolean;
-    count: number;
+    donated: number;
     used: number;
 }

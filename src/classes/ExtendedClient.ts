@@ -14,6 +14,7 @@ export default class ExtendedClient extends Client {
     public config_embeds: typeof embeds;
     public config_main: typeof main;
     public config_roles: typeof roles;
+    public credit: typeof import("../util/credit");
     public events: Collection<string, Event>;
     public lastPoll: number;
     public legacyCommands: Collection<string, LegacyCommand>;
@@ -22,7 +23,6 @@ export default class ExtendedClient extends Client {
     public logContextError: Function;
     public logError: Function;
     public logLegacyError: Function;
-    public premium: typeof import("../util/premium");
     public sentry: typeof Sentry;
     public validPermissions: string[];
 }

@@ -7,14 +7,14 @@ import { emojis as emoji } from "../../config";
 import User from "../../models/User";
 
 const button: Button = {
-    name: "premium-hidden-toggle",
+    name: "credit-privacy-toggle",
     startsWith: true,
     requiredRoles: [],
     async execute(interaction: ButtonInteraction, client: ExtendedClient, Discord: typeof import("discord.js")) {
         let data = await User.findOne({ _id: interaction.user.id });
 
-        if(data.hide_premium) {
-            data.hide_premium = false;
+        if(data.hide_credit) {
+            data.hide_credit = false;
             await data.save();
 
             const status = new Discord.EmbedBuilder()
@@ -23,7 +23,7 @@ const button: Button = {
 
             await interaction.reply({ embeds: [status], ephemeral: true });
         } else {
-            data.hide_premium = true;
+            data.hide_credit = true;
             await data.save();
 
             const status = new Discord.EmbedBuilder()

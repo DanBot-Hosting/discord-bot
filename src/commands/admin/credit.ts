@@ -3,27 +3,28 @@ import ExtendedClient from "../../classes/ExtendedClient";
 import { CommandInteraction, TextChannel } from "discord.js";
 
 import { emojis as emoji } from "../../config";
+import formatCurrency from "../../util/formatCurrency";
 
 const command: Command = {
-    name: "premium",
-    description: "Add or remove premium servers from a user.",
+    name: "credit",
+    description: "Manage user credit amounts.",
     options: [
         {
             type: 1,
             name: "add",
-            description: "Add premium servers to a user.",
+            description: "Add credit to a user.",
             options: [
                 {
                     type: 6,
                     name: "user",
-                    description: "The user to add premium servers to.",
+                    description: "The user to add credit to.",
                     required: true
                 },
 
                 {
                     type: 4,
                     name: "amount",
-                    description: "The amount of servers to add.",
+                    description: "The amount of credit to add.",
                     min_value: 1,
                     max_value: 10000,
                     required: true
@@ -34,12 +35,12 @@ const command: Command = {
         {
             type: 1,
             name: "fix",
-            description: "Fix a user's premium server count.",
+            description: "Fix a user's credit amount.",
             options: [
                 {
                     type: 6,
                     name: "user",
-                    description: "The user who's premium server count to fix.",
+                    description: "The user who's credit amount to fix.",
                     required: true
                 }
             ]
@@ -48,19 +49,19 @@ const command: Command = {
         {
             type: 1,
             name: "remove",
-            description: "Remove premium servers from a user.",
+            description: "Remove credit from a user.",
             options: [
                 {
                     type: 6,
                     name: "user",
-                    description: "The user to remove premium servers from.",
+                    description: "The user to remove credit from.",
                     required: true
                 },
 
                 {
                     type: 4,
                     name: "amount",
-                    description: "The amount of servers to remove.",
+                    description: "The amount of credit to remove.",
                     min_value: 1,
                     required: true
                 }
@@ -70,19 +71,19 @@ const command: Command = {
         {
             type: 1,
             name: "set",
-            description: "Set a user's premium server count.",
+            description: "Set a user's credit amount.",
             options: [
                 {
                     type: 6,
                     name: "user",
-                    description: "The user who's premium server count to set.",
+                    description: "The user who's credit amount to set.",
                     required: true
                 },
 
                 {
                     type: 4,
                     name: "amount",
-                    description: "The amount of servers to set the user's premium server count to.",
+                    description: "The amount of servers to set the user's credit amount to.",
                     min_value: 0,
                     max_value: 10000,
                     required: true
@@ -104,7 +105,7 @@ const command: Command = {
             if(user.bot) {
                 const error = new Discord.EmbedBuilder()
                     .setColor(client.config_embeds.error)
-                    .setDescription(`${emoji.cross} Only users can have premium servers!`)
+                    .setDescription(`${emoji.cross} Only users can have credit!`)
 
                 await interaction.editReply({ embeds: [error] });
                 return;
@@ -114,8 +115,9 @@ const command: Command = {
                 const amount = interaction.options.get("amount").value as number;
 
                 try {
-                    await client.premium.add(user.id, amount, client);
+                    await client.credit.add(user.id, amount, client);
                 } catch(err) {
+                    console.error(err);
                     const error = new Discord.EmbedBuilder()
                         .setColor(client.config_embeds.error)
                         .setDescription(`${emoji.cross} ${err.message}`)
@@ -126,14 +128,14 @@ const command: Command = {
 
                 const added = new Discord.EmbedBuilder()
                     .setColor(client.config_embeds.default)
-                    .setDescription(`${emoji.tick} Added **${amount}** premium server${amount === 1 ? "" : "s"} to ${user}!`)
+                    .setDescription(`${emoji.tick} Added **${formatCurrency(amount)}** of credit to ${user}!`)
 
                 await interaction.editReply({ embeds: [added] });
 
                 try {
                     const donation = new Discord.EmbedBuilder()
                         .setColor(client.config_embeds.default)
-                        .setDescription(`💖 Thank you ${user} for purchasing **${amount}** premium server${amount === 1 ? "" : "s"}!`)
+                        .setDescription(`💖 Thank you ${user} for donating **${formatCurrency(amount)}**!`)
 
                     const channel = await client.channels.fetch(client.config_channels.donations) as TextChannel;
 
@@ -144,13 +146,13 @@ const command: Command = {
             }
 
             if(interaction.options.getSubcommand() === "fix") {
-                const oldData = await client.premium.get(user.id);
-                const newCount = await client.premium.fix(user.id);
+                const oldData = await client.credit.get(user.id);
+                const newCount = await client.credit.fix(user.id);
 
                 if(oldData.used === newCount) {
                     const error = new Discord.EmbedBuilder()
                         .setColor(client.config_embeds.default)
-                        .setDescription(`${emoji.tick} ${user}'s premium count is correct!`)
+                        .setDescription(`${emoji.tick} ${user}'s credit amount is correct!`)
 
                     await interaction.editReply({ embeds: [error], ephemeral: true });
                     return;
@@ -158,7 +160,7 @@ const command: Command = {
 
                 const fixed = new Discord.EmbedBuilder()
                     .setColor(client.config_embeds.default)
-                    .setDescription(`${emoji.tick} ${user}'s premium count has been fixed!`)
+                    .setDescription(`${emoji.tick} ${user}'s credit amount has been fixed!`)
 
                 await interaction.editReply({ embeds: [fixed] });
                 return;
@@ -168,7 +170,7 @@ const command: Command = {
                 const amount = interaction.options.get("amount").value as number;
 
                 try {
-                    await client.premium.remove(user.id, amount, client);
+                    await client.credit.remove(user.id, amount, client);
                 } catch(err) {
                     const error = new Discord.EmbedBuilder()
                         .setColor(client.config_embeds.error)
@@ -180,7 +182,7 @@ const command: Command = {
 
                 const removed = new Discord.EmbedBuilder()
                     .setColor(client.config_embeds.default)
-                    .setDescription(`${emoji.tick} Removed **${amount}** premium server${amount === 1 ? "" : "s"} from ${user}!`)
+                    .setDescription(`${emoji.tick} Removed **${formatCurrency(amount)}** of credit from ${user}!`)
 
                 await interaction.editReply({ embeds: [removed] });
                 return;
@@ -190,7 +192,7 @@ const command: Command = {
                 const amount = interaction.options.get("amount").value as number;
 
                 try {
-                    await client.premium.set(user.id, amount, client);
+                    await client.credit.set(user.id, amount, client);
                 } catch(err) {
                     const error = new Discord.EmbedBuilder()
                         .setColor(client.config_embeds.error)
@@ -202,7 +204,7 @@ const command: Command = {
 
                 const set = new Discord.EmbedBuilder()
                     .setColor(client.config_embeds.default)
-                    .setDescription(`${emoji.tick} ${user}'s premium server count has been set to **${amount}**.`)
+                    .setDescription(`${emoji.tick} ${user}'s credit amount has been set to **${formatCurrency(amount)}**.`)
 
                 await interaction.editReply({ embeds: [set] });
                 return;

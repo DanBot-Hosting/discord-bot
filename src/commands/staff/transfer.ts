@@ -3,6 +3,7 @@ import ExtendedClient from "../../classes/ExtendedClient";
 import { CommandInteraction } from "discord.js";
 
 import { emojis as emoji } from "../../config";
+import formatCurrency from "../../util/formatCurrency";
 
 import User from "../../models/User";
 
@@ -96,7 +97,7 @@ const command: Command = {
             await i.edit({ embeds: [verifyingTransfer] });
 
             let fromUser = await User.findOne({ _id: from.id });
-            let toUser = await User.findOne({ _id: to.id }) || new User({ _id: to.id, hide_premium: false, premium_count: 0, premium_used: 0 });
+            let toUser = await User.findOne({ _id: to.id }) || new User({ _id: to.id, hide_credit: false, credit_amount: 0, credit_used: 0 });
 
             if(!fromUser) {
                 const error = new Discord.EmbedBuilder()
@@ -107,7 +108,7 @@ const command: Command = {
                 return;
             }
 
-            if(fromUser.premium_count + toUser.premium_count > 10000) {
+            if(fromUser.credit_amount + toUser.credit_amount > 10000) {
                 const error = new Discord.EmbedBuilder()
                     .setColor(client.config_embeds.error)
                     .setDescription(`${emoji.cross} The total premium server count is higher than 10000!`)
@@ -121,7 +122,7 @@ const command: Command = {
                 .setTitle("Transfer Data")
                 .setDescription(`Are you sure you want to transfer all data associated with ${from} to ${to}?`)
                 .addFields (
-                    { name: "What will be transferred?", value: `✨ **${fromUser.premium_count}** premium server${fromUser.premium_count === 1 ? "" : "s"}\n🔒 Privacy settings` }
+                    { name: "What will be transferred?", value: `✨ **${formatCurrency(fromUser.credit_amount)}** credit\n🔒 Privacy settings` }
                 )
                 .setFooter({ text: "This prompt will expire in 30 seconds." })
 
@@ -155,15 +156,14 @@ const command: Command = {
                 if(c.customId === `transfer-${interaction.id}`) {
                     collector.stop();
 
-                    const premiumTransfer = new Discord.EmbedBuilder()
+                    const creditTransfer = new Discord.EmbedBuilder()
                         .setColor(client.config_embeds.default)
-                        .setDescription(`${emoji.ping} Transferring premium server data...`)
+                        .setDescription(`${emoji.ping} Transferring credits...`)
 
-                    await i.edit({ embeds: [premiumTransfer], components: [] });
+                    await i.edit({ embeds: [creditTransfer], components: [] });
 
-                    toUser.hide_premium = fromUser.hide_premium;
-                    toUser.premium_count += fromUser.premium_count;
-                    toUser.premium_used += fromUser.premium_used;
+                    toUser.credit_amount += fromUser.credit_amount;
+                    toUser.credit_used += fromUser.credit_used;
 
                     await toUser.save();
 
@@ -185,7 +185,7 @@ const command: Command = {
                         await fromGuildMember.roles.remove(client.config_roles.donator);
                     }
 
-                    if(toUser.premium_count > 0 && !toGuildMember.roles.cache.get(client.config_roles.donator)) {
+                    if(toUser.credit_amount > 0 && !toGuildMember.roles.cache.get(client.config_roles.donator)) {
                         await toGuildMember.roles.add(client.config_roles.donator);
                     }
 

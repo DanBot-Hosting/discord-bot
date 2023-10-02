@@ -5,9 +5,9 @@ const schema = new Schema({
     console_id: Number,
     console_username: String,
     console_linked: Number,
-    hide_premium: Boolean,
-    premium_count: Number,
-    premium_used: Number
+    hide_credit: Boolean,
+    credit_amount: Number,
+    credit_used: Number
 })
 
 export default model("users", schema, "users");

@@ -49,6 +49,10 @@ const main = {
     ]
 }
 
+const premium = {
+    price: 0.5 // Price per premium server (USD)
+}
+
 const roles = {
     admin: "898041747219828796",
     botAdmin: "898041743566594049",
@@ -81,6 +85,7 @@ export {
     embeds,
     emojis,
     main,
+    premium,
     roles,
     starboard
 }
@@ -90,6 +95,7 @@ export default {
     embeds,
     emojis,
     main,
+    premium,
     roles,
     starboard
 }

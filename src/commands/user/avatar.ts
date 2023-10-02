@@ -2,8 +2,6 @@ import Command from "../../classes/Command";
 import ExtendedClient from "../../classes/ExtendedClient";
 import { CommandInteraction } from "discord.js";
 
-import { emojis as emoji } from "../../config";
-
 const command: Command = {
     name: "avatar",
     description: "Get a user's avatar.",
@@ -29,7 +27,7 @@ const command: Command = {
             const avatar = new Discord.EmbedBuilder()
                 .setColor(client.config_embeds.default)
                 .setTitle(`${user.globalName || user.username}'s avatar`)
-                .setImage(user.displayAvatarURL({ extension: "png", forceStatic: false, size: 2048 }))
+                .setImage(user.displayAvatarURL({ extension: "png", forceStatic: false, size: 1024 }))
 
             if(user.id === interaction.user.id) avatar.setTitle("Your Avatar");
 

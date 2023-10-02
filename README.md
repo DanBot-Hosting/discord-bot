@@ -24,8 +24,9 @@ A rewrite of [DanBotHostingStats](https://github.com/DanBot-Hosting/DanBotHostin
   - [ ] Server count
   - [ ] Move files from one server to another (if possible)
   - [ ] Start/restart/stop a server
-- [x] Add Sentry for error tracking
-  - [ ] Add Sentry bot to the server and set it up in a dedicated channel
+- [x] Add Sentry
+  - [x] Add error tracking on the bot
+  - [ ] Add Sentry bot to the server and set it up in a channel
 - [x] Add staff commands
   - [x] Fix donator role assigning command
     - Checks and adds the donator role to users that are meant to have it but do not have it
@@ -59,5 +60,6 @@ A rewrite of [DanBotHostingStats](https://github.com/DanBot-Hosting/DanBotHostin
   - [ ] Delete own client account
   - [ ] Creating an account (in DMs)
   - [ ] Resetting password
-  - [x] Premium server count
+  - [x] New credit system
   - [ ] Linking/unlinking account
+- [x] Starboard

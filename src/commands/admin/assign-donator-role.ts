@@ -27,8 +27,8 @@ const command: Command = {
 
             const roleChanges = [];
 
-            const data = await User.find({ premium_count: { $gt: 0 } });
-            const zeroData = await User.find({ premium_count: 0 });
+            const data = await User.find({ credit_amount: { $gt: 0 } });
+            const zeroData = await User.find({ credit_amount: 0 });
 
             const assigning = new Discord.EmbedBuilder()
                 .setColor(client.config_embeds.default)

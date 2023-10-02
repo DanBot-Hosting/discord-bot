@@ -62,6 +62,10 @@ export = async (client: ExtendedClient, Discord: typeof import("discord.js"), in
         command.deferReply ? command.ephemeral ? await interaction.deferReply({ ephemeral: true }) : await interaction.deferReply() : null;
 
         if(userRoles.owner || userRoles.botAdmin) {
+            // Log interaction to console
+            console.log(`[GUILD] [INTERACTION] ${interaction.user.tag.endsWith("#0") ? interaction.user.username : interaction.user.tag} (${interaction.user.id}): /${interaction.commandName} ${interaction.options.data.map((option: any) => option.name).join(" ")}`);
+            console.log(interaction); // Requested specifically by Dan
+
             try {
                 await command.execute(interaction, client, Discord);
                 return;
@@ -105,6 +109,10 @@ export = async (client: ExtendedClient, Discord: typeof import("discord.js"), in
         }, cooldownAmount)
 
         try {
+            // Log interaction to console
+            console.log(`[GUILD] [INTERACTION] ${interaction.user.tag.endsWith("#0") ? interaction.user.username : interaction.user.tag} (${interaction.user.id}): /${interaction.commandName} ${interaction.options.data.map((option: any) => option.name).join(" ")}`);
+            console.log(interaction); // Requested specifically by Dan
+
             await command.execute(interaction, client, Discord);
         } catch(err) {
             client.logError(err);
