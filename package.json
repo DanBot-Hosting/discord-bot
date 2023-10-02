@@ -18,7 +18,7 @@
     "ping": "^0.4.4"
   },
   "devDependencies": {
-    "@sentry/types": "^7.72.0",
+    "@sentry/types": "^7.73.0",
     "@types/node": "^20.7.2",
     "@types/ping": "^0.4.2",
     "typescript": "^5.2.2"
