@@ -39,7 +39,7 @@ A rewrite of [DanBotHostingStats](https://github.com/DanBot-Hosting/DanBotHostin
 - [ ] Add logging
   - [x] Message delete
   - [ ] Message edit
-  - [ ] Nickname changes
+  - [x] Nickname changes
 - [x] Add DM functionality
   - [x] Allow specific users to send messages using the bot through DMs
 - [x] Testing channels
