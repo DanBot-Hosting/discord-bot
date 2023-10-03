@@ -44,18 +44,9 @@ const event: Event = {
             // Delete the starboard message if the reaction threshold is no longer met
             if(starMessage && reaction.count < starboard.threshold) return starMessage.delete();
 
-            // Edit the message
             if(starMessage) {
-                const row: any = starMessage.components[0];
-
-                row.components[0] = new Discord.ButtonBuilder()
-                    .setStyle(Discord.ButtonStyle.Secondary)
-                    .setCustomId("star-count")
-                    .setEmoji(starboard.emoji)
-                    .setLabel(`${reaction.count}`)
-
                 // Edit the message
-                starMessage.edit({ embeds: starMessage.embeds, components: starMessage.components });
+                starMessage.edit({ content: `${starboard.emoji} ${reaction.count}`, embeds: starMessage.embeds, components: starMessage.components });
             }
         } catch(err) {
             client.logError(err);

@@ -45,16 +45,8 @@ const event: Event = {
             const starMessage = messages.find(msg => msg.author.id === client.user.id && msg.embeds.length === 1 && msg.embeds[0].footer.text === `ID: ${message.id}`);
 
             if(starMessage) {
-                const row: any = starMessage.components[0];
-
-                row.components[0] = new Discord.ButtonBuilder()
-                    .setStyle(Discord.ButtonStyle.Secondary)
-                    .setCustomId("star-count")
-                    .setEmoji(starboard.emoji)
-                    .setLabel(`${reaction.count}`)
-
                 // Edit the message
-                starMessage.edit({ embeds: starMessage.embeds, components: starMessage.components });
+                starMessage.edit({ content: `${starboard.emoji} ${reaction.count}`, embeds: starMessage.embeds, components: starMessage.components });
             } else {
                 const embed = new Discord.EmbedBuilder()
                     .setColor(client.config_embeds.gold)
@@ -63,12 +55,6 @@ const event: Event = {
 
                 const buttons: any = new Discord.ActionRowBuilder()
                     .addComponents (
-                        new Discord.ButtonBuilder()
-                            .setStyle(Discord.ButtonStyle.Secondary)
-                            .setCustomId("star-count")
-                            .setEmoji(starboard.emoji)
-                            .setLabel(`${reaction.count}`),
-
                         new Discord.ButtonBuilder()
                             .setStyle(Discord.ButtonStyle.Link)
                             .setLabel("Jump to Message")
@@ -83,7 +69,7 @@ const event: Event = {
                 if(!embed.data.description && !embed.data.image) return;
 
                 // Send the message to the starboard channel
-                channel.send({ embeds: [embed], components: [buttons] });
+                channel.send({ content: `${starboard.emoji} ${reaction.count}`, embeds: [embed], components: [buttons] });
             }
         } catch(err) {
             client.logError(err);
