@@ -52,6 +52,7 @@ const event: Event = {
                     .setColor(client.config_embeds.gold)
                     .setAuthor({ name: message.author.tag.endsWith("#0") ? message.author.username : message.author.tag, iconURL: message.author.displayAvatarURL({ extension: "png", forceStatic: false }), url: `https://discord.com/users/${message.author.id}` })
                     .setFooter({ text: `ID: ${message.id}` })
+                    .setTimestamp(message.createdTimestamp)
 
                 const buttons: any = new Discord.ActionRowBuilder()
                     .addComponents (
