@@ -63,7 +63,7 @@ const command: Command = {
 
                 const count = new Discord.EmbedBuilder()
                     .setColor(client.config_embeds.default)
-                    .setDescription(`📊 ${user.id === interaction.user.id ? "You have" : `${user} has`} used **${formatCurrency(data.used)}** out of **${formatCurrency(data.donated)}** credit.${user.id === interaction.user.id ? `\n💸 You can buy ${data.donated === 0 ? "" : "more"} credits by donating on [**PayPal**](https://paypal.me/DanBotHosting) or [**Donation Alerts**](https://www.donationalerts.com/r/danbothosting).` : ""}`)
+                    .setDescription(`📊 ${user.id === interaction.user.id ? "You have" : `${user} has`} used **${formatCurrency(data.used)}** out of **${formatCurrency(data.donated)}**.${user.id === interaction.user.id ? `\n💸 You can buy ${data.donated === 0 ? "" : "more"} credits by donating on [**PayPal**](https://paypal.me/DanBotHosting) or [**Donation Alerts**](https://www.donationalerts.com/r/danbothosting).` : ""}`)
 
                 const buttons = new Discord.ActionRowBuilder()
                     .addComponents (
