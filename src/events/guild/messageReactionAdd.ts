@@ -44,6 +44,9 @@ const event: Event = {
             const messages = await channel.messages.fetch({ limit: 100 });
             const starMessage = messages.find(msg => msg.author.id === client.user.id && msg.embeds.length === 1 && msg.embeds[0].footer.text === `ID: ${message.id}`);
 
+            // Delete the starboard message if the reaction threshold is not met
+            if(starMessage && reaction.count < starboard.threshold) return starMessage.delete();
+
             if(starMessage) {
                 // Edit the message
                 starMessage.edit({ content: `${starboard.emoji} **${reaction.count}**`, embeds: starMessage.embeds, components: starMessage.components });
