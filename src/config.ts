@@ -1,7 +1,8 @@
 import { ColorResolvable, Snowflake } from "discord.js";
 
 const categories = {
-    testingChannels: "1158553893299556463"
+    testingChannels: "1158553893299556463",
+    tickets: "924757852504096768"
 }
 
 const channels = {
@@ -15,7 +16,15 @@ const channels = {
     nodeStatus: "898041845878247487",
     otherLogs: "898041920071299142",
     rules: "898041835002400768",
-    starboard: "898041905340907581", // temporarily staff commands
+    starboard: "1158582673879597177",
+    voice: {
+        boosts: "898041831495974983",
+        bots: "898041830241882112",
+        members: "898041827561730069",
+        staff: "898041828870348800",
+        tickets: "898041832569700362",
+        totalMembers: "898041826810949632",
+    },
     welcome: "898041844871618600"
 }
 
@@ -46,6 +55,7 @@ const main = {
         "853158265466257448" // William
     ],
     legacyPrefix: "DBHB!" as string,
+    nodeStatus: false, // Whether or not to enable node status
     primaryGuild: "639477525927690240" as Snowflake, // DanBot Hosting
     suggestionChannels: [
         "976371313901965373", // #vpn-suggestions

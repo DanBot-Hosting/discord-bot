@@ -41,6 +41,7 @@ import database from "./util/database";
 database();
 
 // Configs
+client.config_categories = config.categories;
 client.config_channels = config.channels;
 client.config_embeds = config.embeds;
 client.config_main = config.main;
@@ -58,8 +59,11 @@ loadHandlers(client);
 
 // Check and update server status every 60 seconds
 import checker from "./util/server-status/checker";
-checker(client);
-setInterval(() => checker(client), 60000);
+
+if(client.config_main.nodeStatus) {
+    checker(client);
+    setInterval(() => checker(client), 60000);
+}
 
 // Check and update testing channel data every 5 minutes
 import testingChannels from "./util/testing-channels";

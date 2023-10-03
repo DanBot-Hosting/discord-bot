@@ -21,7 +21,6 @@ const event: Event = {
 
             // Starboard
             // Return if the message is more than 1 week old
-            // The starboard is not supposed to be a history of the server
             if(message.createdTimestamp < Date.now() - 604800000) return;
 
             // Return if the message is in the starboard channel

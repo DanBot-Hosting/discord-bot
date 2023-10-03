@@ -50,8 +50,8 @@ const command: Command = {
 
                 if(data.donated === 0) {
                     const count = new Discord.EmbedBuilder()
-                        .setColor(client.config_embeds.default)
-                        .setDescription(`📊 ${user.id === interaction.user.id ? "You do not" : `${user} does not`} have any credits.${user.id === interaction.user.id ? `\n💸 You can buy credits by donating on [**PayPal**](https://paypal.me/DanBotHosting) or [**Donation Alerts**](https://www.donationalerts.com/r/danbothosting).` : ""}`)
+                        .setColor(user.id === interaction.user.id ? client.config_embeds.default : client.config_embeds.error)
+                        .setDescription(`${user.id === interaction.user.id ? "📊 You do not" : `${emoji.cross} ${user} does not`} have any credit.${user.id === interaction.user.id ? `\n💸 You can buy credits by donating on [**PayPal**](https://paypal.me/DanBotHosting) or [**Donation Alerts**](https://www.donationalerts.com/r/danbothosting).` : ""}`)
 
                     if(user.id === interaction.user.id) {
                         count.addFields({ name: "Premium Server Price", value: `**${formatCurrency(premium.price)} USD** / server`, inline: true });
@@ -63,7 +63,9 @@ const command: Command = {
 
                 const count = new Discord.EmbedBuilder()
                     .setColor(client.config_embeds.default)
-                    .setDescription(`📊 ${user.id === interaction.user.id ? "You have" : `${user} has`} used **${formatCurrency(data.used)}** out of **${formatCurrency(data.donated)}**.${user.id === interaction.user.id ? `\n💸 You can buy ${data.donated === 0 ? "" : "more"} credits by donating on [**PayPal**](https://paypal.me/DanBotHosting) or [**Donation Alerts**](https://www.donationalerts.com/r/danbothosting).` : ""}`)
+                    .setDescription(`📊 **${formatCurrency(data.used)}** / **${formatCurrency(data.donated)}** used${user.id === interaction.user.id ? `\n💸 You can buy ${data.donated === 0 ? "" : "more"} credits by donating on [**PayPal**](https://paypal.me/DanBotHosting) or [**Donation Alerts**](https://www.donationalerts.com/r/danbothosting).` : ""}`)
+
+                if(user.id !== interaction.user.id) count.setAuthor({ name: user.tag.endsWith("#0") ? user.username : user.tag, iconURL: user.displayAvatarURL({ extension: "png", forceStatic: false }), url: `https://discord.com/users/${user.id}` })
 
                 const buttons = new Discord.ActionRowBuilder()
                     .addComponents (
