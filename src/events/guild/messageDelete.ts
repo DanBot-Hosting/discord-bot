@@ -27,19 +27,15 @@ const event: Event = {
                 .setTitle("Message Deleted")
                 .setDescription(cap(`${message.content || "*No message content.*"}`, 2000))
                 .addFields (
-                    { name: "Message ID", value: `\`${message.id}\``, inline: true },
+                    { name: "Channel", value: `<#${message.channel.id}>`, inline: true },
                     { name: "Message Sent", value: `<t:${message.createdTimestamp.toString().slice(0, -3)}:f>`, inline: true },
+                    { name: "Message ID", value: `\`${message.id}\``, inline: true },
                     { name: "Attachments", value: `${message.attachments.size}`, inline: true },
-                    { name: "Channel", value: `<#${message.channel.id}>`, inline: true }
+                    { name: "Embeds", value: `${message.embeds.length}`, inline: true }
                 )
                 .setTimestamp()
 
-            if(!message.attachments.size) {
-                channel.send({ embeds: [log] });
-            } else {
-                const attachments = message.attachments.map(attachment => attachment);
-                channel.send({ embeds: [log], files: attachments });
-            }
+            channel.send({ embeds: [log] });
 
             // Delete starboard message if it exists
             // Return if the message is one week old
