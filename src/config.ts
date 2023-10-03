@@ -77,7 +77,8 @@ const roles = {
     owner: "898041741695926282",
     pollPing: "898041781927682090",
     pollPingAllowed: "1157497265708093520",
-    staff: "898041751099539497"
+    staff: "898041751099539497",
+    william: "1158630593211412480"
 }
 
 const starboard = {
