@@ -2,7 +2,7 @@ import Command from "../../classes/Command";
 import ExtendedClient from "../../classes/ExtendedClient";
 import { CommandInteraction, TextChannel } from "discord.js";
 
-import { emojis as emoji } from "../../config";
+import { categories, emojis as emoji } from "../../config";
 import { randomUUID } from "crypto";
 
 import TestingChannel from "../../models/TestingChannel";
@@ -106,6 +106,7 @@ const command: Command = {
                 const channel = await interaction.guild.channels.create({
                     name: `testing-${id}`,
                     type: Discord.ChannelType.GuildText,
+                    category: categories.testingChannels,
                     topic: channelTopic ? channelTopic.value : null,
                     permissionOverwrites: [
                         {

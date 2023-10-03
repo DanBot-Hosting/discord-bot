@@ -1,5 +1,9 @@
 import { ColorResolvable, Snowflake } from "discord.js";
 
+const categories = {
+    testingChannels: "1158553893299556463"
+}
+
 const channels = {
     announcements: "898050443446464532",
     changelogs: "960242064338092202",
@@ -81,6 +85,7 @@ const starboard = {
 }
 
 export {
+    categories,
     channels,
     embeds,
     emojis,
@@ -91,6 +96,7 @@ export {
 }
 
 export default {
+    categories,
     channels,
     embeds,
     emojis,
