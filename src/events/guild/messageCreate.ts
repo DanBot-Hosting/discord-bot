@@ -96,7 +96,7 @@ const event: Event = {
             }
 
             // React to messages in the suggestion channels
-            if(main.suggestionChannels.includes(message.channel.id) && !message.content.startsWith(">")) {
+            if(main.suggestionReactions && main.suggestionChannels.includes(message.channel.id) && !message.content.startsWith(">")) {
                 await message.react("👍");
                 await message.react("👎");
                 return;

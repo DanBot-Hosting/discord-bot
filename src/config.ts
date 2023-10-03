@@ -60,7 +60,8 @@ const main = {
     suggestionChannels: [
         "976371313901965373", // #vpn-suggestions
         "980595293768802327" // #staff-suggestions
-    ]
+    ],
+    suggestionReactions: false // Whether or not to enable reactions in suggestion channels
 }
 
 const premium = {
