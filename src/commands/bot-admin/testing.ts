@@ -106,7 +106,7 @@ const command: Command = {
                 const channel = await interaction.guild.channels.create({
                     name: `testing-${id}`,
                     type: Discord.ChannelType.GuildText,
-                    category: categories.testingChannels,
+                    parent: categories.testingChannels,
                     topic: channelTopic ? channelTopic.value : null,
                     permissionOverwrites: [
                         {
