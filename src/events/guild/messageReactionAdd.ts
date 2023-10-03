@@ -37,7 +37,7 @@ const event: Event = {
             if(!starboard.allowed.includes(message.channel.id)) return;
 
             // Return if there is no message content or attachments
-            if(!message.content && message.attachments.size < 1) return;
+            if(!message.content && message.attachments.size < 1 || !message.content && !message.attachments.first().contentType.startsWith("image")) return;
 
             const channel = message.guild.channels.cache.get(channels.starboard) as TextChannel;
 
