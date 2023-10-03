@@ -46,7 +46,7 @@ const event: Event = {
 
             if(starMessage) {
                 // Edit the message
-                starMessage.edit({ content: `${starboard.emoji} ${reaction.count}`, embeds: starMessage.embeds, components: starMessage.components });
+                starMessage.edit({ content: `${starboard.emoji} **${reaction.count}**`, embeds: starMessage.embeds, components: starMessage.components });
             } else {
                 const embed = new Discord.EmbedBuilder()
                     .setColor(client.config_embeds.gold)
@@ -70,7 +70,7 @@ const event: Event = {
                 if(!embed.data.description && !embed.data.image) return;
 
                 // Send the message to the starboard channel
-                channel.send({ content: `${starboard.emoji} ${reaction.count}`, embeds: [embed], components: [buttons] });
+                channel.send({ content: `${starboard.emoji} **${reaction.count}**`, embeds: [embed], components: [buttons] });
             }
         } catch(err) {
             client.logError(err);

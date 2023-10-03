@@ -44,10 +44,7 @@ const event: Event = {
             // Delete the starboard message if the reaction threshold is no longer met
             if(starMessage && reaction.count < starboard.threshold) return starMessage.delete();
 
-            if(starMessage) {
-                // Edit the message
-                starMessage.edit({ content: `${starboard.emoji} ${reaction.count}`, embeds: starMessage.embeds, components: starMessage.components });
-            }
+            if(starMessage) starMessage.edit({ content: `${starboard.emoji} **${reaction.count}**`, embeds: starMessage.embeds, components: starMessage.components });
         } catch(err) {
             client.logError(err);
         }
