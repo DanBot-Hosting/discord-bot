@@ -29,7 +29,7 @@ const channels = {
 }
 
 const embeds = {
-    default: "#0096FF" as ColorResolvable,
+    default: "#4460BB" as ColorResolvable,
     error: "#E74C3C" as ColorResolvable,
     gold: "#F1C40F" as ColorResolvable
 }
