@@ -94,7 +94,7 @@ const starboard = {
         "898354771927400538" // #beta-lounge
     ],
     emoji: "⭐", // The emoji to react with
-    threshold: 3 // Minimum reactions required to post on starboard
+    threshold: 5 // Minimum reactions required to post on starboard
 }
 
 export {
