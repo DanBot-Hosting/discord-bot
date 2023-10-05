@@ -73,7 +73,7 @@ const command: Command = {
             const output = [];
 
             for(const message of result.values()) {
-                if(!message.content) return;
+                if(!message.content) continue;
 
                 output.push(`[${message.id}] ${message.author.tag.endsWith("#0") ? message.author.username : message.author.tag} (${message.author.id}): ${message.content}`);
             }
@@ -102,7 +102,7 @@ const command: Command = {
 
             const channel = client.channels.cache.get(client.config_channels.modLogs) as TextChannel;
 
-            channel.send({ embeds: [log], files: [attachment] });
+            channel.send({ embeds: [log], files: output.length ? [attachment] : [] });
         } catch(err) {
             client.logCommandError(err, interaction, Discord);
         }
