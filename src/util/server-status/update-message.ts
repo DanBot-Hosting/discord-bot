@@ -9,6 +9,8 @@ const serverTypes: any = {
 }
 
 export default async function (statuses: ServerStatus[], client: ExtendedClient) {
+    console.log(`[serverStatus] Updating server status message...`);
+
     const channel = await client.channels.fetch(client.config_channels.nodeStatus) as TextChannel;
     const recentMessages = await channel.messages.fetch({ limit: 10 });
     const message = recentMessages.find((msg: Message) => msg.author.id === client.user.id && msg.embeds.length > 0);
@@ -43,10 +45,19 @@ export default async function (statuses: ServerStatus[], client: ExtendedClient)
     }
 
     if(message) {
+        // Log to console
+        console.log(`[serverStatus] Found existing message, editing...`);
+
         await message.edit({ embeds: [status, nodeIPs] });
     } else {
+        // Log to console
+        console.log(`[serverStatus] No existing message found, sending new message...`);
+
         channel.send({ embeds: [status, nodeIPs] });
     }
+
+    // Log to console
+    console.log(`[serverStatus] Server status message updated!`);
 }
 
 export type Server = {

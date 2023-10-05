@@ -20,15 +20,24 @@ export default async function (client: ExtendedClient): Promise<ServerStatus[]> 
     const statuses: ServerStatus[] = [];
 
     for(const server of servers) {
+        // Log to console
+        console.log(`[serverStatus] Pinging ${server.name} (${server.host})...`);
+
         const res = await ping.promise.probe(server.host, { timeout: 3 });
 
         if(res.alive) {
+            // Log to console
+            console.log(`[serverStatus] ${server.name} (${server.host}) is online!`);
+
             statuses.push({
                 server: server,
                 result: res,
                 online: true
             })
         } else {
+            // Log to console
+            console.log(`[serverStatus] ${server.name} (${server.host}) is offline!`);
+
             statuses.push({
                 server: server,
                 result: res,

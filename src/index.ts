@@ -66,7 +66,7 @@ if(client.config_main.nodeStatus) {
 }
 
 // Check and update testing channel data every 5 minutes
-import testingChannels from "./util/testing-channels";
+import testingChannels from "./util/testingChannels";
 testingChannels(client);
 setInterval(() => testingChannels(client), 300000);
 

@@ -69,7 +69,7 @@ const command: Command = {
 
             await interaction.editReply({ embeds: [deleted] });
 
-            // Generate TXT output
+            // Generate output
             const output = [];
 
             for(const message of result.values()) {
@@ -86,7 +86,7 @@ const command: Command = {
                 return parseInt(idA) - parseInt(idB);
             })
 
-            // Generate TXT file
+            // Generate result file
             const file = Buffer.from(`${new Date().toUTCString()}\n\n${output.join("\n")}`);
             const attachment = new Discord.AttachmentBuilder(file, { name: "result.txt" });
 
@@ -96,7 +96,7 @@ const command: Command = {
                 .setTitle("Purge")
                 .addFields (
                     { name: "Channel", value: `${interaction.channel}`, inline: true },
-                    { name: "Amount", value: `${result.size}`, inline: true }
+                    { name: "Messages", value: `${result.size}`, inline: true }
                 )
                 .setTimestamp()
 

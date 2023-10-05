@@ -213,7 +213,7 @@ const event: Event = {
 
             if(userRoles.owner || userRoles.botAdmin) {
                 // Log the message to the console
-                console.log(`[GUILD] [MESSAGE] ${message.author.tag.endsWith("#0") ? message.author.username : message.author.tag} (${message.author.id}): ${message.content}`);
+                console.log(`[messageCreate] ${message.author.tag.endsWith("#0") ? message.author.username : message.author.tag} (${message.author.id}): ${message.content}`);
 
                 try {
                     await command.execute(message, args, cmd, client, Discord);
