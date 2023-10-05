@@ -35,13 +35,25 @@ const event: Event = {
             // Give the creator permissions to the channel
             await channel.permissionOverwrites.create(user, {
                 ViewChannel: true,
+                ManageChannels: true,
+                ManageRoles: true,
+                CreateInstantInvite: true,
                 SendMessages: true,
+                SendMessagesInThreads: true,
+                CreatePublicThreads: true,
+                CreatePrivateThreads: true,
                 EmbedLinks: true,
                 AttachFiles: true,
                 AddReactions: true,
+                UseExternalEmojis: true,
+                UseExternalStickers: true,
+                ManageMessages: true,
+                ManageThreads: true,
                 ReadMessageHistory: true,
-                ManageChannels: true,
-                ManageRoles: true
+                SendTTSMessages: true,
+                UseApplicationCommands: true,
+                SendVoiceMessages: true,
+                UseEmbeddedActivities: true
             })
 
             // Log to console

@@ -122,7 +122,7 @@ const command: Command = {
 
                         {
                             id: interaction.user.id,
-                            allow: ["ManageChannels", "ViewChannel"]
+                            allow: ["ViewChannel"]
                         }
                     ]
                 })
@@ -145,7 +145,7 @@ const command: Command = {
                     .setTitle("Your Testing Channel")
                     .setDescription(`Welcome to your testing channel, **${interaction.user.globalName || interaction.user.username}**!\n\nThis channel has been setup with overrides so only you and server admins can access it.\n\n**This channel will be automatically deleted after 24 hours.**`)
                     .addFields (
-                        { name: "Your Permissions", value: "```yaml\n- Embed Links\n- Manage Channels\n- Read Message History\n- Send Messages\n- Use External Emojis\n- View Channel\n```" },
+                        { name: "Your Permissions", value: "```yaml\n- Embed Links\n- Read Message History\n- Send Messages\n- Use External Emojis\n- View Channel\n```" },
                         { name: "Delete Channel", value: "To delete this channel, use the command: `/testing delete`" },
                         { name: "Adding/removing other users", value: "To add a user to this channel, use the command: `/testing user add`\nTo remove a user from this channel, use the command: `/testing user remove`" }
                     )
