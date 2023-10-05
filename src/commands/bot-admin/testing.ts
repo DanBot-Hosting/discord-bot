@@ -325,7 +325,7 @@ const command: Command = {
                         .setColor(client.config_embeds.default)
                         .setDescription(`${user} has been added to the testing channel.`)
 
-                    interaction.channel.send({ embeds: [welcome] });
+                    await interaction.channel.send({ embeds: [welcome] });
 
                     const added = new Discord.EmbedBuilder()
                         .setColor(client.config_embeds.default)
@@ -384,7 +384,7 @@ const command: Command = {
                         .setColor(client.config_embeds.default)
                         .setDescription(`${user} has been removed from the testing channel.`)
 
-                    interaction.channel.send({ embeds: [goodbye] });
+                    await interaction.channel.send({ embeds: [goodbye] });
 
                     const removed = new Discord.EmbedBuilder()
                         .setColor(client.config_embeds.default)

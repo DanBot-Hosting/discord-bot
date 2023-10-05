@@ -1,6 +1,6 @@
 import Command from "../../classes/Command";
 import ExtendedClient from "../../classes/ExtendedClient";
-import { CommandInteraction } from "discord.js";
+import { CommandInteraction, TextChannel } from "discord.js";
 
 import { emojis as emoji } from "../../config";
 import formatCurrency from "../../util/formatCurrency";
@@ -108,21 +108,12 @@ const command: Command = {
                 return;
             }
 
-            if(fromUser.credit_amount + toUser.credit_amount > 10000) {
-                const error = new Discord.EmbedBuilder()
-                    .setColor(client.config_embeds.error)
-                    .setDescription(`${emoji.cross} The total premium server count is higher than 10000!`)
-
-                await i.edit({ embeds: [error] });
-                return;
-            }
-
             const confirm = new Discord.EmbedBuilder()
                 .setColor(client.config_embeds.default)
                 .setTitle("Transfer Data")
                 .setDescription(`Are you sure you want to transfer all data associated with ${from} to ${to}?`)
                 .addFields (
-                    { name: "What will be transferred?", value: `✨ **${formatCurrency(fromUser.credit_amount)}** credit\n🔒 Privacy settings` }
+                    { name: "What will be transferred?", value: `✨ **${formatCurrency(fromUser.credit_amount)}** credit` }
                 )
                 .setFooter({ text: "This prompt will expire in 30 seconds." })
 
@@ -158,7 +149,7 @@ const command: Command = {
 
                     const creditTransfer = new Discord.EmbedBuilder()
                         .setColor(client.config_embeds.default)
-                        .setDescription(`${emoji.ping} Transferring credits...`)
+                        .setDescription(`${emoji.ping} Transferring credit...`)
 
                     await i.edit({ embeds: [creditTransfer], components: [] });
 
@@ -194,6 +185,26 @@ const command: Command = {
                         .setDescription(`${emoji.tick} All data associated with ${from} has been transferred to ${to}!`)
 
                     await i.edit({ embeds: [transferred] });
+
+                    const log = new Discord.EmbedBuilder()
+                        .setColor(client.config_embeds.default)
+                        .setAuthor({ name: interaction.user.tag.endsWith("#0") ? interaction.user.username : interaction.user.tag, iconURL: interaction.user.displayAvatarURL({ extension: "png", forceStatic: false }), url: `https://discord.com/users/${interaction.user.id}` })
+                        .setTitle("Data Transfer")
+                        .addFields (
+                            { name: "From", value: `${from} **|** \`${from.id}\`` },
+                            { name: "To", value: `${to} **|** \`${to.id}\`` }
+                        )
+                        .setTimestamp()
+
+                    const dataLog = new Discord.EmbedBuilder()
+                        .setColor(client.config_embeds.default)
+                        .addFields (
+                            { name: "✨ Credit", value: `**${formatCurrency(fromUser.credit_amount)}**` }
+                        )
+
+                    const channel = client.channels.cache.get(client.config_channels.otherLogs) as TextChannel;
+
+                    channel.send({ embeds: [log, dataLog] });
                     return;
                 }
 
