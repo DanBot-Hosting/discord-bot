@@ -46,8 +46,8 @@ export function getPrice(): number {
 export async function remove(user: Snowflake, amount: number, client: ExtendedClient): Promise<number> {
     const data = await User.findOne({ _id: user }) || new User({ _id: user, credit_amount: 0, credit_used: 0 });
 
-    if(data.credit_amount < amount) throw new Error(`<@${user}> does not have that many credits to remove.`);
-    if(data.credit_used > data.credit_amount - amount) throw new Error(`Cannot remove credits from <@${user}> that are in use.`);
+    if(data.credit_amount < amount) throw new Error(`<@${user}> does not have that much credot to remove.`);
+    if(data.credit_used > data.credit_amount - amount) throw new Error(`Cannot remove credit from <@${user}> that is in use.`);
 
     data.credit_amount -= amount;
     await data.save();
