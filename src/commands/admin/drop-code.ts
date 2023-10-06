@@ -100,12 +100,11 @@ const command: Command = {
                 })
 
                 setTimeout(() => {
-                    if(!client.drops.get(generatedCode)) {
-                        client.drops.delete(generatedCode);
-                        return;
-                    } else {
-                        client.drops.delete(generatedCode);
-                    }
+                    const drop = client.drops.get(generatedCode);
+
+                    if(drop.claimed) return;
+
+                    client.drops.delete(generatedCode);
 
                     const expired = new Discord.EmbedBuilder()
                         .setColor(client.config_embeds.error)
