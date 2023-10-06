@@ -117,7 +117,7 @@ const command: Command = {
 
                         {
                             id: client.user.id,
-                            allow: ["ViewChannel", "ManageChannels", "ManageMessages"]
+                            allow: ["ManageChannels", "ManageMessages", "ViewChannel"]
                         },
 
                         {
