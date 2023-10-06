@@ -319,6 +319,15 @@ const command: Command = {
                         return;
                     }
 
+                    if(member.permissions.has("Administrator")) {
+                        const error = new Discord.EmbedBuilder()
+                            .setColor(client.config_embeds.error)
+                            .setDescription(`${emoji.cross} ${user} is an administrator and can already access this channel!`)
+
+                        await interaction.editReply({ embeds: [error] });
+                        return;
+                    }
+
                     await channel.permissionOverwrites.create(member.id, { ViewChannel: true });
 
                     const welcome = new Discord.EmbedBuilder()
@@ -373,6 +382,15 @@ const command: Command = {
                         const error = new Discord.EmbedBuilder()
                             .setColor(client.config_embeds.error)
                             .setDescription(`${emoji.cross} ${user} is not in this testing channel!`)
+
+                        await interaction.editReply({ embeds: [error] });
+                        return;
+                    }
+
+                    if(member.permissions.has("Administrator")) {
+                        const error = new Discord.EmbedBuilder()
+                            .setColor(client.config_embeds.error)
+                            .setDescription(`${emoji.cross} ${user} is an administrator and has access to this channel regardless!`)
 
                         await interaction.editReply({ embeds: [error] });
                         return;
