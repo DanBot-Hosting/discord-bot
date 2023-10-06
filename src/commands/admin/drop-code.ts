@@ -28,6 +28,8 @@ const command: Command = {
             type: 4,
             name: "credits",
             description: "The amount of credits the code will give.",
+            min_value: 1,
+            max_value: 10,
             required: true
         },
 

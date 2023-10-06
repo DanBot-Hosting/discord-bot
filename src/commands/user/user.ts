@@ -82,7 +82,7 @@ const command: Command = {
 
                 if(user.id === interaction.user.id) {
                     count.addFields (
-                        { name: "Premium Server Price", value: `${formatCurrency(premium.price)} USD / server`, inline: true },
+                        { name: "Premium Server Price", value: `**${formatCurrency(premium.price)} USD** / server`, inline: true },
                         { name: "Public Visibilty", value: data.hidden ? `${emoji.cross} Disabled` : `${emoji.tick} Enabled`, inline: true }
                     )
 
