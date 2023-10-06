@@ -27,7 +27,7 @@ const event: Event = {
             // Send message to channel through the bot's DMs
             if(message.channel.type === ChannelType.DM && main.dmAllowed.includes(message.author.id)) {
                 // Log the message to the console
-                console.log(`[DM] ${message.author.tag.endsWith("#0") ? message.author.username : message.author.tag} (${message.author.id}): ${message.content}`);
+                console.log(`[DM] [messageCreate] ${message.author.tag.endsWith("#0") ? message.author.username : message.author.tag} (${message.author.id}): ${message.content}`);
 
                 const args = message.content.trim().split(/ +/g);
 
@@ -259,7 +259,7 @@ const event: Event = {
 
             try {
                 // Log the message to the console
-                console.log(`[GUILD] [MESSAGE] ${message.author.tag.endsWith("#0") ? message.author.username : message.author.tag} (${message.author.id}): ${message.content}`);
+                console.log(`[messageCreate] ${message.author.tag.endsWith("#0") ? message.author.username : message.author.tag} (${message.author.id}): ${message.content}`);
 
                 await command.execute(message, args, cmd, client, Discord);
             } catch(err) {
