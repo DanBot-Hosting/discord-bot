@@ -1,6 +1,7 @@
 import { Client, Collection, Snowflake } from "discord.js";
 import * as Sentry from "@sentry/node";
 
+import CodeDrop from "./CodeDrop";
 import Command from "./Command";
 import Event from "./Event";
 import Keyword from "./Keyword";
@@ -19,6 +20,7 @@ export default class ExtendedClient extends Client {
     public config_main: typeof main;
     public config_roles: typeof roles;
     public credit: typeof import("../util/credit");
+    public drops: Collection<string, CodeDrop>;
     public events: Collection<string, Event>;
     public keywords: Collection<string[], Keyword>;
     public lastPoll: number;

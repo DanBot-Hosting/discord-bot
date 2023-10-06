@@ -77,6 +77,7 @@ client.login(process.env.token);
 client.autoKick = true;
 client.commandIds = new Discord.Collection();
 client.credit = require("./util/credit");
+client.drops = new Discord.Collection();
 client.lastPoll = 0;
 client.sentry = Sentry;
 

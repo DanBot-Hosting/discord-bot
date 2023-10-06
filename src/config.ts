@@ -10,6 +10,7 @@ const channels = {
     changelogs: "960242064338092202",
     devQuestions: "1083142107977486389",
     donations: "898041841939783732",
+    donatorLogs: "898041923544162324",
     gettingStarted: "898041837535776788",
     messageLogs: "898041913947602945",
     modLogs: "898041915600162826",
@@ -24,7 +25,7 @@ const channels = {
         members: "898041827561730069",
         staff: "898041828870348800",
         tickets: "898041832569700362",
-        totalMembers: "898041826810949632",
+        totalMembers: "898041826810949632"
     },
     welcome: "898041844871618600"
 }

@@ -1,6 +1,6 @@
 import Command from "../../classes/Command";
 import ExtendedClient from "../../classes/ExtendedClient";
-import { CommandInteraction } from "discord.js";
+import { CommandInteraction, TextChannel } from "discord.js";
 
 import { emojis as emoji } from "../../config";
 
@@ -70,12 +70,25 @@ const command: Command = {
             const additions = roleChanges.filter(r => r.startsWith("+"));
             const removals = roleChanges.filter(r => r.startsWith("-"));
 
-            const fileContent = `Role: ${client.config_roles.donator}\n${additions.length ? `\nAdditions:\n${additions.join("\n")}` : ""}${removals.length ? `${additions.length ? "\n" : ""}\nRemovals:\n${removals.join("\n")}` : ""}`;
+            const fileContent = `${additions.length ? `Additions:\n${additions.join("\n")}` : ""}${removals.length ? `${additions.length ? "\n" : ""}Removals:\n${removals.join("\n")}` : ""}`;
             const buffer = Buffer.from(fileContent, "utf-8");
 
             const file = new Discord.AttachmentBuilder(buffer, { name: "result.txt" });
 
-            await i.edit({ embeds: [], files: roleChanges.length ? [file] : [] });
+            await i.edit({ embeds: [], files: [file] });
+
+            // Send log to donator logs
+            const channel = interaction.guild.channels.cache.get(client.config_channels.donatorLogs) as TextChannel;
+
+            const log = new Discord.EmbedBuilder()
+                .setColor(client.config_embeds.default)
+                .setAuthor({ name: interaction.user.tag, iconURL: interaction.user.displayAvatarURL({ extension: "png", forceStatic: false }), url: `https://discord.com/users/${interaction.user.id}` })
+                .setTitle("Donator Role Assignment")
+                .setTimestamp()
+
+            if(roleChanges.length) {
+                await channel.send({ embeds: [log], files: [file] });
+            }
         } catch(err) {
             client.logCommandError(err, interaction, Discord);
         }
