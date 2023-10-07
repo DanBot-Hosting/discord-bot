@@ -60,7 +60,7 @@ const command: LegacyCommand = {
                 }
             } catch(err) {
                 // Censor the database URL, Sentry DSN and bot token if they are returned
-                if(err.message.includes(process.env.database) && process.env.database) err.message = err.message.replace(process.env.database, "[CENSORED_DATABASE_URL]");
+                if(err.message.includes(process.env.database) && process.env.database) err.message = err.message.replace(process.env.database, "[CENSORED_MONGODB_URI]");
                 if(err.message.includes(process.env.sentry_dsn) && process.env.sentry_dsn) err.message = err.message.replace(process.env.sentry_dsn, "[CENSORED_SENTRY_DSN]");
                 if(err.message.includes(process.env.token) && process.env.token) err.message = err.message.replace(process.env.token, "[CENSORED_BOT_TOKEN]");
 

@@ -29,7 +29,7 @@ const command: LegacyCommand = {
             const announcement = new Discord.EmbedBuilder()
                 .setColor(client.config_embeds.default)
                 .setAuthor({ name: message.author.tag.endsWith("#0") ? message.author.username : message.author.tag, iconURL: message.author.avatarURL({ extension: "png", forceStatic: false }), url: `https://discord.com/users/${message.author.id}`})
-                .setDescription(cap(args.join(" "), 2000))
+                .setDescription(cap(args.join(" "), 4000))
                 .setTimestamp()
 
             const msg = await channel.send({ embeds: [announcement] });

@@ -34,7 +34,7 @@ const command: Command = {
             if(interaction.options.getSubcommand() === "lock") {
                 const locking = new Discord.EmbedBuilder()
                     .setColor(client.config_embeds.default)
-                    .setDescription(`${emoji.ping} Locking <#${client.config_channels.voice.dbh}>...`);
+                    .setDescription(`${emoji.ping} Locking <#${client.config_channels.voice.dbh}>...`)
 
                 await interaction.editReply({ embeds: [locking] });
 
@@ -42,7 +42,7 @@ const command: Command = {
 
                 const locked = new Discord.EmbedBuilder()
                     .setColor(client.config_embeds.default)
-                    .setDescription(`${emoji.tick} Locked <#${client.config_channels.voice.dbh}>!`);
+                    .setDescription(`${emoji.tick} Locked <#${client.config_channels.voice.dbh}>!`)
 
                 await interaction.editReply({ embeds: [locked] });
                 return;
@@ -51,7 +51,7 @@ const command: Command = {
             if(interaction.options.getSubcommand() === "unlock") {
                 const unlocking = new Discord.EmbedBuilder()
                     .setColor(client.config_embeds.default)
-                    .setDescription(`${emoji.ping} Unlocking <#${client.config_channels.voice.dbh}>...`);
+                    .setDescription(`${emoji.ping} Unlocking <#${client.config_channels.voice.dbh}>...`)
 
                 await interaction.editReply({ embeds: [unlocking] });
 
@@ -59,7 +59,7 @@ const command: Command = {
 
                 const unlocked = new Discord.EmbedBuilder()
                     .setColor(client.config_embeds.default)
-                    .setDescription(`${emoji.tick} Unlocked <#${client.config_channels.voice.dbh}>!`);
+                    .setDescription(`${emoji.tick} Unlocked <#${client.config_channels.voice.dbh}>!`)
 
                 await interaction.editReply({ embeds: [unlocked] });
                 return;

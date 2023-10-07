@@ -196,12 +196,6 @@ const command: Command = {
                     return;
                 }
 
-                const deleting = new Discord.EmbedBuilder()
-                    .setColor(client.config_embeds.default)
-                    .setDescription(`${emoji.ping} Deleting testing channel...`)
-
-                await interaction.editReply({ embeds: [deleting] });
-
                 if(data) await data.delete();
                 await channel.delete();
                 return;
