@@ -19,6 +19,9 @@ const event: Event = {
             // Ignore messages if the bot does not have the required permissions
             if(!message.guild.members.me.permissions.has(requiredPerms)) return;
 
+            // Return if the message is in an ignored channel
+            if(main.logIgnoredChannels.includes(message.channel.id)) return;
+
             const channel = message.guild.channels.cache.get(channels.messageLogs) as TextChannel;
 
             const log = new Discord.EmbedBuilder()
@@ -35,7 +38,7 @@ const event: Event = {
                 )
                 .setTimestamp()
 
-            channel.send({ embeds: [log] });
+            await channel.send({ embeds: [log] });
 
             // Delete starboard message if it exists
             // Return if the message is one week old

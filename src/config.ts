@@ -61,6 +61,9 @@ const main = {
         "853158265466257448" // William
     ],
     legacyPrefix: "DBHB!" as string,
+    logIgnoredChannels: [
+        "898041845878247487" // #node-status
+    ],
     nodeStatus: false, // Whether or not to enable node status
     primaryGuild: "639477525927690240" as Snowflake, // DanBot Hosting
     suggestionChannels: [

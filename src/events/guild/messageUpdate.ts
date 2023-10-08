@@ -19,6 +19,9 @@ const event: Event = {
             // Ignore messages if the bot does not have the required permissions
             if(!oldMessage.guild.members.me.permissions.has(requiredPerms)) return;
 
+            // Return if the message is in an ignored channel
+            if(main.logIgnoredChannels.includes(oldMessage.channel.id)) return;
+
             const channel = oldMessage.guild.channels.cache.get(channels.messageLogs) as TextChannel;
 
             const messageInfo = new Discord.EmbedBuilder()
@@ -58,7 +61,7 @@ const event: Event = {
                         .setURL(oldMessage.url)
                 )
 
-            channel.send({ embeds: [messageInfo, oldLog, newLog], components: [buttons] });
+            await channel.send({ embeds: [messageInfo, oldLog, newLog], components: [buttons] });
         } catch(err) {
             client.logError(err);
         }
