@@ -13,7 +13,7 @@ const event: Event = {
             const requiredPerms: PermissionResolvable = ["SendMessages", "EmbedLinks"];
 
             // Ignore messages not in the primary guild, partial messages and messages without content or attachments
-            if(!message.guild || message.partial || !message.content && !message.attachments.size) return;
+            if(!message.guild || message.partial) return;
             if(message.guild.id !== main.primaryGuild) return;
 
             // Ignore messages if the bot does not have the required permissions
@@ -25,9 +25,9 @@ const event: Event = {
                 .setColor(client.config_embeds.default)
                 .setAuthor({ name: message.author.tag.endsWith("#0") ? message.author.username : message.author.tag, iconURL: message.author.displayAvatarURL({ extension: "png", forceStatic: false }), url: `https://discord.com/users/${message.author.id}` })
                 .setTitle("Message Deleted")
-                .setDescription(cap(`${message.content || "*No message content.*"}`, 2000))
+                .setDescription(cap(`${message.content || "*No message content.*"}`, 4000))
                 .addFields (
-                    { name: "Channel", value: `<#${message.channel.id}>`, inline: true },
+                    { name: "Channel", value: `${message.channel}`, inline: true },
                     { name: "Message Sent", value: `<t:${message.createdTimestamp.toString().slice(0, -3)}:f>`, inline: true },
                     { name: "Message ID", value: `\`${message.id}\``, inline: true },
                     { name: "Attachments", value: `${message.attachments.size}`, inline: true },

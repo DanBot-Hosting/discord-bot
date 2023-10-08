@@ -49,6 +49,9 @@ const emojis = {
 
 const main = {
     appealEmail: "dan@danbot.host",
+    autoCrosspost: [
+        "898327108898684938" // #server-status
+    ],
     disablePermCheck: [
         "853158265466257448" // William
     ],
