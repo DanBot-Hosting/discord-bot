@@ -9,34 +9,38 @@ const button: Button = {
     startsWith: true,
     requiredRoles: ["donator"],
     async execute(interaction: ButtonInteraction, client: ExtendedClient, Discord: typeof import("discord.js")) {
-        const user = interaction.customId.replace("premium-fix-", "");
+        try {
+            const user = interaction.customId.replace("premium-fix-", "");
 
-        if(user !== interaction.user.id) {
-            const error = new Discord.EmbedBuilder()
-                .setColor(client.config_embeds.error)
-                .setDescription(`${emoji.cross} You cannot fix another user's credit amount!`)
+            if(user !== interaction.user.id) {
+                const error = new Discord.EmbedBuilder()
+                    .setColor(client.config_embeds.error)
+                    .setDescription(`${emoji.cross} You cannot fix another user's credit amount!`)
 
-            await interaction.reply({ embeds: [error], ephemeral: true });
-            return;
-        }
+                await interaction.reply({ embeds: [error], ephemeral: true });
+                return;
+            }
 
-        const oldData = await client.credit.get(user);
-        const newCount = await client.credit.fix(user);
+            const oldData = await client.credit.get(user);
+            const newCount = await client.credit.fix(user);
 
-        if(oldData.used === newCount) {
-            const error = new Discord.EmbedBuilder()
+            if(oldData.used === newCount) {
+                const error = new Discord.EmbedBuilder()
+                    .setColor(client.config_embeds.default)
+                    .setDescription(`${emoji.tick} Your credit amount is correct!`)
+
+                await interaction.reply({ embeds: [error], ephemeral: true });
+                return;
+            }
+
+            const fixed = new Discord.EmbedBuilder()
                 .setColor(client.config_embeds.default)
-                .setDescription(`${emoji.tick} Your credit amount is correct!`)
+                .setDescription(`${emoji.tick} Your credit amount has been fixed!`)
 
-            await interaction.reply({ embeds: [error], ephemeral: true });
-            return;
+            await interaction.reply({ embeds: [fixed], ephemeral: true });
+        } catch(err) {
+            client.logButtonError(err, interaction);
         }
-
-        const fixed = new Discord.EmbedBuilder()
-            .setColor(client.config_embeds.default)
-            .setDescription(`${emoji.tick} Your credit amount has been fixed!`)
-
-        await interaction.reply({ embeds: [fixed], ephemeral: true });
     }
 }
 

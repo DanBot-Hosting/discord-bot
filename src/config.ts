@@ -1,7 +1,7 @@
 import { ColorResolvable, Snowflake } from "discord.js";
 
 const categories = {
-    testingChannels: "1158553893299556463",
+    testing: "1158553893299556463",
     tickets: "924757852504096768"
 }
 
@@ -18,6 +18,7 @@ const channels = {
     otherLogs: "898041920071299142",
     rules: "898041835002400768",
     starboard: "1158582673879597177",
+    ticketLogs: "898041922109722635",
     voice: {
         boosts: "898041831495974983",
         bots: "898041830241882112",
@@ -78,11 +79,11 @@ const roles = {
     duck: "1158744931142205501",
     helper: "898041750545903707",
     mod: "898041748817842176",
-    newTicketPing: "983825037050142782",
     owner: "898041741695926282",
     pollPing: "898041781927682090",
     pollPingAllowed: "1157497265708093520",
-    staff: "898041751099539497"
+    staff: "898041751099539497",
+    ticketPing: "983825037050142782"
 }
 
 const starboard = {

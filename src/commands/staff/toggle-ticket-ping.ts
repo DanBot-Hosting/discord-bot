@@ -17,7 +17,7 @@ const command: Command = {
     ephemeral: true,
     async execute(interaction: CommandInteraction & any, client: ExtendedClient, Discord: typeof import("discord.js")) {
         try {
-            const role = await interaction.guild.roles.fetch(client.config_roles.newTicketPing);
+            const role = await interaction.guild.roles.fetch(client.config_roles.ticketPing);
             const member = await interaction.guild.members.fetch(interaction.user.id);
 
             if(member.roles.cache.has(role.id)) {
