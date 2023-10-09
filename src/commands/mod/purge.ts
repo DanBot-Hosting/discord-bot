@@ -15,6 +15,13 @@ const command: Command = {
             min_value: 2,
             max_value: 100,
             required: true
+        },
+
+        {
+            type: 6,
+            name: "user",
+            description: "The user to purge messages from.",
+            required: false
         }
     ],
     default_member_permissions: PermissionFlagsBits.ManageMessages.toString(),
@@ -27,6 +34,7 @@ const command: Command = {
     async execute(interaction: CommandInteraction, client: ExtendedClient, Discord: typeof import("discord.js")) {
         try {
             const amount = interaction.options.get("amount").value as number;
+            const user = interaction.options.getUser("user");
 
             const fetching = new Discord.EmbedBuilder()
                 .setColor(client.config_embeds.default)
@@ -34,7 +42,9 @@ const command: Command = {
 
             await interaction.editReply({ embeds: [fetching] });
 
-            const messages = await interaction.channel.messages.fetch({ limit: amount });
+            let messages = await interaction.channel.messages.fetch({ limit: amount, before: interaction.id });;
+
+            if(user) messages = messages.filter(message => message.author.id === user.id);
 
             if(messages.size === 0) {
                 const noMessages = new Discord.EmbedBuilder()
@@ -47,7 +57,7 @@ const command: Command = {
 
             const found = new Discord.EmbedBuilder()
                 .setColor(client.config_embeds.default)
-                .setDescription(`${emoji.ping} Purging ${messages.size} messages...`)
+                .setDescription(`${emoji.ping} Purging ${messages.size} message${messages.size === 1 ? "" : "s"}...`)
 
             await interaction.editReply({ embeds: [found] });
 
@@ -65,7 +75,7 @@ const command: Command = {
 
             const deleted = new Discord.EmbedBuilder()
                 .setColor(client.config_embeds.default)
-                .setDescription(`${emoji.tick} Deleted ${result.size} messages.`)
+                .setDescription(`${emoji.tick} Deleted ${result.size} message${messages.size === 1 ? "" : "s"}.`)
 
             await interaction.editReply({ embeds: [deleted] });
 
@@ -73,9 +83,14 @@ const command: Command = {
             const output = [];
 
             for(const message of result.values()) {
-                if(!message.content) continue;
+                const createdAt = message.createdAt.toUTCString();
+                const author = message.author.tag.endsWith("#0") ? message.author.username : message.author.tag;
+                const id = message.author.id;
+                const embeds = message.embeds.length;
+                const attachments = message.attachments.size;
+                const content = message.content || "*No message content*";
 
-                output.push(`[${message.id}] ${message.author.tag.endsWith("#0") ? message.author.username : message.author.tag} (${message.author.id}): ${message.content}`);
+                output.push(`[${message.id}] [${createdAt}] ${author} (${id}) [${embeds} embed${embeds === 1 ? "" : "s"}, ${attachments} attachment${attachments === 1 ? "" : "s"}]: ${content}`);
             }
 
             // Sort output by message ID (oldest to newest)
@@ -99,6 +114,8 @@ const command: Command = {
                     { name: "Messages", value: `${result.size}`, inline: true }
                 )
                 .setTimestamp()
+
+            if(user) log.addFields({ name: "User", value: `${user}`, inline: true });
 
             const channel = client.channels.cache.get(client.config_channels.modLogs) as TextChannel;
 
