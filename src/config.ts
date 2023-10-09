@@ -2,7 +2,12 @@ import { ColorResolvable, Snowflake } from "discord.js";
 
 const categories = {
     testing: "1158553893299556463",
-    tickets: "924757852504096768"
+    tickets: {
+        high: "1160713638743658577",
+        medium: "1160713549685989406",
+        low: "1160710296986460171",
+        unknown: "1160716485065445406"
+    }
 }
 
 const channels = {

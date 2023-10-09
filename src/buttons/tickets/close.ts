@@ -6,12 +6,12 @@ import { emojis as emoji } from "../../config";
 import getRoles from "../../functions/roles/get";
 
 const button: Button = {
-    name: "close-ticket",
+    name: "ticket-close",
     startsWith: true,
     requiredRoles: [],
     async execute(interaction: ButtonInteraction, client: ExtendedClient, Discord: typeof import("discord.js")) {
         try {
-            const user = interaction.customId.replace("close-ticket-", "");
+            const user = interaction.customId.replace("ticket-close-", "");
 
             const userRoles = await getRoles(interaction.user.id, client);
 
@@ -61,7 +61,7 @@ const button: Button = {
                     const ticketAuthor = await client.users.fetch(user);
 
                     // Export transcript
-                    const messages = (await interaction.channel.messages.fetch()).reverse();
+                    const messages = (await interaction.channel.messages.fetch({ limit: 100 })).reverse();
 
                     let transcript = "";
 
@@ -73,7 +73,7 @@ const button: Button = {
                         const attachments = m.attachments.size;
                         const content = m.content || "*No message content*";
 
-                        transcript += `[${createdAt}] (${m.id}) ${author} (${id}) [${embeds} embed${embeds === 1 ? "" : "s"}, ${attachments} attachment${attachments === 1 ? "" : "s"}]: ${content}\n`;
+                        transcript += `[${createdAt}] ${author} (${id}) [${embeds} embed${embeds === 1 ? "" : "s"}, ${attachments} attachment${attachments === 1 ? "" : "s"}]: ${content}\n`;
                     })
 
                     const closedTicket = new Discord.EmbedBuilder()

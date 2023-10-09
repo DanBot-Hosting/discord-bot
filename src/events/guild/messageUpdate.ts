@@ -12,9 +12,11 @@ const event: Event = {
         try {
             const requiredPerms: PermissionResolvable = ["SendMessages", "EmbedLinks"];
 
-            // Ignore messages not in the primary guild, partial messages and messages without content or attachments
+            // Ignore messages not in the primary guild and partial messages
             if(!oldMessage.guild || oldMessage.partial || newMessage.partial) return;
             if(oldMessage.guild.id !== main.primaryGuild) return;
+            // Ignore messages that are sent by bots
+            if(oldMessage.author.bot) return;
 
             // Ignore messages if the bot does not have the required permissions
             if(!oldMessage.guild.members.me.permissions.has(requiredPerms)) return;
