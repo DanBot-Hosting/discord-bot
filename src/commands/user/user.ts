@@ -76,7 +76,7 @@ const command: Command = {
 
                         new Discord.ButtonBuilder()
                             .setStyle(Discord.ButtonStyle.Danger)
-                            .setCustomId(`credit-fix-${user.id}`)
+                            .setCustomId(`credit-fix-${interaction.user.id}`)
                             .setLabel("Incorrect credit amount?")
                     )
 

@@ -10,7 +10,7 @@ const button: Button = {
     requiredRoles: ["donator"],
     async execute(interaction: ButtonInteraction, client: ExtendedClient, Discord: typeof import("discord.js")) {
         try {
-            const user = interaction.customId.replace("premium-fix-", "");
+            const user = interaction.customId.replace("credit-fix-", "");
 
             if(user !== interaction.user.id) {
                 const error = new Discord.EmbedBuilder()
