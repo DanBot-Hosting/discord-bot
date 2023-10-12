@@ -1,15 +1,15 @@
-import LegacyCommand from "../classes/LegacyCommand";
-import ExtendedClient from "../classes/ExtendedClient";
+import LegacyCommand from "../../classes/LegacyCommand";
+import ExtendedClient from "../../classes/ExtendedClient";
 import { Message } from "discord.js";
 
-import { emojis as emoji } from "../config";
+import { emojis as emoji } from "../../config";
 
 const command: LegacyCommand = {
     name: "roles",
-    description: "Get all of a guild's roles.",
+    description: "Get all of the guild's roles.",
     aliases: [],
     botPermissions: [],
-    requiredRoles: [],
+    requiredRoles: ["staff"],
     cooldown: 60,
     enabled: true,
     async execute(message: Message, args: string[], cmd: LegacyCommand, client: ExtendedClient, Discord: typeof import("discord.js")) {

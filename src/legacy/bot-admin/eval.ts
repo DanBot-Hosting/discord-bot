@@ -1,9 +1,9 @@
-import LegacyCommand from "../classes/LegacyCommand";
-import ExtendedClient from "../classes/ExtendedClient";
+import LegacyCommand from "../../classes/LegacyCommand";
+import ExtendedClient from "../../classes/ExtendedClient";
 import { Message } from "discord.js";
 
-import cap from "../util/plainCap";
-import { emojis as emoji } from "../config";
+import cap from "../../util/plainCap";
+import { emojis as emoji } from "../../config";
 
 const command: LegacyCommand = {
     name: "eval",

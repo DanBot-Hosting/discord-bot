@@ -1,17 +1,17 @@
-import LegacyCommand from "../classes/LegacyCommand";
-import ExtendedClient from "../classes/ExtendedClient";
+import LegacyCommand from "../../classes/LegacyCommand";
+import ExtendedClient from "../../classes/ExtendedClient";
 import { Message, TextChannel } from "discord.js";
 
-import cap from "../util/cap";
-import { channels, emojis as emoji } from "../config";
+import cap from "../../util/cap";
+import { channels, emojis as emoji } from "../../config";
 
 const command: LegacyCommand = {
-    name: "changelog",
-    description: "Create and send a changelog.",
-    aliases: ["cl"],
+    name: "announce",
+    description: "Create and send an announcement.",
+    aliases: ["announcement"],
     botPermissions: [],
-    requiredRoles: ["dev"],
-    cooldown: 60,
+    requiredRoles: ["admin"],
+    cooldown: 30,
     enabled: true,
     async execute(message: Message, args: string[], cmd: LegacyCommand, client: ExtendedClient, Discord: typeof import("discord.js")) {
         try {
@@ -24,15 +24,15 @@ const command: LegacyCommand = {
                 return;
             }
 
-            const channel = message.guild.channels.cache.get(channels.changelogs) as TextChannel;
+            const channel = message.guild.channels.cache.get(channels.announcements) as TextChannel;
 
-            const changelog = new Discord.EmbedBuilder()
+            const announcement = new Discord.EmbedBuilder()
                 .setColor(client.config_embeds.default)
                 .setAuthor({ name: message.author.tag.endsWith("#0") ? message.author.username : message.author.tag, iconURL: message.author.avatarURL({ extension: "png", forceStatic: false }), url: `https://discord.com/users/${message.author.id}`})
                 .setDescription(cap(args.join(" "), 4000))
                 .setTimestamp()
 
-            const msg = await channel.send({ embeds: [changelog] });
+            const msg = await channel.send({ embeds: [announcement] });
 
             const sent = new Discord.EmbedBuilder()
                 .setColor(client.config_embeds.default)

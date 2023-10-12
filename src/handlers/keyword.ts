@@ -14,7 +14,7 @@ export = async (client: ExtendedClient) => {
 
             client.keywords.set(keyword.keywords, keyword);
 
-            console.log(`Loaded Keyword: ${keyword.title}`);
+            console.log(`Loaded Keyword: ${keyword.name}`);
         }
     }
 
@@ -28,7 +28,7 @@ export = async (client: ExtendedClient) => {
 
             client.keywords.set(keyword.keywords, keyword);
 
-            console.log(`Loaded Keyword: ${keyword.title}`);
+            console.log(`Loaded Keyword: ${keyword.name}`);
         }
     }
 
