@@ -44,6 +44,11 @@ const command: Command = {
                 },
 
                 {
+                    name: "Missing Files - I am missing files from my server.",
+                    value: "missing-files"
+                },
+
+                {
                     name: "Other - I need help with something else.",
                     value: "other"
                 },
@@ -90,10 +95,9 @@ const command: Command = {
                 return;
             }
 
-            const highPriority = ["account-issue", "bug-report", "security-issue"];
-            const mediumPriority = ["donation", "donation-issue"];
+            const highPriority = ["security-issue"];
+            const mediumPriority = ["account-issue", "bug-report", "donation", "donation-issue", "missing-files"];
             const lowPriority = ["feature-request", "feedback"];
-            const unknownPriority = ["other"];
 
             const reasons: any = {
                 "account-issue": "🔑 Account Issue",
@@ -102,8 +106,24 @@ const command: Command = {
                 "donation-issue": "❗ Donation Issue",
                 "feature-request": "📝 Feature Request",
                 "feedback": "📜 Feedback",
+                "missing-files": "📁 Missing Files",
                 "other": "❓ Other",
                 "security-issue": "🔒 Security Issue"
+            }
+
+            const autoAdminUpgrade = [
+                "account-issue",
+                "donation",
+                "missing-files",
+                "security-issue"
+            ]
+
+            const autoResponses: any = {
+                "account-issue": "Please provide the following information about your account:\n- Username\n- Email",
+                "bug-report": "Please provide, in detail, how to reproduce the bug you found, along with the following information:\n- What the bug is\n- What you expected to happen\n- What actually happened\n- Any other information you think may be useful",
+                "donation": "Please provide the following information about your donation:\n- Transaction ID\n- Screenshot of the transaction\n- Which service you donated on (Donation Alerts / PayPal)",
+                "missing-files": "Please provide the following details about your server:\n- Node\n- Server ID",
+                "security-issue": "Please provide the following information about the security issue you found:\n- What the issue is\n- How to reproduce the issue\n- Any other information you think may be useful"
             }
 
             let priority = unknownTickets.id;
@@ -114,7 +134,7 @@ const command: Command = {
                 priority = mediumTickets.id;
             } else if(lowPriority.includes(reason)) {
                 priority = lowTickets.id;
-            } else if(unknownPriority.includes(reason)) {
+            } else {
                 priority = unknownTickets.id;
             }
 
@@ -171,9 +191,33 @@ const command: Command = {
                         .setLabel("Change Priority")
                 )
 
-            const msg = await ticketChannel.send({ content: `${interaction.user}`, embeds: [ticketMessage], components: [buttons] });
+            const msg = await ticketChannel.send({ content: `${interaction.user} <@&${client.config_roles.ticketPing}>`, embeds: [ticketMessage], components: [buttons] });
 
             await msg.pin();
+
+            // Upgrade ticket to admin ticket if needed
+            if(autoAdminUpgrade.includes(reason)) {
+                await ticketChannel.permissionOverwrites.delete(client.config_roles.staff);
+                await ticketChannel.permissionOverwrites.create(client.config_roles.admin, { ViewChannel: true });
+
+                const adminOnlyMessage = new Discord.EmbedBuilder()
+                    .setColor(client.config_embeds.default)
+                    .setDescription("🔒 This ticket has been automatically upgraded to administrator only.")
+                    .addFields (
+                        { name: "Why?", value: "The reason you selected can only be handled by administrators." }
+                    )
+
+                await ticketChannel.send({ embeds: [adminOnlyMessage] });
+            }
+
+            // Send auto response if needed
+            if(autoResponses[reason]) {
+                const autoResponse = new Discord.EmbedBuilder()
+                    .setColor(client.config_embeds.default)
+                    .setDescription(autoResponses[reason])
+
+                await ticketChannel.send({ content: `${interaction.user}`, embeds: [autoResponse] });
+            }
 
             const created = new Discord.EmbedBuilder()
                 .setColor(client.config_embeds.default)
