@@ -5,27 +5,27 @@ import { CommandInteraction, PermissionFlagsBits, TextChannel } from "discord.js
 import { emojis as emoji } from "../../config";
 
 const command: Command = {
-    name: "unmute",
-    description: "Unmute a user.",
+    name: "ban",
+    description: "Ban a user.",
     options: [
         {
             type: 6,
             name: "user",
-            description: "The user to unmute.",
+            description: "The user to ban.",
             required: true
         },
 
         {
             type: 3,
             name: "reason",
-            description: "The reason for unmuting the user.",
+            description: "The reason for banning the user.",
             min_length: 3,
             max_length: 250,
             required: true
         }
     ],
-    default_member_permissions: PermissionFlagsBits.ModerateMembers.toString(),
-    botPermissions: ["ModerateMembers"],
+    default_member_permissions: PermissionFlagsBits.BanMembers.toString(),
+    botPermissions: ["BanMembers"],
     requiredRoles: [],
     cooldown: 15,
     enabled: true,
@@ -36,35 +36,61 @@ const command: Command = {
             const user = interaction.options.getUser("user");
             const reason = interaction.options.get("reason").value as string;
 
+            const author = interaction.guild.members.cache.get(interaction.user.id);
             const member = interaction.guild.members.cache.get(user.id);
 
             if(!member) {
                 const error = new Discord.EmbedBuilder()
                     .setColor(client.config_embeds.error)
-                    .setDescription(`${emoji.cross} ${member} is not in the server!`)
+                    .setDescription(`${emoji.cross} ${user} is not in this server! Please use </hackban:${client.commandIds.get("hackban")}> instead.`)
 
                 await interaction.editReply({ embeds: [error] });
                 return;
             }
 
-            if(!member.isCommunicationDisabled()) {
+            if(interaction.guild.bans.cache.has(user.id)) {
                 const error = new Discord.EmbedBuilder()
                     .setColor(client.config_embeds.error)
-                    .setDescription(`${emoji.cross} ${member} is not muted!`)
+                    .setDescription(`${emoji.cross} ${user} is already banned!`)
 
                 await interaction.editReply({ embeds: [error] });
                 return;
             }
 
-            // Remove timeout from member
-            await member.timeout(null, `${interaction.user.tag.endsWith("#0") ? interaction.user.username : interaction.user.tag} (${interaction.user.id}): ${reason}`);
+            if(user.id === interaction.user.id) {
+                const error = new Discord.EmbedBuilder()
+                    .setColor(client.config_embeds.error)
+                    .setDescription(`${emoji.cross} You cannot ban yourself!`)
+
+                await interaction.editReply({ embeds: [error] });
+                return;
+            }
+
+            if(!member.bannable) {
+                const error = new Discord.EmbedBuilder()
+                    .setColor(client.config_embeds.error)
+                    .setDescription(`${emoji.cross} I cannot ban ${member}!`)
+
+                await interaction.editReply({ embeds: [error] });
+                return;
+            }
+
+            if(member.roles.highest.position >= author.roles.highest.position || member.permissions.has("BanMembers")) {
+                const error = new Discord.EmbedBuilder()
+                    .setColor(client.config_embeds.error)
+                    .setDescription(`${emoji.cross} You cannot ban ${member}!`)
+
+                await interaction.editReply({ embeds: [error] });
+                return;
+            }
 
             // Send DM to member
+            // Send DM before banning incase the bot doesn't have permission to DM them after banning them
             const dm = new Discord.EmbedBuilder()
                 .setColor(client.config_embeds.default)
                 .setAuthor({ name: interaction.guild.name, iconURL: interaction.guild.iconURL({ extension: "png", forceStatic: false }) })
-                .setTitle("🔈Unmute")
-                .setDescription(`You have been unmuted in **${interaction.guild.name}**!`)
+                .setTitle(`🔨 Banned`)
+                .setDescription(`You have been banned from **${interaction.guild.name}**!`)
                 .addFields (
                     { name: "Reason", value: reason }
                 )
@@ -77,12 +103,15 @@ const command: Command = {
                 sentDM = true;
             } catch {}
 
-            // Reply to interaction
-            const muted = new Discord.EmbedBuilder()
-                .setColor(client.config_embeds.default)
-                .setDescription(`${emoji.tick} Unmuted ${member}!`)
+            // Ban member
+            await member.ban({ reason: `${interaction.user.tag.endsWith("#0") ? interaction.user.username : interaction.user.tag} (${interaction.user.id}): ${reason}` });
 
-            await interaction.editReply({ embeds: [muted] });
+            // Reply to interaction
+            const banned = new Discord.EmbedBuilder()
+                .setColor(client.config_embeds.default)
+                .setDescription(`${emoji.tick} Banned ${member}!`)
+
+            await interaction.editReply({ embeds: [banned] });
 
             // Log
             const logChannel = interaction.guild.channels.cache.get(client.config_channels.modLogs) as TextChannel;
@@ -90,7 +119,7 @@ const command: Command = {
             const log = new Discord.EmbedBuilder()
                 .setColor(client.config_embeds.default)
                 .setAuthor({ name: interaction.user.tag.endsWith("#0") ? interaction.user.username : interaction.user.tag, iconURL: interaction.user.avatarURL({ extension: "png", forceStatic: false }), url: `https://discord.com/users/${interaction.user.id}`})
-                .setTitle("Member Unmuted")
+                .setTitle("Ban")
                 .addFields (
                     { name: "User", value: `${user} **|** \`${user.id}\``, inline: true },
                     { name: "User Notified", value: sentDM ? emoji.tick : emoji.cross, inline: true },

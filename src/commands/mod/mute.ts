@@ -18,7 +18,7 @@ const command: Command = {
         {
             type: 3,
             name: "time",
-            description: "The time to mute the user for.",
+            description: "The time to mute the user for. (if the user is already muted, their timeout will be extended)",
             choices: [
                 {
                     name: "1 minute",
@@ -88,7 +88,7 @@ const command: Command = {
     cooldown: 15,
     enabled: true,
     deferReply: true,
-    ephemeral: true,
+    ephemeral: false,
     async execute(interaction: CommandInteraction, client: ExtendedClient, Discord: typeof import("discord.js")) {
         try {
             const user = interaction.options.getUser("user");
@@ -134,7 +134,7 @@ const command: Command = {
                 return;
             }
 
-            if(member.roles.highest.position >= author.roles.highest.position) {
+            if(member.roles.highest.position >= author.roles.highest.position || member.permissions.has("ModerateMembers")) {
                 const error = new Discord.EmbedBuilder()
                     .setColor(client.config_embeds.error)
                     .setDescription(`${emoji.cross} You cannot mute ${member}!`)
@@ -151,15 +151,43 @@ const command: Command = {
             if(time.endsWith("d")) timeMs = parseInt(time.slice(0, -1)) * 86400000;
             if(time.endsWith("w")) timeMs = parseInt(time.slice(0, -1)) * 604800000;
 
+            const extended = member.isCommunicationDisabled();
+
             // Timeout member
-            const timeout = await member.timeout(timeMs, `${interaction.user.tag.endsWith("#0") ? interaction.user.username : interaction.user.tag} (${interaction.user.id}): ${reason}`);
+            const timeout = await member.timeout(extended ? member.communicationDisabledUntilTimestamp - Date.now() + timeMs : timeMs, `${interaction.user.tag.endsWith("#0") ? interaction.user.username : interaction.user.tag} (${interaction.user.id}): ${reason}`);
+
+            // Send DM to member
+            const dm = new Discord.EmbedBuilder()
+                .setColor(client.config_embeds.default)
+                .setAuthor({ name: interaction.guild.name, iconURL: interaction.guild.iconURL({ extension: "png", forceStatic: false }) })
+                .setTitle(`🔇 Mute ${extended ? "Extended" : ""}`)
+                .setDescription(`${extended ? "Your mute" : "You have been muted"} in **${interaction.guild.name}**${extended ? " has been extended" : ""} until <t:${timeout.communicationDisabledUntilTimestamp.toString().slice(0, -3)}:f>!`)
+                .addFields (
+                    { name: "Reason", value: reason }
+                )
+                .setTimestamp()
+
+            let sentDM = false;
+
+            try {
+                await member.send({ embeds: [dm] });
+                sentDM = true;
+            } catch {}
 
             // Reply to interaction
-            const muted = new Discord.EmbedBuilder()
-                .setColor(client.config_embeds.default)
-                .setDescription(`${emoji.tick} Muted ${member} until <t:${timeout.communicationDisabledUntilTimestamp.toString().slice(0, -3)}:f>!`)
+            if(extended) {
+                const muted = new Discord.EmbedBuilder()
+                    .setColor(client.config_embeds.default)
+                    .setDescription(`${emoji.tick} Extended ${member}'s mute until <t:${timeout.communicationDisabledUntilTimestamp.toString().slice(0, -3)}:f>!`)
 
-            await interaction.editReply({ embeds: [muted] });
+                await interaction.editReply({ embeds: [muted] });
+            } else {
+                const muted = new Discord.EmbedBuilder()
+                    .setColor(client.config_embeds.default)
+                    .setDescription(`${emoji.tick} Muted ${member} until <t:${timeout.communicationDisabledUntilTimestamp.toString().slice(0, -3)}:f>!`)
+
+                await interaction.editReply({ embeds: [muted] });
+            }
 
             // Log
             const logChannel = interaction.guild.channels.cache.get(client.config_channels.modLogs) as TextChannel;
@@ -167,12 +195,13 @@ const command: Command = {
             const log = new Discord.EmbedBuilder()
                 .setColor(client.config_embeds.default)
                 .setAuthor({ name: interaction.user.tag.endsWith("#0") ? interaction.user.username : interaction.user.tag, iconURL: interaction.user.avatarURL({ extension: "png", forceStatic: false }), url: `https://discord.com/users/${interaction.user.id}`})
-                .setTitle("Member Muted")
+                .setTitle(`Mute ${extended ? "Extended" : ""}`)
                 .addFields (
-                    { name: "User", value: `${user} **|** \`${user.id}\`` },
+                    { name: "User", value: `${user} **|** \`${user.id}\``, inline: true },
+                    { name: "User Notified", value: sentDM ? emoji.tick : emoji.cross, inline: true },
                     { name: "Reason", value: reason },
-                    { name: "Duration", value: `${time}` },
-                    { name: "Expires", value: `<t:${timeout.communicationDisabledUntilTimestamp.toString().slice(0, -3)}:f>` }
+                    { name: "Duration", value: `${time}`, inline: true },
+                    { name: "Expires", value: `<t:${timeout.communicationDisabledUntilTimestamp.toString().slice(0, -3)}:f>`, inline: true }
                 )
                 .setTimestamp()
 
