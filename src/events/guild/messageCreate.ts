@@ -105,9 +105,8 @@ const event: Event = {
                 return;
             }
 
-            // If the message doesn't start with the bot's prefix, ignore the message
-            if(!message.content.toLowerCase().startsWith(main.legacyPrefix.toLowerCase())) {
-                // Keyword handler
+            // Keyword handler
+            if(!message.content.toLowerCase().startsWith(main.prefix.toLowerCase()) && !message.content.toLowerCase().startsWith(main.legacyPrefix.toLowerCase())) {
                 const args = message.content.toLowerCase().split(/ +/g);
 
                 const keywords = client.keywords.filter((keyword: Keyword) => {
@@ -148,13 +147,13 @@ const event: Event = {
                 return;
             }
 
-            const args = message.content.slice(main.legacyPrefix.length).split(/ +/);
+            const args = message.content.slice(main.prefix.length).split(/ +/);
 
             const cmd = args.shift().toLowerCase();
             const command: LegacyCommand = client.legacyCommands.get(cmd) || client.legacyCommands.find((c: LegacyCommand) => c.aliases && c.aliases.includes(cmd));
 
-            if(!command) {
-                // Prefix command deprecation
+            // Prefix command deprecation
+            if(!command && message.content.toLowerCase().startsWith(main.legacyPrefix)) {
                 const description = [
                     `👋 Hey there, **${message.author.globalName || message.author.username}**!`,
                     `\nIn the recent rewrite of the DBH Discord bot we have decided to move away from prefix commands (e.g. \`${main.legacyPrefix}help\`) and have moved to slash commands (e.g. </help:${client.commandIds.get("help")}>).`,
@@ -171,6 +170,8 @@ const event: Event = {
                 message.reply({ embeds: [legacy] });
                 return;
             }
+
+            if(!command) return;
 
             const requiredRoles: Role[] = command.requiredRoles;
 

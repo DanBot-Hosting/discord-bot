@@ -71,6 +71,7 @@ const main = {
         "898041845878247487" // #node-status
     ],
     nodeStatus: false, // Whether or not to enable node status
+    prefix: "?" as string,
     primaryGuild: "639477525927690240" as Snowflake, // DanBot Hosting
     suggestionChannels: [
         "976371313901965373", // #vpn-suggestions
