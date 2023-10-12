@@ -21,7 +21,6 @@ A rewrite of [DanBotHostingStats](https://github.com/DanBot-Hosting/DanBotHostin
   - [ ] Add Sentry bot to the server and set it up in a channel
 - [x] Add staff commands
   - [x] Fix donator role assigning command
-    - Checks and adds the donator role to users that are meant to have it but do not have it
   - [x] Premium add/fix/remove/set commands
   - [x] Data transfer command
 - [x] Add moderation commands
