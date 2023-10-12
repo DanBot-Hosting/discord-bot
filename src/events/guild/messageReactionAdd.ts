@@ -42,10 +42,12 @@ const event: Event = {
                 let added = false;
 
                 if(!member.roles.cache.has(role.id)) {
-                    added = true;
                     await member.roles.add(role, `Reaction roles in #${(message.channel as TextChannel).name} (${message.channel.id})`);
+                    console.log(`[reactionRoles] [add] ${member.user.tag.endsWith("#0") ? member.user.username : member.user.tag} (${member.id}): ${role.name} (${role.id})`);
+                    added = true;
                 } else {
                     await member.roles.remove(role, `Reaction roles in #${(message.channel as TextChannel).name} (${message.channel.id})`);
+                    console.log(`[reactionRoles] [remove] ${member.user.tag.endsWith("#0") ? member.user.username : member.user.tag} (${member.id}): ${role.name} (${role.id})`);
                 }
 
                 try {
