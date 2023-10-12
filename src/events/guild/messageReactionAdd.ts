@@ -3,6 +3,7 @@ import ExtendedClient from "../../classes/ExtendedClient";
 import { Message, MessageReaction, PartialMessageReaction, PartialUser, PermissionResolvable, TextChannel } from "discord.js";
 
 import { channels, main, starboard } from "../../config";
+import reactionRoles from "../../configs/reactionRoles";
 
 const event: Event = {
     name: "messageReactionAdd",
@@ -20,6 +21,45 @@ const event: Event = {
             // Return if the bot does not have the required permissions
             if(!message.guild.members.me.permissions.has(requiredPerms)) return;
 
+            // Reaction Roles
+            if(message.channel.id === channels.reactionRoles) {
+                // Return if the message ID is not in the reaction roles config
+                if(!reactionRoles[message.id]) return;
+
+                // Return if the reaction emoji is not a valid reaction role emoji
+                if(!Object.keys(reactionRoles[message.id]).includes(reaction.emoji.name)) return;
+
+                // Return if the user is a bot
+                if(user.bot) return;
+
+                // Give the user the role
+                const role = message.guild.roles.cache.get(reactionRoles[message.id][reaction.emoji.name]);
+
+                if(!role) return;
+
+                const member = message.guild.members.cache.get(user.id);
+
+                let added = false;
+
+                if(!member.roles.cache.has(role.id)) {
+                    added = true;
+                    await member.roles.add(role, `Reaction roles in #${(message.channel as TextChannel).name} (${message.channel.id})`);
+                } else {
+                    await member.roles.remove(role, `Reaction roles in #${(message.channel as TextChannel).name} (${message.channel.id})`);
+                }
+
+                try {
+                    const dm = new Discord.EmbedBuilder()
+                        .setColor(client.config_embeds.default)
+                        .setDescription(`You have been ${added ? "added to" : "removed from"} the **${role.name}** role.`)
+
+                    await member.send({ embeds: [dm] });
+                } catch {}
+
+                await reaction.users.remove(user.id);
+                return;
+            }
+
             // Starboard
             // Return if the reaction emoji is not the starboard emoji
             if(reaction.emoji.name !== starboard.emoji) return;
@@ -30,11 +70,8 @@ const event: Event = {
             // Return if the reaction count is less than the required amount
             if(reaction.count < starboard.threshold) return;
 
-            // Return if the message is in the starboard channel
-            if(message.channel.id === channels.starboard) return;
-
-            // Return if the message is in a channel that is not allowed
-            if(!starboard.allowed.includes(message.channel.id)) return;
+            // Return if the message is in the starboard channel or in a channel that is not allowed
+            if(message.channel.id === channels.starboard || !starboard.allowed.includes(message.channel.id)) return;
 
             // Return if there is no message content or attachments
             if(!message.content && message.attachments.size < 1 || !message.content && !message.attachments.first().contentType.startsWith("image")) return;

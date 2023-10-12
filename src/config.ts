@@ -21,6 +21,7 @@ const channels = {
     modLogs: "898041915600162826",
     nodeStatus: "898041845878247487",
     otherLogs: "898041920071299142",
+    reactionRoles: "898041838701781013",
     rules: "898041835002400768",
     starboard: "1158582673879597177",
     ticketLogs: "898041922109722635",

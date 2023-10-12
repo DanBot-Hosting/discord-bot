@@ -23,11 +23,8 @@ const event: Event = {
             // Return if the message is more than 1 week old
             if(message.createdTimestamp < Date.now() - 604800000) return;
 
-            // Return if the message is in the starboard channel
-            if(message.channel.id === channels.starboard) return;
-
-            // Return if the message is in a channel that is not allowed
-            if(!starboard.allowed.includes(message.channel.id)) return;
+            // Return if the message is in the starboard channel or in a channel that is not allowed
+            if(message.channel.id === channels.starboard || !starboard.allowed.includes(message.channel.id)) return;
 
             // Return if there is no message content or attachments
             if(!message.content && message.attachments.size < 1) return;
