@@ -42,7 +42,7 @@ const command: Command = {
             if(!member) {
                 const error = new Discord.EmbedBuilder()
                     .setColor(client.config_embeds.error)
-                    .setDescription(`${emoji.cross} ${user} is not in this server! Please use </hackban:${client.commandIds.get("hackban")}> instead.`)
+                    .setDescription(`${emoji.cross} ${user} is not in this server!`)
 
                 await interaction.editReply({ embeds: [error] });
                 return;
