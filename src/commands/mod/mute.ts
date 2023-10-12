@@ -26,6 +26,11 @@ const command: Command = {
                 },
 
                 {
+                    name: "2 minutes",
+                    value: "2m"
+                },
+
+                {
                     name: "5 minutes",
                     value: "5m"
                 },
@@ -36,13 +41,33 @@ const command: Command = {
                 },
 
                 {
+                    name: "15 minutes",
+                    value: "15m"
+                },
+
+                {
                     name: "30 minutes",
                     value: "30m"
                 },
 
                 {
+                    name: "45 minutes",
+                    value: "45m"
+                },
+
+                {
                     name: "1 hour",
                     value: "1h"
+                },
+
+                {
+                    name: "2 hours",
+                    value: "2h"
+                },
+
+                {
+                    name: "3 hours",
+                    value: "3h"
                 },
 
                 {
@@ -61,8 +86,18 @@ const command: Command = {
                 },
 
                 {
+                    name: "2 days",
+                    value: "2d"
+                },
+
+                {
                     name: "3 days",
                     value: "3d"
+                },
+
+                {
+                    name: "5 days",
+                    value: "5d"
                 },
 
                 {
