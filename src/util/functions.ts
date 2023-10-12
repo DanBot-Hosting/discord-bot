@@ -3,7 +3,7 @@ import ExtendedClient from "../classes/ExtendedClient";
 import Discord from "discord.js";
 import fs from "fs";
 
-export async function getDirs(path: string) {
+export async function getDirs(path: string): Promise<string[]> {
     return (await fs.promises.readdir(path, { withFileTypes: true }))
         .filter((dirent) => dirent.isDirectory())
         .map((dirent) => dirent.name);

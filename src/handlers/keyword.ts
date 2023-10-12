@@ -10,9 +10,11 @@ export = async (client: ExtendedClient) => {
         for(const file of files) {
             const keyword = require(`../keywords/${file}`);
 
+            keyword.name = file.replace(".js", "");
+
             client.keywords.set(keyword.keywords, keyword);
 
-            console.log(`Loaded Keyword: ${keyword.name}`);
+            console.log(`Loaded Keyword: ${keyword.title}`);
         }
     }
 
@@ -22,9 +24,11 @@ export = async (client: ExtendedClient) => {
         for(const file of files) {
             const keyword = require(`../keywords/${dir}/${file}`);
 
+            keyword.name = file.replace(".js", "");
+
             client.keywords.set(keyword.keywords, keyword);
 
-            console.log(`Loaded Keyword: ${keyword.name}`);
+            console.log(`Loaded Keyword: ${keyword.title}`);
         }
     }
 

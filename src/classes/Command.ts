@@ -13,4 +13,5 @@ export default class Command {
     public deferReply: boolean;
     public ephemeral: boolean;
     public execute: Function;
+    public autocomplete?: Function;
 }

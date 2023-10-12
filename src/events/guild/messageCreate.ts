@@ -136,7 +136,7 @@ const event: Event = {
 
                 const response = new Discord.EmbedBuilder()
                     .setColor(client.config_embeds.default)
-                    .setTitle(keyword.name)
+                    .setTitle(keyword.title)
                     .setDescription(keyword.response)
                     .addFields (
                         { name: "Keywords", value: `\`${matched.join("\`, \`")}\`` }

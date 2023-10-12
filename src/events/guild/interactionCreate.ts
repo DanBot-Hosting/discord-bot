@@ -2,6 +2,7 @@ import Event from "../../classes/Event";
 import ExtendedClient from "../../classes/ExtendedClient";
 import { Interaction, PermissionResolvable } from "discord.js";
 
+import autocompleteHandler from "../../util/interaction/autocomplete";
 import buttonHandler from "../../util/interaction/button";
 import commandHandler from "../../util/interaction/command";
 
@@ -17,6 +18,8 @@ const event: Event = {
             // Ignore interactions if the bot does not have the required permissions
             if(!interaction.guild.members.me.permissions.has(requiredPerms)) return;
 
+            // Autocomplete handler
+            if(interaction.isAutocomplete()) return await autocompleteHandler(client, interaction);
             // Button handler
             if(interaction.isButton()) return await buttonHandler(client, Discord, interaction);
             // Command handler

@@ -1,6 +1,6 @@
 import Command from "../../classes/Command";
 import ExtendedClient from "../../classes/ExtendedClient";
-import { CommandInteraction, TextChannel } from "discord.js";
+import { CommandInteraction, PermissionFlagsBits, TextChannel } from "discord.js";
 
 import { emojis as emoji } from "../../config";
 
@@ -10,7 +10,7 @@ const command: Command = {
     name: "assign-donator-role",
     description: "Ensure all donators have the donator role.",
     options: [],
-    default_member_permissions: null,
+    default_member_permissions: PermissionFlagsBits.ManageRoles.toString(),
     botPermissions: ["ManageRoles"],
     requiredRoles: ["admin"],
     cooldown: 10,
