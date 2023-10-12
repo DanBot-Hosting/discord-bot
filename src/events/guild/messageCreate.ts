@@ -153,7 +153,7 @@ const event: Event = {
             const command: LegacyCommand = client.legacyCommands.get(cmd) || client.legacyCommands.find((c: LegacyCommand) => c.aliases && c.aliases.includes(cmd));
 
             // Prefix command deprecation
-            if(!command && message.content.toLowerCase().startsWith(main.legacyPrefix)) {
+            if(!command && message.content.toLowerCase().startsWith(main.legacyPrefix.toLowerCase())) {
                 const description = [
                     `👋 Hey there, **${message.author.globalName || message.author.username}**!`,
                     `\nIn the recent rewrite of the DBH Discord bot we have decided to move away from prefix commands (e.g. \`${main.legacyPrefix}help\`) and have moved to slash commands (e.g. </help:${client.commandIds.get("help")}>).`,
