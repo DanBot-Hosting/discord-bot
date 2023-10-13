@@ -5,9 +5,9 @@ import { Message } from "discord.js";
 import { emojis as emoji } from "../../config";
 
 const command: LegacyCommand = {
-    name: "get-role",
+    name: "role-info",
     description: "Get a information about a role.",
-    aliases: ["gr"],
+    aliases: ["ri", "role", "roleinfo"],
     botPermissions: [],
     requiredRoles: ["staff"],
     cooldown: 5,

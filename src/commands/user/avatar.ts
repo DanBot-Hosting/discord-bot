@@ -9,7 +9,7 @@ const command: Command = {
         {
             type: 6,
             name: "user",
-            description: "The user who's premium server count to get.",
+            description: "The user who's avatar to get.",
             required: false
         }
     ],
@@ -38,10 +38,12 @@ const command: Command = {
                         .setStyle(Discord.ButtonStyle.Link)
                         .setLabel("PNG")
                         .setURL(user.displayAvatarURL({ extension: "png", forceStatic: true })),
+
                     new Discord.ButtonBuilder()
                         .setStyle(Discord.ButtonStyle.Link)
                         .setLabel("JPG")
                         .setURL(user.displayAvatarURL({ extension: "jpg", forceStatic: true })),
+
                     new Discord.ButtonBuilder()
                         .setStyle(Discord.ButtonStyle.Link)
                         .setLabel("WEBP")
