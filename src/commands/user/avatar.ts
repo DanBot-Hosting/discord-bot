@@ -50,7 +50,7 @@ const command: Command = {
                         .setURL(user.displayAvatarURL({ extension: "webp", forceStatic: true }))
                 )
 
-            // If the user has a gif avatar, add a button for the gif format
+            // If the user has an animated avatar, add a button for the GIF format
             if(user.displayAvatarURL({ forceStatic: false }).endsWith(".gif")) {
                 buttons.addComponents(
                     new Discord.ButtonBuilder()
