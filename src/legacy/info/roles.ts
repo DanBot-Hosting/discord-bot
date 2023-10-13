@@ -38,21 +38,10 @@ const command: LegacyCommand = {
             // Send the file
             const file = new Discord.AttachmentBuilder(Buffer.from(content), { name: "roles.txt" });
 
-            // Role info
-            const highest = message.guild.roles.highest;
-            const booster = message.guild.roles.premiumSubscriberRole;
-            const mostMembers = roles.filter(r => r.id !== message.guild.id).sort((a, b) => b.members.size - a.members.size).first();
-
             const roleInfo = new Discord.EmbedBuilder()
                 .setColor(client.config_embeds.default)
                 .setAuthor({ name: message.guild.name, iconURL: message.guild.iconURL({ extension: "png", forceStatic: false }) })
-                .setTitle("Roles")
-                .addFields (
-                    { name: "Count", value: roles.size.toString() },
-                    { name: `Top Role (${highest.members.size} members)`, value: `${highest} **|** \`${highest.id}\`` },
-                    { name: `Booster Role (${booster.members.size} members)`, value: `${booster} **|** \`${booster.id}\`` },
-                    { name: `Most Members (${mostMembers.members.size} members)`, value: `${mostMembers} **|** \`${mostMembers.id}\`` }
-                )
+                .setTitle(`Roles [${roles.size}]`)
 
             msg.edit({ embeds: [roleInfo], files: [file] });
         } catch(err) {
