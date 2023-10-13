@@ -1,7 +1,7 @@
 {
   "name": "dbh-discord-bot",
   "version": "1.0.0",
-  "description": "A rewrite of DanBotHostingStats in TypeScript and with slash commands.",
+  "description": "The main Discord bot for DanBot Hosting.",
   "main": "dist/index.js",
   "scripts": {
     "build": "npx tsc",
