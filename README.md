@@ -1,7 +1,5 @@
 # DBH Discord Bot
-A rewrite of [DanBotHostingStats](https://github.com/DanBot-Hosting/DanBotHostingStats) in TypeScript and with slash commands.
-
-**This project is a work in progress, please see the [To-Do List](#to-do-list).**
+The main Discord bot for DanBot Hosting.
 
 ## Maintainers
 - **DIBSTER**
