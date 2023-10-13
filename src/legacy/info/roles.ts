@@ -9,7 +9,7 @@ const command: LegacyCommand = {
     description: "Get all of the guild's roles.",
     aliases: [],
     botPermissions: [],
-    requiredRoles: ["staff"],
+    requiredRoles: [],
     cooldown: 60,
     enabled: true,
     async execute(message: Message, args: string[], cmd: LegacyCommand, client: ExtendedClient, Discord: typeof import("discord.js")) {
