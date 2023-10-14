@@ -19,7 +19,9 @@ export = async (client: ExtendedClient, Discord: typeof import("discord.js"), in
         const requiredRoles: Role[] = command.requiredRoles;
         const userRoles: Roles = await getRoles(interaction.user.id, client);
 
-        if(requiredRoles.length && !client.config_main.disablePermCheck.includes(interaction.user.id)) {
+        const member = await interaction.guild.members.fetch(interaction.user.id);
+
+        if(requiredRoles.length && !member.roles.cache.has(client.config_roles.bypassBotPerms)) {
             const hasRoles = [];
 
             for(const role of requiredRoles) {

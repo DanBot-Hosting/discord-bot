@@ -24,8 +24,10 @@ const event: Event = {
             // If the message is from a bot, ignore the message
             if(message.author.bot) return;
 
+            const userRoles = await getRoles(message.author.id, client);
+
             // Send message to channel through the bot's DMs
-            if(message.channel.type === ChannelType.DM && main.dmAllowed.includes(message.author.id)) {
+            if(message.channel.type === ChannelType.DM && userRoles.botAdmin) {
                 // Log the message to the console
                 console.log(`[DM] [messageCreate] ${message.author.tag.endsWith("#0") ? message.author.username : message.author.tag} (${message.author.id}): ${message.content}`);
 
@@ -54,8 +56,6 @@ const event: Event = {
             if(!message.guild || message.guild.id !== main.primaryGuild) return;
             // If the bot doesn't have the required permissions, ignore the message
             if(!message.guild.members.me.permissions.has(requiredPerms)) return;
-
-            const userRoles = await getRoles(message.author.id, client);
 
             if(message.mentions.members.size >= 20 && !userRoles.staff) {
                 if(!message.guild.members.me.permissions.has(["BanMembers"])) return;
@@ -96,7 +96,7 @@ const event: Event = {
             }
 
             // Auto crosspost messages
-            if(main.autoCrosspost.includes(message.channel.id) && message.crosspostable) await message.crosspost();
+            if(main.autoCrosspost.includes(message.channel.id) && message.crosspostable) return await message.crosspost();
 
             // React to messages in the suggestion channels
             if(main.suggestionReactions && main.suggestionChannels.includes(message.channel.id) && !message.content.startsWith(">")) {
@@ -175,7 +175,7 @@ const event: Event = {
 
             const requiredRoles: Role[] = command.requiredRoles;
 
-            if(requiredRoles.length && !client.config_main.disablePermCheck.includes(message.author.id)) {
+            if(requiredRoles.length && !message.member.roles.cache.has(client.config_roles.bypassBotPerms)) {
                 const hasRoles = [];
 
                 for(const role of requiredRoles) {

@@ -58,14 +58,6 @@ const main = {
     autoCrosspost: [
         "898327108898684938" // #server-status
     ],
-    disablePermCheck: [
-        "853158265466257448" // William
-    ],
-    dmAllowed: [
-        "137624084572798976", // Dan
-        "757296951925538856", // DIBSTER
-        "853158265466257448" // William
-    ],
     legacyPrefix: "DBHB!" as string,
     logIgnoredChannels: [
         "898041845878247487" // #node-status
@@ -87,6 +79,7 @@ const premium = {
 const roles = {
     admin: "898041747219828796",
     botAdmin: "898041743566594049",
+    bypassBotPerms: "1162544528297840691",
     dev: "898041747597295667",
     donator: "898041754564046869",
     duck: "1158744931142205501",
@@ -104,6 +97,7 @@ const starboard = {
         "898041849783148585", // #lounge
         "898041857550995506", // #memes
         "898041861040664576", // #setups
+        "898041851729305621", // #spam
         "898041858666668092", // #pets
         "898041865616650240", // #dono-lounge
         "898041875192234054", // #vps-chat

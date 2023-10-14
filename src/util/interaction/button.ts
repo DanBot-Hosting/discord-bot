@@ -11,12 +11,14 @@ import { noPermissionButton } from "../embeds";
 export = async (client: ExtendedClient, Discord: typeof import("discord.js"), interaction: ButtonInteraction) => {
     try {
         const button: Button = client.buttons.get(interaction.customId);
+        const userRoles: Roles = await getRoles(interaction.user.id, client);
+
+        const member = await interaction.guild.members.fetch(interaction.user.id);
 
         if(button) {
             const requiredRoles: Role[] = button.requiredRoles;
-            const userRoles: Roles = await getRoles(interaction.user.id, client);
 
-            if(requiredRoles.length && !client.config_main.disablePermCheck.includes(interaction.user.id)) {
+            if(requiredRoles.length && !member.roles.cache.has(client.config_roles.bypassBotPerms)) {
                 const hasRoles = [];
 
                 for(const role of requiredRoles) {
@@ -47,9 +49,8 @@ export = async (client: ExtendedClient, Discord: typeof import("discord.js"), in
         for(const btn of client.buttons) {
             if(interaction.customId.startsWith(btn[0]) && btn[1].startsWith) {
                 const requiredRoles: Role[] = btn[1].requiredRoles;
-                const userRoles: Roles = await getRoles(interaction.user.id, client);
 
-                if(requiredRoles.length) {
+                if(requiredRoles.length && !member.roles.cache.has(client.config_roles.bypassBotPerms)) {
                     const hasRoles = [];
 
                     for(const role of requiredRoles) {
