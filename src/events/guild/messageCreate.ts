@@ -75,6 +75,11 @@ const event: Event = {
             if(!message.content.toLowerCase().startsWith(main.legacyPrefix.toLowerCase())) {
                 const args = message.content.toLowerCase().split(/ +/g);
 
+                // Extract text only from the message
+                args.forEach((arg: string, index: number) => { args[index] = arg.replace(/[^a-zA-Z0-9]/g, "") });
+                // Remove empty arguments
+                args.forEach((arg: string, index: number) => { if(!arg) args.splice(index, 1) });
+
                 const keywords = client.keywords.filter((keyword: Keyword) => {
                     if(keyword.matchAll) {
                         // If the message includes all of the keywords, continue
