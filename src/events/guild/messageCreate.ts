@@ -101,6 +101,7 @@ const event: Event = {
 
                 const response = new Discord.EmbedBuilder()
                     .setColor(client.config_embeds.default)
+                    .setAuthor({ name: message.author.tag.endsWith("#0") ? message.author.username : message.author.tag, iconURL: message.author.displayAvatarURL({ extension: "png", forceStatic: false }), url: `https://discord.com/users/${message.author.id}` })
                     .setTitle(keyword.title)
                     .setDescription(keyword.response)
                     .addFields (

@@ -20,11 +20,11 @@ const event: Event = {
             await globalCommands(client);
 
             // Check and update testing channel data every 5 minutes
-            testingChannels(client);
-            setInterval(() => testingChannels(client), 300000);
-            
+            await testingChannels(client);
+            setInterval(async () => await testingChannels(client), 300000);
+
             // Check and update VC Stats every 5 minutes
-            vcStats(client);
+            await vcStats(client);
             setInterval(async () => await vcStats(client), 300000);
 
             // React on reaction roles

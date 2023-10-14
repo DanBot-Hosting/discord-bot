@@ -2,7 +2,7 @@ import ExtendedClient from "../classes/ExtendedClient";
 
 import { VoiceChannel } from "discord.js";
 
-import { channels, main } from "../config";
+import { categories, channels, main } from "../config";
 const channel = channels.vcStats;
 
 export default async function (client: ExtendedClient) {
@@ -15,12 +15,14 @@ export default async function (client: ExtendedClient) {
     const tickets = guild.channels.cache.get(channel.tickets) as VoiceChannel;
     const totalMembers = guild.channels.cache.get(channel.totalMembers) as VoiceChannel;
 
+    const ticketCategories = Object.values(categories.tickets);
+
     const stats = {
         boosts: guild.premiumSubscriptionCount,
         bots: guild.members.cache.filter(member => member.user.bot).size,
         members: guild.members.cache.size,
         staff: guild.members.cache.filter(member => member.roles.cache.has(client.config_roles.staff)).size,
-        tickets: guild.channels.cache.filter(channel => channel.name.startsWith("🎫╏")).size,
+        tickets: guild.channels.cache.filter(channel => channel.name.startsWith("🎫╏") && ticketCategories.includes(channel.parentId)).size,
         totalMembers: guild.memberCount
     }
 
