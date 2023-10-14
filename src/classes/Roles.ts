@@ -33,6 +33,6 @@ export function getRoleWithEmoji(role: Role): string {
     if(role === "dev") return "💻 Developer";
     if(role === "mod") return "🔨 Moderator";
     if(role === "helper") return "🆘 Helper";
-    if(role === "staff") return "👷‍♂️ Staff";
+    if(role === "staff") return "👔 Staff";
     if(role === "donator") return "💸 Donator";
 }

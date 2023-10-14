@@ -17,8 +17,6 @@ const channels = {
     donations: "898041841939783732",
     donatorLogs: "898041923544162324",
     gettingStarted: "898041837535776788",
-    messageLogs: "898041913947602945",
-    modLogs: "898041915600162826",
     otherLogs: "898041920071299142",
     reactionRoles: "898041838701781013",
     rules: "898041835002400768",
@@ -53,15 +51,10 @@ const emojis = {
 }
 
 const main = {
-    appealEmail: "dan@danbot.host",
     autoCrosspost: [
         "898327108898684938" // #server-status
     ],
     legacyPrefix: "DBHB!" as string,
-    logIgnoredChannels: [
-        "898041845878247487" // #node-status
-    ],
-    prefix: "?" as string,
     primaryGuild: "639477525927690240" as Snowflake, // DanBot Hosting
     suggestionChannels: [
         "976371313901965373", // #vpn-suggestions

@@ -7,7 +7,7 @@ import LegacyCommand from "../../classes/LegacyCommand";
 
 import cap from "../../util/cap";
 import { Role } from "../../classes/Roles";
-import { channels, emojis as emoji, main } from "../../config";
+import { emojis as emoji, main } from "../../config";
 import getRoles from "../../functions/roles/get";
 import { noPermissionCommand } from "../../util/embeds";
 
@@ -57,43 +57,9 @@ const event: Event = {
             // If the bot doesn't have the required permissions, ignore the message
             if(!message.guild.members.me.permissions.has(requiredPerms)) return;
 
-            if(message.mentions.members.size >= 20 && !userRoles.staff) {
-                if(!message.guild.members.me.permissions.has(["BanMembers"])) return;
-
-                await message.member.ban({ reason: "Mentioning 20 or more users in a message." });
-
-                const channel = message.guild.channels.cache.get(channels.modLogs) as TextChannel;
-
-                const banned = new Discord.EmbedBuilder()
-                    .setColor(client.config_embeds.default)
-                    .setTitle("Banned")
-                    .setDescription(`You have been banned from **${message.guild.name}**!`)
-                    .addFields (
-                        { name: "Reason", value: "Mentioning 20 or more users in a message." },
-                        { name: "Appeal", value: `Email **${main.appealEmail}** with your ban reason and why you should be unbanned.` }
-                    )
-                    .setTimestamp()
-
-                let sentDM = false;
-
-                try {
-                    message.author.send({ embeds: [banned] });
-                    sentDM = true;
-                } catch {}
-
-                const banLog = new Discord.EmbedBuilder()
-                    .setColor(client.config_embeds.default)
-                    .setTitle("Member Banned")
-                    .addFields (
-                        { name: "User", value: `${message.author} | \`${message.author.id}\`` },
-                        { name: "Reason", value: "Mentioning 20 or more users in a message." },
-                        { name: "User Notified", value: sentDM ? emoji.tick : emoji.cross }
-                    )
-                    .setTimestamp()
-
-                channel.send({ embeds: [banLog] });
-                return;
-            }
+            // If the message mentions more than 20 people and the user isn't staff, ignore the message
+            // Handled by the anti-raid system
+            if(message.mentions.members.size >= 20 && !userRoles.staff) return;
 
             // Auto crosspost messages
             if(main.autoCrosspost.includes(message.channel.id) && message.crosspostable) return await message.crosspost();
@@ -106,7 +72,7 @@ const event: Event = {
             }
 
             // Keyword handler
-            if(!message.content.toLowerCase().startsWith(main.prefix.toLowerCase()) && !message.content.toLowerCase().startsWith(main.legacyPrefix.toLowerCase())) {
+            if(!message.content.toLowerCase().startsWith(main.legacyPrefix.toLowerCase())) {
                 const args = message.content.toLowerCase().split(/ +/g);
 
                 const keywords = client.keywords.filter((keyword: Keyword) => {
@@ -147,7 +113,7 @@ const event: Event = {
                 return;
             }
 
-            const args = message.content.slice(main.prefix.length).split(/ +/);
+            const args = message.content.slice(main.legacyPrefix.length).split(/ +/);
 
             const cmd = args.shift().toLowerCase();
             const command: LegacyCommand = client.legacyCommands.get(cmd) || client.legacyCommands.find((c: LegacyCommand) => c.aliases && c.aliases.includes(cmd));
