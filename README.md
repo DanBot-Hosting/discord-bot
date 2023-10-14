@@ -1,4 +1,4 @@
-# DBH Discord Bot
+# Main Bot
 The main Discord bot for DanBot Hosting.
 
 ## Maintainers
