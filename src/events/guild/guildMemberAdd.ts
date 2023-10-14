@@ -57,6 +57,8 @@ const event: Event = {
 
             const channel = member.guild.channels.cache.get(channels.welcome) as TextChannel;
 
+            await member.roles.add(client.config_roles.member);
+
             const welcome = new Discord.EmbedBuilder()
                 .setColor(client.config_embeds.default)
                 .setDescription(`👋 Welcome **${member.user.globalName || member.user.username}** to **${member.guild.name}**!`)
