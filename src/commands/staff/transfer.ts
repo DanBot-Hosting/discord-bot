@@ -120,14 +120,14 @@ const command: Command = {
             const actions: any = new Discord.ActionRowBuilder()
                 .addComponents (
                     new Discord.ButtonBuilder()
-                        .setStyle(Discord.ButtonStyle.Danger)
-                        .setCustomId(`transfer-${interaction.id}`)
-                        .setLabel("Confirm"),
+                        .setStyle(Discord.ButtonStyle.Secondary)
+                        .setCustomId(`confirm-${interaction.id}`)
+                        .setEmoji(emoji.dbh_check),
 
                     new Discord.ButtonBuilder()
                         .setStyle(Discord.ButtonStyle.Secondary)
                         .setCustomId(`cancel-${interaction.id}`)
-                        .setLabel("Cancel")
+                        .setEmoji(emoji.dbh_cross)
                 )
 
             await i.edit({ embeds: [confirm], components: [actions] });
@@ -144,7 +144,7 @@ const command: Command = {
                     return;
                 }
 
-                if(c.customId === `transfer-${interaction.id}`) {
+                if(c.customId === `confirm-${interaction.id}`) {
                     collector.stop();
 
                     const creditTransfer = new Discord.EmbedBuilder()

@@ -48,6 +48,8 @@ const emojis = {
     connection_excellent: "<:connection_excellent:1152422118995279882>",
     connection_good: "<:connection_good:1152422128457625670>",
     cross: "<:cross:1152422111030292561>",
+    dbh_check: "<:DBH_Check:1124437152625868810>",
+    dbh_cross: "<:DBH_Cross:1158710201529139281>",
     ping: "<a:ping:1156039801523404850>",
     reply: "<:reply:1152422114792571070>",
     tick: "<:tick:1152422108291399761>"
