@@ -57,14 +57,6 @@ client.legacyCommands = new Discord.Collection();
 import { loadHandlers } from "./util/functions";
 loadHandlers(client);
 
-// Check and update server status every 60 seconds
-import checker from "./util/server-status/checker";
-
-if(client.config_main.nodeStatus) {
-    checker(client);
-    setInterval(() => checker(client), 60000);
-}
-
 // Check and update testing channel data every 5 minutes
 import testingChannels from "./util/testingChannels";
 testingChannels(client);
