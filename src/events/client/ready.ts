@@ -5,6 +5,8 @@ import { TextChannel } from "discord.js";
 
 import globalCommands from "../../scripts/global-commands";
 import reactionRoles from "../../configs/reactionRoles";
+import testingChannels from "../../util/testingChannels";
+import vcStats from "../../util/vcStats";
 
 const event: Event = {
     name: "ready",
@@ -17,6 +19,14 @@ const event: Event = {
             // Register Commands
             await globalCommands(client);
 
+            // Check and update testing channel data every 5 minutes
+            testingChannels(client);
+            setInterval(() => testingChannels(client), 300000);
+            
+            // Check and update VC Stats every 5 minutes
+            vcStats(client);
+            setInterval(async () => await vcStats(client), 300000);
+
             // React on reaction roles
             const rrChannel = client.channels.cache.get(client.config_channels.reactionRoles) as TextChannel;
 
@@ -25,7 +35,7 @@ const event: Event = {
 
                 if(!msg) continue;
 
-                console.log(`[reactionRoles] Reacting on reaction roles message: ${message}`);
+                console.log(`[reactionRoles] Reacting on message: ${message}`);
 
                 // Remove all reactions
                 await msg.reactions.removeAll();

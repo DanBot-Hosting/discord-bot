@@ -57,11 +57,6 @@ client.legacyCommands = new Discord.Collection();
 import { loadHandlers } from "./util/functions";
 loadHandlers(client);
 
-// Check and update testing channel data every 5 minutes
-import testingChannels from "./util/testingChannels";
-testingChannels(client);
-setInterval(() => testingChannels(client), 300000);
-
 // Login
 client.login(process.env.token);
 
