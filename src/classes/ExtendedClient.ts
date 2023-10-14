@@ -26,7 +26,6 @@ export default class ExtendedClient extends Client {
     public legacyCommands: Collection<string, LegacyCommand>;
     public logButtonError: Function;
     public logCommandError: Function;
-    public logContextError: Function;
     public logError: Function;
     public logLegacyError: Function;
     public sentry: typeof Sentry;
