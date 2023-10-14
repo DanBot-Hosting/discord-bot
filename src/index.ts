@@ -66,7 +66,6 @@ setInterval(() => testingChannels(client), 300000);
 client.login(process.env.token);
 
 // Constants
-client.autoKick = true;
 client.commandIds = new Discord.Collection();
 client.credit = require("./util/credit");
 client.drops = new Discord.Collection();

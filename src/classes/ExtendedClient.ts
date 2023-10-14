@@ -10,7 +10,6 @@ import LegacyCommand from "./LegacyCommand";
 import { categories, channels, embeds, main, roles } from "../config";
 
 export default class ExtendedClient extends Client {
-    public autoKick: boolean;
     public buttons: Collection<string, any>;
     public commandIds: Collection<string, Snowflake>;
     public commands: Collection<string, Command>;
