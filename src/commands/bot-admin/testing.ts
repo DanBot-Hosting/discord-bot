@@ -123,6 +123,11 @@ const command: Command = {
                         {
                             id: interaction.user.id,
                             allow: ["ViewChannel"]
+                        },
+
+                        {
+                            id: client.config_roles.bots,
+                            allow: ["ViewChannel"]
                         }
                     ]
                 })

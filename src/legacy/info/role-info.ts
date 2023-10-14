@@ -47,7 +47,7 @@ const command: LegacyCommand = {
                 .setColor(role.hexColor)
                 .setThumbnail(role.iconURL({ extension: "png", forceStatic: false }))
                 .addFields (
-                    { name: "Role", value: `${role} **|** \`${role.id}\`` },
+                    { name: "Role", value: `${role.unicodeEmoji ? role.unicodeEmoji : ""} ${role} **|** \`${role.id}\`` },
                     { name: "Created", value: `<t:${role.createdTimestamp.toString().slice(0, -3)}:f> (<t:${role.createdTimestamp.toString().slice(0, -3)}:R>)` },
                     { name: "Position", value: role.position.toString() },
                     { name: "Manageable", value: role.managed ? emoji.cross : emoji.tick, inline: true },
