@@ -57,6 +57,8 @@ const event: Event = {
                     if(stdout.includes("Already up to date.")) return;
 
                     const embed = new EmbedBuilder()
+                        .setColor(client.config_embeds.default)
+                        .setTitle("Automatic GitHub Pull")
                         .setDescription(`\`\`\`diff\n${cap(stdout, 4000)}\`\`\``)
                         .setTimestamp()
 
