@@ -4,11 +4,11 @@ import ExtendedClient from "../../classes/ExtendedClient";
 import { EmbedBuilder, TextChannel } from "discord.js";
 
 import { exec } from "child_process";
+import cap from "../../util/cap";
 import globalCommands from "../../scripts/global-commands";
 import reactionRoles from "../../configs/reactionRoles";
 import testingChannels from "../../util/testingChannels";
 import vcStats from "../../util/vcStats";
-import cap from "../../util/cap";
 
 const event: Event = {
     name: "ready",
