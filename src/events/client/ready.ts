@@ -1,12 +1,14 @@
 import Event from "../../classes/Event";
 import ExtendedClient from "../../classes/ExtendedClient";
 
-import { TextChannel } from "discord.js";
+import { EmbedBuilder, TextChannel } from "discord.js";
 
+import { exec } from "child_process";
 import globalCommands from "../../scripts/global-commands";
 import reactionRoles from "../../configs/reactionRoles";
 import testingChannels from "../../util/testingChannels";
 import vcStats from "../../util/vcStats";
+import cap from "../../util/cap";
 
 const event: Event = {
     name: "ready",
@@ -44,6 +46,25 @@ const event: Event = {
                     await msg.react(emoji);
                 }
             }
+
+            const githubChannel = client.channels.cache.get(client.config_channels.github) as TextChannel;
+
+            // Pull from GitHub every 30 seconds
+            setInterval(() => {
+                exec("git pull", async (err, stdout) => {
+                    if(err) client.logError(err);
+
+                    if(stdout.includes("Already up to date.")) return;
+
+                    const embed = new EmbedBuilder()
+                        .setDescription(`\`\`\`diff\n${cap(stdout, 4000)}\`\`\``)
+                        .setTimestamp()
+
+                    await githubChannel.send({ embeds: [embed] });
+
+                    process.exit();
+                })
+            }, 30000);
         } catch(err) {
             client.logError(err);
         }
