@@ -18,6 +18,7 @@ const channels = {
     donations: "898041841939783732",
     donatorLogs: "898041923544162324",
     gettingStarted: "898041837535776788",
+    github: "898041843902742548",
     otherLogs: "898041920071299142",
     reactionRoles: "898041838701781013",
     rules: "898041835002400768",
