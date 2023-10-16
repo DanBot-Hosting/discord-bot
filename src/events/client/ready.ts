@@ -3,8 +3,8 @@ import ExtendedClient from "../../classes/ExtendedClient";
 
 import { EmbedBuilder, TextChannel } from "discord.js";
 
-import { exec } from "child_process";
 import cap from "../../util/cap";
+import { exec } from "child_process";
 import globalCommands from "../../scripts/global-commands";
 import reactionRoles from "../../configs/reactionRoles";
 import testingChannels from "../../util/testingChannels";
