@@ -59,7 +59,7 @@ const event: Event = {
                     const embed = new EmbedBuilder()
                         .setColor(client.config_embeds.default)
                         .setTitle("Automatic GitHub Pull")
-                        .setDescription(`\`\`\`diff\n${cap(stdout, 4000)}\`\`\``)
+                        .setDescription(`\`\`\`\n${cap(stdout, 4000)}\`\`\``)
                         .setTimestamp()
 
                     await githubChannel.send({ embeds: [embed] });
