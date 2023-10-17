@@ -34,7 +34,7 @@ const command: Command = {
 
                     const updating = new Discord.EmbedBuilder()
                         .setColor(client.config_embeds.default)
-                        .setDescription(`${emoji.tick} Pulling files from GitHub.`);
+                        .setDescription(`${emoji.ping} Pulling files from GitHub.`);
 
                     await interaction.editReply({ embeds: [updating] });
 
