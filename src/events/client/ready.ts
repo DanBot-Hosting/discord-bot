@@ -3,7 +3,7 @@ import ExtendedClient from "../../classes/ExtendedClient";
 
 import { EmbedBuilder, TextChannel } from "discord.js";
 
-import cap from "../../util/cap";
+import cap from "../../util/plainCap";
 import { exec } from "child_process";
 import globalCommands from "../../scripts/global-commands";
 import reactionRoles from "../../configs/reactionRoles";
@@ -52,7 +52,7 @@ const event: Event = {
             // Pull from GitHub every 30 seconds
             setInterval(() => {
                 exec("git pull", async (err, stdout) => {
-                    if(err) client.logError(err);
+                    if(err) return client.logError(err);
 
                     if(stdout.includes("Already up to date.")) return;
 

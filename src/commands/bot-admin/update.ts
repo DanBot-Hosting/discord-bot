@@ -2,7 +2,7 @@ import Command from "../../classes/Command";
 import ExtendedClient from "../../classes/ExtendedClient";
 import { CommandInteraction, TextChannel } from "discord.js";
 
-import cap from "../../util/cap";
+import cap from "../../util/plainCap";
 import { emojis as emoji } from "../../config";
 import { exec } from "child_process";
 
@@ -25,7 +25,7 @@ const command: Command = {
                 if(stdout.includes("Already up to date.")) {
                     const upToDate = new Discord.EmbedBuilder()
                         .setColor(client.config_embeds.default)
-                        .setDescription(`${emoji.tick} Already up to date.`);
+                        .setDescription(`${emoji.tick} Already up to date.`)
 
                     await interaction.editReply({ embeds: [upToDate] });
                     return;
@@ -34,7 +34,7 @@ const command: Command = {
 
                     const updating = new Discord.EmbedBuilder()
                         .setColor(client.config_embeds.default)
-                        .setDescription(`${emoji.ping} Pulling files from GitHub.`);
+                        .setDescription(`${emoji.tick} Pulling files from GitHub.`)
 
                     await interaction.editReply({ embeds: [updating] });
 
