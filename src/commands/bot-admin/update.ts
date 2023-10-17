@@ -2,6 +2,7 @@ import Command from "../../classes/Command";
 import ExtendedClient from "../../classes/ExtendedClient";
 import { CommandInteraction, TextChannel } from "discord.js";
 
+import cap from "../../util/cap";
 import { emojis as emoji } from "../../config";
 import { exec } from "child_process";
 
@@ -41,7 +42,7 @@ const command: Command = {
                         .setColor(client.config_embeds.default)
                         .setAuthor({ name: interaction.user.tag.endsWith("#0") ? interaction.user.username : interaction.user.tag, iconURL: interaction.user.displayAvatarURL({ extension: "png", forceStatic: false }), url: `https://discord.com/users/${interaction.user.id}` })
                         .setTitle("Manual GitHub Pull")
-                        .setDescription(`\`\`\`\n${stdout}\`\`\``)
+                        .setDescription(`\`\`\`\n${cap(stdout, 4000)}\`\`\``)
                         .setTimestamp()
 
                     await channel.send({ embeds: [log] });
