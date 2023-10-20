@@ -81,7 +81,7 @@ const command: Command = {
                             allow: ["ManageChannels", "ManageRoles", "ManageWebhooks", "ViewChannel"]
                         }
                     ],
-                    reason: `Created by ${interaction.user.tag.endsWith("#0") ? interaction.user.username : interaction.user.tag} (${interaction.user.id})`
+                    reason: `Created by ${interaction.user.tag} (${interaction.user.id})`
                 })
 
                 if(category) {
@@ -123,7 +123,7 @@ const command: Command = {
                             allow: ["ManageChannels", "ManageRoles", "ViewChannel"]
                         }
                     ],
-                    reason: `Created by ${interaction.user.tag.endsWith("#0") ? interaction.user.username : interaction.user.tag} (${interaction.user.id})`
+                    reason: `Created by ${interaction.user.tag} (${interaction.user.id})`
                 })
 
                 if(category) {
@@ -176,7 +176,7 @@ const command: Command = {
                             allow: ["ManageChannels", "ManageRoles", "ViewChannel"]
                         }
                     ],
-                    reason: `Created by ${interaction.user.tag.endsWith("#0") ? interaction.user.username : interaction.user.tag} (${interaction.user.id})`
+                    reason: `Created by ${interaction.user.tag} (${interaction.user.id})`
                 })
 
                 if(category) {

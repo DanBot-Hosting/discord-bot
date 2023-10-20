@@ -1,6 +1,6 @@
 import Button from "../../classes/Button";
 import ExtendedClient from "../../classes/ExtendedClient";
-import { ButtonInteraction, Interaction, TextChannel } from "discord.js";
+import { ButtonInteraction } from "discord.js";
 
 import { emojis as emoji } from "../../config";
 
@@ -28,7 +28,7 @@ const button: Button = {
 
             await interaction.reply({ embeds: [fetching], ephemeral: true });
 
-            const members = role.members.sort((a, b) => Number(a.id) - Number(b.id)).map(m => `${m.user.tag.endsWith("#0") ? m.user.username : m.user.tag} (${m.user.id})`);
+            const members = role.members.sort((a, b) => Number(a.id) - Number(b.id)).map(m => `${m.user.tag} (${m.user.id})`);
 
             if(!members.length) {
                 const error = new Discord.EmbedBuilder()

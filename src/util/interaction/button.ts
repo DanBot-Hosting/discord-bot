@@ -30,7 +30,7 @@ export = async (client: ExtendedClient, Discord: typeof import("discord.js"), in
 
             try {
                 // Log interaction to console
-                console.log(`[interactionCreate] [button] ${interaction.user.tag.endsWith("#0") ? interaction.user.username : interaction.user.tag} (${interaction.user.id}): ${interaction.customId}`);
+                console.log(`[interactionCreate] [button] ${interaction.user.tag} (${interaction.user.id}): ${interaction.customId}`);
 
                 await button.execute(interaction, client, Discord);
             } catch(err) {
@@ -62,7 +62,7 @@ export = async (client: ExtendedClient, Discord: typeof import("discord.js"), in
 
                 try {
                     // Log interaction to console
-                    console.log(`[interactionCreate] [button] ${interaction.user.tag.endsWith("#0") ? interaction.user.username : interaction.user.tag} (${interaction.user.id}): ${interaction.customId}`);
+                    console.log(`[interactionCreate] [button] ${interaction.user.tag} (${interaction.user.id}): ${interaction.customId}`);
 
                     await btn[1].execute(interaction, client, Discord);
                 } catch(err) {

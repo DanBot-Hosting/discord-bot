@@ -29,7 +29,7 @@ const event: Event = {
             // Send message to channel through the bot's DMs
             if(message.channel.type === ChannelType.DM && userRoles.botAdmin) {
                 // Log the message to the console
-                console.log(`[DM] [messageCreate] ${message.author.tag.endsWith("#0") ? message.author.username : message.author.tag} (${message.author.id}): ${message.content}`);
+                console.log(`[DM] [messageCreate] ${message.author.tag} (${message.author.id}): ${message.content}`);
 
                 const args = message.content.trim().split(/ +/g);
 
@@ -106,7 +106,7 @@ const event: Event = {
 
                 const response = new Discord.EmbedBuilder()
                     .setColor(client.config_embeds.default)
-                    .setAuthor({ name: message.author.tag.endsWith("#0") ? message.author.username : message.author.tag, iconURL: message.author.displayAvatarURL({ extension: "png", forceStatic: false }), url: `https://discord.com/users/${message.author.id}` })
+                    .setAuthor({ name: message.author.tag, iconURL: message.author.displayAvatarURL({ extension: "png", forceStatic: false }), url: `https://discord.com/users/${message.author.id}` })
                     .setTitle(keyword.title)
                     .setDescription(keyword.response)
                     .addFields (
@@ -189,7 +189,7 @@ const event: Event = {
 
             if(userRoles.owner || userRoles.botAdmin) {
                 // Log the message to the console
-                console.log(`[messageCreate] ${message.author.tag.endsWith("#0") ? message.author.username : message.author.tag} (${message.author.id}): ${message.content}`);
+                console.log(`[messageCreate] ${message.author.tag} (${message.author.id}): ${message.content}`);
 
                 try {
                     await command.execute(message, args, cmd, client, Discord);
@@ -235,7 +235,7 @@ const event: Event = {
 
             try {
                 // Log the message to the console
-                console.log(`[messageCreate] ${message.author.tag.endsWith("#0") ? message.author.username : message.author.tag} (${message.author.id}): ${message.content}`);
+                console.log(`[messageCreate] ${message.author.tag} (${message.author.id}): ${message.content}`);
 
                 await command.execute(message, args, cmd, client, Discord);
             } catch(err) {

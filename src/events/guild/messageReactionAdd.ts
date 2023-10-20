@@ -43,11 +43,11 @@ const event: Event = {
 
                 if(!member.roles.cache.has(role.id)) {
                     await member.roles.add(role, `Reaction roles in #${(message.channel as TextChannel).name} (${message.channel.id})`);
-                    console.log(`[reactionRoles] [add] ${member.user.tag.endsWith("#0") ? member.user.username : member.user.tag} (${member.id}): ${role.name} (${role.id})`);
+                    console.log(`[reactionRoles] [add] ${member.user.tag} (${member.id}): ${role.name} (${role.id})`);
                     added = true;
                 } else {
                     await member.roles.remove(role, `Reaction roles in #${(message.channel as TextChannel).name} (${message.channel.id})`);
-                    console.log(`[reactionRoles] [remove] ${member.user.tag.endsWith("#0") ? member.user.username : member.user.tag} (${member.id}): ${role.name} (${role.id})`);
+                    console.log(`[reactionRoles] [remove] ${member.user.tag} (${member.id}): ${role.name} (${role.id})`);
                 }
 
                 try {
@@ -92,7 +92,7 @@ const event: Event = {
             } else {
                 const embed = new Discord.EmbedBuilder()
                     .setColor(client.config_embeds.gold)
-                    .setAuthor({ name: message.author.tag.endsWith("#0") ? message.author.username : message.author.tag, iconURL: message.author.displayAvatarURL({ extension: "png", forceStatic: false }), url: `https://discord.com/users/${message.author.id}` })
+                    .setAuthor({ name: message.author.tag, iconURL: message.author.displayAvatarURL({ extension: "png", forceStatic: false }), url: `https://discord.com/users/${message.author.id}` })
                     .setFooter({ text: `ID: ${message.id}` })
                     .setTimestamp(message.createdTimestamp)
 

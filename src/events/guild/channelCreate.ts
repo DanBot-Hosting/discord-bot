@@ -30,7 +30,7 @@ const event: Event = {
             const user = auditLog.executor;
 
             // Log to console
-            console.log(`[channelCreate] ${user.tag.endsWith("#0") ? user.username : user.tag} (${user.id}) created #${channel.name} (${channel.id}).`);
+            console.log(`[channelCreate] ${user.tag} (${user.id}) created #${channel.name} (${channel.id}).`);
 
             // Give the creator permissions to the channel
             await channel.permissionOverwrites.create(user, {
@@ -57,7 +57,7 @@ const event: Event = {
             })
 
             // Log to console
-            console.log(`[channelCreate] Gave ${user.tag.endsWith("#0") ? user.username : user.tag} (${user.id}) permissions to manage #${channel.name} (${channel.id}).`);
+            console.log(`[channelCreate] Gave ${user.tag} (${user.id}) permissions to manage #${channel.name} (${channel.id}).`);
         } catch(err) {
             client.logError(err);
         }

@@ -65,7 +65,7 @@ const command: Command = {
                     .setColor(client.config_embeds.default)
                     .setDescription(`📊 **${formatCurrency(data.used)}** / **${formatCurrency(data.donated)}** used${user.id === interaction.user.id ? `\n💸 You can buy ${data.donated === 0 ? "" : "more"} credits by donating on [**PayPal**](https://paypal.me/DanBotHosting) or [**Donation Alerts**](https://www.donationalerts.com/r/danbothosting).` : ""}`)
 
-                if(user.id !== interaction.user.id) count.setAuthor({ name: user.tag.endsWith("#0") ? user.username : user.tag, iconURL: user.displayAvatarURL({ extension: "png", forceStatic: false }), url: `https://discord.com/users/${user.id}` })
+                if(user.id !== interaction.user.id) count.setAuthor({ name: user.tag, iconURL: user.displayAvatarURL({ extension: "png", forceStatic: false }), url: `https://discord.com/users/${user.id}` })
 
                 const buttons = new Discord.ActionRowBuilder()
                     .addComponents (

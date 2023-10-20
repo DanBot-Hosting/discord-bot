@@ -78,7 +78,7 @@ const command: Command = {
             // Create the code drop embed
             const drop = new Discord.EmbedBuilder()
                 .setColor(client.config_embeds.default)
-                .setAuthor({ name: interaction.user.tag.endsWith("#0") ? interaction.user.username : interaction.user.tag, iconURL: interaction.user.displayAvatarURL({ extension: "png", forceStatic: false }), url: `https://discord.com/users/${interaction.user.id}` })
+                .setAuthor({ name: interaction.user.tag, iconURL: interaction.user.displayAvatarURL({ extension: "png", forceStatic: false }), url: `https://discord.com/users/${interaction.user.id}` })
                 .setTitle("Code Drop")
                 .setDescription(`Use </redeem:${client.commandIds.get("redeem")}> to claim the code!\nThis code will expire in 2 minutes.`)
                 .addFields (

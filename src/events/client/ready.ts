@@ -16,7 +16,7 @@ const event: Event = {
     async execute(client: ExtendedClient) {
         try {
             // Login Message
-            console.log(`Logged in as: ${client.user.tag.endsWith("#0") ? client.user.username : client.user.tag}`);
+            console.log(`Logged in as: ${client.user.tag}`);
 
             // Register Commands
             await globalCommands(client);
