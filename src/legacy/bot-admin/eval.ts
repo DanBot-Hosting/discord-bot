@@ -37,6 +37,8 @@ const command: LegacyCommand = {
                 let output: string = await eval(args.join(" "));
 
                 if(output || output.length) {
+                    output = output.toString();
+
                     // Censor the database URL, Sentry DSN and bot token if they are returned
                     if(output.includes(process.env.database) && process.env.database) output = output.replace(process.env.database, "[CENSORED_DATABASE_URL]");
                     if(output.includes(process.env.sentry_dsn) && process.env.sentry_dsn) output = output.replace(process.env.sentry_dsn, "[CENSORED_SENTRY_DSN]");
