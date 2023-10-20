@@ -24,6 +24,8 @@ const command: LegacyCommand = {
                 return;
             }
 
+            console.log(`[eval] [input] ${message.author.tag} (${message.author.id}): ${args.join(" ")}`);
+
             const evalInput = new Discord.EmbedBuilder()
                 .setColor(client.config_embeds.default)
                 .setTitle("📥 Input")
@@ -41,6 +43,8 @@ const command: LegacyCommand = {
                     if(output.includes(process.env.database) && process.env.database) output = output.replace(process.env.database, "[CENSORED_DATABASE_URL]");
                     if(output.includes(process.env.sentry_dsn) && process.env.sentry_dsn) output = output.replace(process.env.sentry_dsn, "[CENSORED_SENTRY_DSN]");
                     if(output.includes(process.env.token) && process.env.token) output = output.replace(process.env.token, "[CENSORED_BOT_TOKEN]");
+
+                    console.log(`[eval] [output] ${message.author.tag} (${message.author.id}): ${output}`);
 
                     const evalOutput = new Discord.EmbedBuilder()
                         .setColor(client.config_embeds.default)
