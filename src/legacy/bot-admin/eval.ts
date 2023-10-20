@@ -32,9 +32,9 @@ const command: LegacyCommand = {
 
             try {
                 // Run the code
-                let output = await eval(args.join(" "));
+                let output: string = await eval(args.join(" "));
 
-                if(output) {
+                if(output.length) {
                     output = output.toString();
 
                     // Censor the database URL, Sentry DSN and bot token if they are returned
