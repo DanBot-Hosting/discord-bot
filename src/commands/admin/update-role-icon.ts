@@ -25,7 +25,7 @@ const command: Command = {
     ],
     default_member_permissions: PermissionFlagsBits.ManageRoles.toString(),
     botPermissions: ["ManageRoles"],
-    requiredRoles: ["admin"],
+    requiredRoles: [],
     cooldown: 5,
     enabled: true,
     deferReply: true,
