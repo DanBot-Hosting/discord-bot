@@ -37,14 +37,12 @@ const command: LegacyCommand = {
                 let output: string = await eval(args.join(" "));
 
                 if(output || output.length) {
-                    output = output.toString();
-
                     // Censor the database URL, Sentry DSN and bot token if they are returned
                     if(output.includes(process.env.database) && process.env.database) output = output.replace(process.env.database, "[CENSORED_DATABASE_URL]");
                     if(output.includes(process.env.sentry_dsn) && process.env.sentry_dsn) output = output.replace(process.env.sentry_dsn, "[CENSORED_SENTRY_DSN]");
                     if(output.includes(process.env.token) && process.env.token) output = output.replace(process.env.token, "[CENSORED_BOT_TOKEN]");
 
-                    console.log(`[eval] [output] ${message.author.tag} (${message.author.id}): ${output}`);
+                    console.log(`[eval] [output] ${message.author.tag} (${message.author.id}):`, output);
 
                     const evalOutput = new Discord.EmbedBuilder()
                         .setColor(client.config_embeds.default)
