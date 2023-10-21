@@ -50,7 +50,7 @@ const command: LegacyCommand = {
                 // Run the code
                 let output: string = await eval(args.join(" "));
 
-                if(output || output.length) {
+                if(output) {
                     output = output.toString();
 
                     // Censor the database URL, Sentry DSN and bot token if they are returned
@@ -68,6 +68,8 @@ const command: LegacyCommand = {
 
                     msg.edit({ embeds: [evalInput, evalOutput, info] });
                 } else {
+                    console.log(`[eval] [output] ${message.author.tag} (${message.author.id}):`, output);
+
                     const evalOutput = new Discord.EmbedBuilder()
                         .setColor(client.config_embeds.error)
                         .setTitle("📤 Output")
@@ -81,6 +83,8 @@ const command: LegacyCommand = {
                 if(err.message.includes(process.env.database) && process.env.database) err.message = err.message.replace(process.env.database, "[CENSORED_MONGODB_URI]");
                 if(err.message.includes(process.env.sentry_dsn) && process.env.sentry_dsn) err.message = err.message.replace(process.env.sentry_dsn, "[CENSORED_SENTRY_DSN]");
                 if(err.message.includes(process.env.token) && process.env.token) err.message = err.message.replace(process.env.token, "[CENSORED_BOT_TOKEN]");
+
+                console.log(`[eval] [error] ${message.author.tag} (${message.author.id}):`, err.message);
 
                 const evalOutput = new Discord.EmbedBuilder()
                     .setColor(client.config_embeds.error)
