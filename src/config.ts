@@ -61,7 +61,8 @@ const emojis = {
 
 const main = {
     autoCrosspost: [
-        "898327108898684938" // #server-status
+        "898327108898684938", // #server-status
+        "1165422634226434180" // #bot-status
     ],
     legacyPrefix: "DBHB!" as string,
     primaryGuild: "639477525927690240" as Snowflake, // DanBot Hosting
