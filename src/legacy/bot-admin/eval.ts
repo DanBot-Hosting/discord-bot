@@ -26,11 +26,25 @@ const command: LegacyCommand = {
 
             console.log(`[eval] [input] ${message.author.tag} (${message.author.id}): ${args.join(" ")}`);
 
+            const info = new Discord.EmbedBuilder()
+                .setColor(client.config_embeds.default)
+                .addFields (
+                    { name: `${emoji.nodejs} Node.js`, value: `${process.version}`, inline: true },
+                    { name: `${emoji.discordjs} Discord.js`, value: `v${Discord.version}`, inline: true }
+                )
+
             const evalInput = new Discord.EmbedBuilder()
                 .setColor(client.config_embeds.default)
                 .setTitle("📥 Input")
                 .setDescription(`\`\`\`js\n${cap(args.join(" "), 4000)}\`\`\``)
                 .setTimestamp()
+
+            const evaluating = new Discord.EmbedBuilder()
+                .setColor(client.config_embeds.default)
+                .setTitle("📤 Output")
+                .setDescription(`${emoji.ping} Evaluating...`)
+
+            const msg = await message.reply({ embeds: [evalInput, evaluating, info] });
 
             try {
                 // Run the code
@@ -52,7 +66,7 @@ const command: LegacyCommand = {
                         .setDescription(`\`\`\`js\n${cap(output, 4000)}\`\`\``)
                         .setTimestamp()
 
-                    message.reply({ embeds: [evalInput, evalOutput] });
+                    msg.edit({ embeds: [evalInput, evalOutput, info] });
                 } else {
                     const evalOutput = new Discord.EmbedBuilder()
                         .setColor(client.config_embeds.error)
@@ -60,7 +74,7 @@ const command: LegacyCommand = {
                         .setDescription("No output was returned.")
                         .setTimestamp()
 
-                    message.reply({ embeds: [evalInput, evalOutput] });
+                    message.reply({ embeds: [evalInput, evalOutput, info] });
                 }
             } catch(err) {
                 // Censor the database URL, Sentry DSN and bot token if they are returned
@@ -74,7 +88,7 @@ const command: LegacyCommand = {
                     .setDescription(`\`\`\`js\n${cap(err.message, 4000)}\`\`\``)
                     .setTimestamp()
 
-                message.reply({ embeds: [evalInput, evalOutput] });
+                msg.edit({ embeds: [evalInput, evalOutput, info] });
             }
         } catch(err) {
             client.logLegacyError(err, message, Discord);

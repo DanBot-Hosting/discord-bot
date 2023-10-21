@@ -51,6 +51,9 @@ const emojis = {
     cross: "<:cross:1152422111030292561>",
     dbh_check: "<:DBH_Check:1124437152625868810>",
     dbh_cross: "<:DBH_Cross:1158710201529139281>",
+    discord: "<:discord:1165092853295357972>",
+    discordjs: "<:discordjs:1165090727609507860>",
+    nodejs: "<:nodejs:1165090732344885381>",
     ping: "<a:ping:1156039801523404850>",
     reply: "<:reply:1152422114792571070>",
     tick: "<:tick:1152422108291399761>"
