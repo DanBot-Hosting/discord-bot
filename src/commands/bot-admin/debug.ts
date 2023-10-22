@@ -1,6 +1,6 @@
 import Command from "../../classes/Command";
 import ExtendedClient from "../../classes/ExtendedClient";
-import { APIGatewaySessionStartLimit, CommandInteraction } from "discord.js";
+import { CommandInteraction } from "discord.js";
 
 import { emojis as emoji } from "../../config";
 import osu from "node-os-utils";
