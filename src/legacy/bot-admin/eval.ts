@@ -30,17 +30,13 @@ const command: LegacyCommand = {
                 .setColor(client.config_embeds.default)
                 .setTitle("📥 Input")
                 .setDescription(`\`\`\`js\n${cap(args.join(" "), 4000)}\`\`\``)
-                .addFields (
-                    { name: `**${emoji.nodejs} ${process.version}**`, value: `**${emoji.discordjs} v${Discord.version}**`, inline: true }
-                )
                 .setTimestamp()
 
             const evaluating = new Discord.EmbedBuilder()
                 .setColor(client.config_embeds.default)
-                .setTitle("📤 Output")
                 .setDescription(`${emoji.ping} Evaluating...`)
 
-            const msg = await message.reply({ embeds: [evalInput, evaluating] });
+            const msg = await message.reply({ embeds: [evaluating] });
 
             try {
                 // Run the code
