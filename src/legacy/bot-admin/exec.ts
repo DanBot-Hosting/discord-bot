@@ -67,19 +67,6 @@ const command: LegacyCommand = {
                     return;
                 }
 
-                if(stdout !== null && stdout !== undefined) {
-                    console.log(`[exec] [stdout] ${message.author.tag} (${message.author.id}):`, stdout);
-
-                    const execOutput = new Discord.EmbedBuilder()
-                        .setColor(client.config_embeds.error)
-                        .setTitle("📤 Output (stdout)")
-                        .setDescription("No output was returned.")
-                        .setTimestamp()
-
-                    msg.edit({ embeds: [execInput, execOutput] });
-                    return;
-                }
-
                 console.log(`[exec] [output] ${message.author.tag} (${message.author.id}):`, stdout);
 
                 const execOutput = new Discord.EmbedBuilder()
