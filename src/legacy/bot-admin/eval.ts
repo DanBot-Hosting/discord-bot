@@ -31,7 +31,7 @@ const command: LegacyCommand = {
                 .setTitle("📥 Input")
                 .setDescription(`\`\`\`js\n${cap(args.join(" "), 4000)}\`\`\``)
                 .addFields (
-                    { name: `${emoji.nodejs} ${process.version}`, value: `**${emoji.discordjs} v${Discord.version}**`, inline: true }
+                    { name: `**${emoji.nodejs} ${process.version}**`, value: `**${emoji.discordjs} v${Discord.version}**`, inline: true }
                 )
                 .setTimestamp()
 
