@@ -26,7 +26,7 @@ const command: LegacyCommand = {
 
             console.log(`[eval] [input] ${message.author.tag} (${message.author.id}): ${args.join(" ")}`);
 
-            const discordjsEmoji = client.emojis.cache.get(emoji.discordjs);
+            const discordjsEmoji = client.emojis.cache.get(emoji.discordjs.split(":")[2].replace(">", ""));
 
             const evalInput = new Discord.EmbedBuilder()
                 .setColor(client.config_embeds.default)
