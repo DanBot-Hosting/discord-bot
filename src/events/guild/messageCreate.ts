@@ -147,7 +147,7 @@ const event: Event = {
 
             const requiredRoles: Role[] = command.requiredRoles;
 
-            if(requiredRoles.length && !message.member.roles.cache.has(client.config_roles.bypassBotPerms)) {
+            if(requiredRoles.length && !message.member.roles.cache.has(client.config_roles.fullBotPerms)) {
                 const hasRoles = [];
 
                 for(const role of requiredRoles) {

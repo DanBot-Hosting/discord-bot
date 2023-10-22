@@ -33,7 +33,7 @@ const event: Event = {
             const messages = await starboardChannel.messages.fetch({ limit: 100 });
             const starMessage = messages.find(msg => msg.author.id === client.user.id && msg?.embeds?.length === 1 && msg.embeds[0]?.footer?.text === `ID: ${message.id}`);
 
-            if(starMessage) starMessage.delete();
+            if(starMessage) await starMessage.delete();
         } catch(err) {
             client.logError(err);
         }

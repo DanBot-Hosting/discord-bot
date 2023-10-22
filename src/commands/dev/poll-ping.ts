@@ -35,10 +35,10 @@ const command: Command = {
                 return;
             }
 
-            // Return error if the user does not have the pollPingAllowed role
+            // Return error if the user does not have the pollPingPerms role
             const roles = await interaction.guild.members.fetch(interaction.user.id).then(member => member.roles.cache.map(role => role.id));
 
-            if(!roles.includes(client.config_roles.pollPingAllowed)) {
+            if(!roles.includes(client.config_roles.pollPingPerms)) {
                 await interaction.editReply({ embeds: [noPermissionCommand] });
                 return;
             }

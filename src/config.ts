@@ -81,15 +81,15 @@ const roles = {
     admin: "898041747219828796",
     botAdmin: "898041743566594049",
     bots: "898041770082959432",
-    bypassBotPerms: "1162544528297840691",
     dev: "898041747597295667",
     donator: "898041754564046869",
+    fullBotPerms: "1162544528297840691",
     helper: "898041750545903707",
     member: "898041757168697375",
     mod: "898041748817842176",
     owner: "898041741695926282",
     pollPing: "898041781927682090",
-    pollPingAllowed: "1157497265708093520",
+    pollPingPerms: "1157497265708093520",
     staff: "898041751099539497"
 }
 
@@ -98,14 +98,14 @@ const starboard = {
         "898041849783148585", // #lounge
         "898041857550995506", // #memes
         "898041861040664576", // #setups
-        "898041851729305621", // #spam
         "898041858666668092", // #pets
         "898041865616650240", // #dono-lounge
+        "898354771927400538", // #beta-lounge
         "898041875192234054", // #vps-chat
-        "898354771927400538" // #beta-lounge
+        "1165092426625589279"
     ],
     emoji: "⭐", // The emoji to react with
-    threshold: 5 // Minimum reactions required to post on starboard
+    threshold: 5, // Reactions required to post on the starboard
 }
 
 export {
