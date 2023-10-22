@@ -69,7 +69,7 @@ const command: LegacyCommand = {
 
                 console.log(`[exec] [stdout] ${message.author.tag} (${message.author.id}):`, stdout);
 
-                if(stdout === "") {
+                if(stdout === "" || stdout == null || stdout == undefined) {
                     const execOutput = new Discord.EmbedBuilder()
                         .setColor(client.config_embeds.error)
                         .setTitle("📤 Output (stdout)")
