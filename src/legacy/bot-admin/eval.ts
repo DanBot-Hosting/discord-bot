@@ -32,7 +32,7 @@ const command: LegacyCommand = {
                 .setColor(client.config_embeds.default)
                 .setTitle("📥 Input")
                 .setDescription(`\`\`\`js\n${cap(args.join(" "), 4000)}\`\`\``)
-                .setFooter({ text: `v${Discord.version}`, iconURL: discordjsEmoji.url })
+                .setFooter({ text: `Discord.js v${Discord.version}`, iconURL: discordjsEmoji.url })
                 .setTimestamp()
 
             const evaluating = new Discord.EmbedBuilder()
