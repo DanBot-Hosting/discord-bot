@@ -26,14 +26,13 @@ const command: LegacyCommand = {
 
             console.log(`[eval] [input] ${message.author.tag} (${message.author.id}): ${args.join(" ")}`);
 
+            const discordjsEmoji = client.emojis.cache.get(emoji.discordjs);
+
             const evalInput = new Discord.EmbedBuilder()
                 .setColor(client.config_embeds.default)
                 .setTitle("📥 Input")
                 .setDescription(`\`\`\`js\n${cap(args.join(" "), 4000)}\`\`\``)
-                .addFields (
-                    { name: `${emoji.nodejs} Node.js`, value: `${process.version}`, inline: true },
-                    { name: `${emoji.discordjs} Discord.js`, value: `v${Discord.version}`, inline: true }
-                )
+                .setFooter({ text: `v${Discord.version}`, iconURL: discordjsEmoji.url })
                 .setTimestamp()
 
             const evaluating = new Discord.EmbedBuilder()
