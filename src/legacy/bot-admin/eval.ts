@@ -68,7 +68,7 @@ const command: LegacyCommand = {
                         .setDescription("No output was returned.")
                         .setTimestamp()
 
-                    message.reply({ embeds: [evalInput, evalOutput] });
+                    msg.edit({ embeds: [evalInput, evalOutput] });
                 }
             } catch(err) {
                 // Censor the database URL, Sentry DSN and bot token if they are returned
