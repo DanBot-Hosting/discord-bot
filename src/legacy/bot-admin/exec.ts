@@ -30,7 +30,7 @@ const command: LegacyCommand = {
             const execInput = new Discord.EmbedBuilder()
                 .setColor(client.config_embeds.default)
                 .setTitle("📥 Input")
-                .setDescription(`\`\`\`js\n${cap(args.join(" "), 4000)}\`\`\``)
+                .setDescription(`\`\`\`\n${cap(args.join(" "), 4000)}\`\`\``)
                 .setTimestamp()
 
             const executing = new Discord.EmbedBuilder()
