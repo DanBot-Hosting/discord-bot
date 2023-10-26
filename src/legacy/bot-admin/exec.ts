@@ -47,7 +47,7 @@ const command: LegacyCommand = {
                     const execOutput = new Discord.EmbedBuilder()
                         .setColor(client.config_embeds.error)
                         .setTitle("📤 Output (error)")
-                        .setDescription(`\`\`\`js\n${cap(err.message, 4000)}\`\`\``)
+                        .setDescription(`\`\`\`\n${cap(err.message, 4000)}\`\`\``)
                         .setTimestamp()
 
                     msg.edit({ embeds: [execInput, execOutput] });
@@ -60,7 +60,7 @@ const command: LegacyCommand = {
                     const execOutput = new Discord.EmbedBuilder()
                         .setColor(client.config_embeds.error)
                         .setTitle("📤 Output (stderr)")
-                        .setDescription(`\`\`\`js\n${cap(stderr, 4000)}\`\`\``)
+                        .setDescription(`\`\`\`\n${cap(stderr, 4000)}\`\`\``)
                         .setTimestamp()
 
                     msg.edit({ embeds: [execInput, execOutput] });
@@ -83,7 +83,7 @@ const command: LegacyCommand = {
                 const execOutput = new Discord.EmbedBuilder()
                     .setColor(client.config_embeds.default)
                     .setTitle("📤 Output (stdout)")
-                    .setDescription(`\`\`\`js\n${cap(stdout, 4000)}\`\`\``)
+                    .setDescription(`\`\`\`\n${cap(stdout, 4000)}\`\`\``)
                     .setTimestamp()
 
                 msg.edit({ embeds: [execInput, execOutput] });
