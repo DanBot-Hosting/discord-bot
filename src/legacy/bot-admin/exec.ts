@@ -42,7 +42,7 @@ const command: LegacyCommand = {
             // Run the command
             exec(args.join(" "), (err: Error, stdout: string, stderr: string) => {
                 if(err) {
-                    console.log(`[exec] [error] ${message.author.tag} (${message.author.id}):`, err.message);
+                    console.log(`[exec] [error] ${message.author.tag} (${message.author.id}):\n` + err);
 
                     const execOutput = new Discord.EmbedBuilder()
                         .setColor(client.config_embeds.error)
@@ -55,7 +55,7 @@ const command: LegacyCommand = {
                 }
 
                 if(stderr) {
-                    console.log(`[exec] [stderr] ${message.author.tag} (${message.author.id}):`, stderr);
+                    console.log(`[exec] [stderr] ${message.author.tag} (${message.author.id}):\n` + stderr);
 
                     const execOutput = new Discord.EmbedBuilder()
                         .setColor(client.config_embeds.error)
@@ -67,7 +67,7 @@ const command: LegacyCommand = {
                     return;
                 }
 
-                console.log(`[exec] [stdout] ${message.author.tag} (${message.author.id}):`, stdout);
+                console.log(`[exec] [stdout] ${message.author.tag} (${message.author.id}):\n` + stdout);
 
                 if(stdout === "" || stdout == null || stdout == undefined) {
                     const execOutput = new Discord.EmbedBuilder()
