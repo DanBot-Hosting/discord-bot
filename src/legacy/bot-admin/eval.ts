@@ -50,7 +50,7 @@ const command: LegacyCommand = {
                     if(output.includes(process.env.sentry_dsn) && process.env.sentry_dsn) output = output.replace(process.env.sentry_dsn, "[CENSORED_SENTRY_DSN]");
                     if(output.includes(process.env.token) && process.env.token) output = output.replace(process.env.token, "[CENSORED_BOT_TOKEN]");
 
-                    console.log(`[eval] [output] ${message.author.tag} (${message.author.id}):`, output);
+                    console.log(`[eval] [output] ${message.author.tag} (${message.author.id}):\n`, output);
 
                     const evalOutput = new Discord.EmbedBuilder()
                         .setColor(client.config_embeds.default)
@@ -60,7 +60,7 @@ const command: LegacyCommand = {
 
                     msg.edit({ embeds: [evalInput, evalOutput] });
                 } else {
-                    console.log(`[eval] [output] ${message.author.tag} (${message.author.id}):`, output);
+                    console.log(`[eval] [output] ${message.author.tag} (${message.author.id}):\n`, output);
 
                     const evalOutput = new Discord.EmbedBuilder()
                         .setColor(client.config_embeds.error)
@@ -76,7 +76,7 @@ const command: LegacyCommand = {
                 if(err.message.includes(process.env.sentry_dsn) && process.env.sentry_dsn) err.message = err.message.replace(process.env.sentry_dsn, "[CENSORED_SENTRY_DSN]");
                 if(err.message.includes(process.env.token) && process.env.token) err.message = err.message.replace(process.env.token, "[CENSORED_BOT_TOKEN]");
 
-                console.log(`[eval] [error] ${message.author.tag} (${message.author.id}):`, err.message);
+                console.log(`[eval] [error] ${message.author.tag} (${message.author.id}):\n`, err);
 
                 const evalOutput = new Discord.EmbedBuilder()
                     .setColor(client.config_embeds.error)
