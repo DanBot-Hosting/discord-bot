@@ -4,7 +4,7 @@ import { Message } from "discord.js";
 
 import cap from "../../util/plainCap";
 import { emojis as emoji } from "../../config";
-import { ChildProcess, exec, execSync } from "child_process";
+import { exec } from "child_process";
 
 const command: LegacyCommand = {
     name: "exec",
