@@ -55,7 +55,7 @@ const event: Event = {
                         .setColor(client.config_embeds.default)
                         .setDescription(`You have been ${added ? "added to" : "removed from"} the **${role.name}** role.`)
 
-                    await member.send({ embeds: [dm] });
+                    member.send({ embeds: [dm] });
                 } catch {}
 
                 await reaction.users.remove(user.id);
