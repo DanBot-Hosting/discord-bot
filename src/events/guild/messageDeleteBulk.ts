@@ -30,8 +30,8 @@ const event: Event = {
             const starboardMessages = channelMsgs.filter(msg => msg.author.id === client.user.id && msg.embeds.length === 1 && msg.embeds[0].footer.text.startsWith("ID: "));
 
             for(const message of messages.values()) {
-                // Return if the message is more than 1 week old
-                if(message.createdTimestamp < Date.now() - 604800000) continue;
+                // Return if the message is more than 1 month old
+                if(message.createdTimestamp < Date.now() - 2592000000) return;
 
                 const starboardMessage = starboardMessages.find(msg => msg.embeds[0].footer.text === `ID: ${message.id}`);
 

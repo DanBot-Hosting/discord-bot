@@ -66,8 +66,8 @@ const event: Event = {
             // Return if the reaction emoji is not the starboard emoji
             if(reaction.emoji.name !== starboard.emoji) return;
 
-            // Return if the message is more than 1 week old
-            if(message.createdTimestamp < Date.now() - 604800000) return;
+            // Return if the message is more than 1 month old
+            if(message.createdTimestamp < Date.now() - 2592000000) return;
 
             // Return if the reaction count is less than the required amount
             if(reaction.count < starboard.threshold) return;

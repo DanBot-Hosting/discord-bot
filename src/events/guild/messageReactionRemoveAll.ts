@@ -20,8 +20,8 @@ const event: Event = {
             if(!message.guild.members.me.permissions.has(requiredPerms)) return;
 
             // Starboard
-            // Return if the message is more than 1 week old
-            if(message.createdTimestamp < Date.now() - 604800000) return;
+            // Return if the message is more than 1 month old
+            if(message.createdTimestamp < Date.now() - 2592000000) return;
 
             // Return if the message is in the starboard channel or in a channel that is not allowed
             if(message.channel.id === channels.starboard || !starboard.allowed.includes(message.channel.id)) return;
