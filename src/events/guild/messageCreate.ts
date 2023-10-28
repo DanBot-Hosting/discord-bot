@@ -115,7 +115,15 @@ const event: Event = {
                     .setFooter({ text: `${confidence}% confidence` })
                     .setTimestamp()
 
-                message.reply({ embeds: [response] });
+                const buttons: any = new Discord.ActionRowBuilder()
+                    .addComponents (
+                        new Discord.ButtonBuilder()
+                            .setStyle(Discord.ButtonStyle.Secondary)
+                            .setCustomId(`delete-message-${message.author.id}`)
+                            .setEmoji("🗑️")
+                    )
+
+                message.reply({ embeds: [response], components: [buttons] });
                 return;
             }
 
