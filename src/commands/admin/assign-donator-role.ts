@@ -19,6 +19,16 @@ const command: Command = {
     ephemeral: false,
     async execute(interaction: CommandInteraction, client: ExtendedClient, Discord: typeof import("discord.js")) {
         try {
+            // Return if the comand is not being used in the primary guild
+            if(interaction.guild.id !== client.config_main.primaryGuild) {
+                const error = new Discord.EmbedBuilder()
+                    .setColor(client.config_embeds.error)
+                    .setDescription(`${emoji.cross} This command can only be used in the primary guild.`)
+
+                await interaction.editReply({ embeds: [error] });
+                return;
+            }
+
             const fetching = new Discord.EmbedBuilder()
                 .setColor(client.config_embeds.default)
                 .setDescription(`${emoji.ping} Fetching users...`)

@@ -22,13 +22,23 @@ const command: Command = {
     ],
     default_member_permissions: PermissionFlagsBits.ManageChannels.toString(),
     botPermissions: ["ManageChannels", "ManageRoles"],
-    requiredRoles: [],
+    requiredRoles: ["staff"],
     cooldown: 10,
     enabled: true,
     deferReply: true,
     ephemeral: false,
     async execute(interaction: CommandInteraction & any, client: ExtendedClient, Discord: typeof import("discord.js")) {
         try {
+            // Return if the comand is not being used in the primary guild
+            if(interaction.guild.id !== client.config_main.primaryGuild) {
+                const error = new Discord.EmbedBuilder()
+                    .setColor(client.config_embeds.error)
+                    .setDescription(`${emoji.cross} This command can only be used in the primary guild.`)
+
+                await interaction.editReply({ embeds: [error] });
+                return;
+            }
+
             const voiceChannel = await client.channels.fetch(client.config_channels.voice.dbh) as VoiceChannel;
 
             if(interaction.options.getSubcommand() === "lock") {
