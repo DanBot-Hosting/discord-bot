@@ -113,3 +113,7 @@ client.validPermissions = [
     "UseSoundboard",
     "SendVoiceMessages"
 ]
+
+// Start Verification Server
+import verification from "./verification/index";
+verification();

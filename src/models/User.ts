@@ -2,6 +2,7 @@ import { model, Schema } from "mongoose";
 
 const schema = new Schema({
     _id: String,
+    verified: Boolean,
     console_id: Number,
     console_username: String,
     console_linked: Number,

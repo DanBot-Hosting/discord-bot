@@ -7,6 +7,7 @@ declare global {
             database: string;
             sentry_dsn: string;
             token: string;
+            verification_server_port: string;
         }
     }
 }
