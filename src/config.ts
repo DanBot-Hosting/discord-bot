@@ -12,6 +12,7 @@ const categories = {
 }
 
 const channels = {
+    accountLogs: "1168034234179539044",
     announcements: "898050443446464532",
     changelogs: "960242064338092202",
     devQuestions: "1083142107977486389",

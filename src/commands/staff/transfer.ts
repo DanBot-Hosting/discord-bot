@@ -202,7 +202,7 @@ const command: Command = {
                             { name: "✨ Credit", value: `**${formatCurrency(fromUser.credit_amount)}**` }
                         )
 
-                    const channel = client.channels.cache.get(client.config_channels.otherLogs) as TextChannel;
+                    const channel = client.channels.cache.get(client.config_channels.accountLogs) as TextChannel;
 
                     channel.send({ embeds: [log, dataLog] });
                     return;
