@@ -62,7 +62,7 @@ const event: Event = {
             if(message.mentions.members.size >= 20 && !userRoles.staff) return;
 
             // Auto crosspost messages
-            if(main.autoCrosspost.includes(message.channel.id) && message.crosspostable) return await message.crosspost();
+            if(main.autoCrosspost.includes(message.channel.id) && message.crosspostable && !message.content.startsWith(">")) return await message.crosspost();
 
             // React to messages in the suggestion channels
             if(main.suggestionReactions && main.suggestionChannels.includes(message.channel.id) && !message.content.startsWith(">")) {
