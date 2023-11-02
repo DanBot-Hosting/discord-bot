@@ -164,7 +164,7 @@ const command: Command = {
 
                     await i.edit({ embeds: [deleting] });
 
-                    await fromUser.delete();
+                    await fromUser.deleteOne();
 
                     const assigningRoles = new Discord.EmbedBuilder()
                         .setColor(client.config_embeds.default)

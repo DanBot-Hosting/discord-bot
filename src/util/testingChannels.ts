@@ -13,7 +13,7 @@ export default async function (client: ExtendedClient) {
         if(!guild.channels.cache.get(item.channel)) {
             console.log(`[testingChannels] ${item.id} (${item.channel}) does not exist, deleting from database...`);
 
-            await item.delete();
+            await item.deleteOne();
             continue;
         }
 
@@ -26,7 +26,7 @@ export default async function (client: ExtendedClient) {
 
             if(channel) await channel.delete();
 
-            await item.delete();
+            await item.deleteOne();
 
             // Log to console
             console.log(`[testingChannels] Deleted testing channel ${item.id} (${item.channel}).`);

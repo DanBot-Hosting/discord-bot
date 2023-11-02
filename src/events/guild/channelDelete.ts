@@ -21,7 +21,7 @@ const event: Event = {
                     // Log to console
                     console.log(`[channelDelete] [testingChannels] ${data.id} (${data.channel}) was deleted manually, deleting from database...`);
 
-                    await data.delete();
+                    await data.deleteOne();
 
                     // Log to console
                     console.log(`[channelDelete] [testingChannels] Deleted testing channel ${data.id} (${data.channel}) from the database.`);

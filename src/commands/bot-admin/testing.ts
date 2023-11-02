@@ -201,7 +201,7 @@ const command: Command = {
                     return;
                 }
 
-                if(data) await data.delete();
+                if(data) await data.deleteOne();
                 await channel.delete();
                 return;
             }
@@ -250,7 +250,7 @@ const command: Command = {
 
                         await interaction.editReply({ embeds: [deleting] });
 
-                        await item.delete();
+                        await item.deleteOne();
                         await channel.delete();
                     } catch(err) {
                         const error = new Discord.EmbedBuilder()
@@ -259,7 +259,7 @@ const command: Command = {
 
                         await interaction.editReply({ embeds: [error] });
 
-                        await item.delete();
+                        await item.deleteOne();
                     }
                 }
 
