@@ -32,9 +32,6 @@ export default async () => {
     app.engine("html", require("ejs").renderFile);
     app.set("view engine", "ejs");
 
-    if(!fs.existsSync("uploads")) fs.mkdirSync("uploads");
-    app.use(express.static("uploads"));
-
     app.use("/", router);
 
     app.use(Sentry.Handlers.errorHandler());
