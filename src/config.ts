@@ -96,6 +96,7 @@ const roles = {
 const starboard = {
     allowed: [
         "898041849783148585", // #lounge
+        "898041854262648842", // #thank-you-dan
         "898041857550995506", // #memes
         "898041861040664576", // #setups
         "898041858666668092", // #pets
