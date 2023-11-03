@@ -6,10 +6,11 @@ export default class Roles {
     public mod: Boolean;
     public helper: Boolean;
     public staff: Boolean;
+    public betaTester: Boolean;
     public donator: Boolean;
 }
 
-export type Role = "owner" | "botAdmin" | "admin" | "dev" | "mod" | "helper" | "staff" | "donator";
+export type Role = "owner" | "botAdmin" | "admin" | "dev" | "mod" | "helper" | "staff" | "betaTester" | "donator";
 
 export function getRoleArray(object: Roles): Role[] {
     const roles: Role[] = [];
@@ -21,6 +22,7 @@ export function getRoleArray(object: Roles): Role[] {
     if(object.mod) roles.push("mod");
     if(object.helper) roles.push("helper");
     if(object.staff) roles.push("staff");
+    if(object.betaTester) roles.push("betaTester");
     if(object.donator) roles.push("donator");
 
     return roles;
@@ -34,5 +36,6 @@ export function getRoleWithEmoji(role: Role): string {
     if(role === "mod") return "🔨 Moderator";
     if(role === "helper") return "🆘 Helper";
     if(role === "staff") return "👔 Staff";
+    if(role === "betaTester") return "🧪 Beta Tester";
     if(role === "donator") return "💸 Donator";
 }

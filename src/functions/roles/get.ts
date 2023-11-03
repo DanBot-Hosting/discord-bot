@@ -19,6 +19,7 @@ export default async function (userId: Snowflake, client: ExtendedClient & any):
             mod: roles.includes(role.mod),
             helper: roles.includes(role.helper),
             staff: roles.includes(role.staff),
+            betaTester: roles.includes(role.betaTester),
             donator: roles.includes(role.donator)
         }
     } catch(err) {
@@ -30,6 +31,7 @@ export default async function (userId: Snowflake, client: ExtendedClient & any):
             mod: false,
             helper: false,
             staff: false,
+            betaTester: false,
             donator: false
         }
     }
