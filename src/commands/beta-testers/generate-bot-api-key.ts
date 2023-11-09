@@ -24,19 +24,38 @@ const command: Command = {
 
             await interaction.editReply({ embeds: [generating] });
 
-            const res = await axios.post(`https://${client.config_main.botAPIDomain}/apikey`, {
-                params: {
-                    "discordid": interaction.user.id,
-                    "key": process.env.bot_api_master_key
-                }
-            })
+            let data = null;
+
+            try {
+                const result = await axios.post(`https://${client.config_main.botAPIDomain}/apikey?discordid=${interaction.user.id}&key=${process.env.bot_api_master_key}`, {
+                    headers: {
+                        "User-Agent": "DBH"
+                    }
+                })
+
+                data = result.data;
+            } catch(err) {
+                data = err.response.data;
+            }
+
+            if(data.error) {
+                const error = new Discord.EmbedBuilder()
+                    .setColor(client.config_embeds.error)
+                    .setDescription(`${emoji.cross} An error occurred while generating your API key.`)
+                    .addFields (
+                        { name: "Error Message", value: `\`\`\`${data.error}\`\`\`` }
+                    )
+
+                await interaction.editReply({ embeds: [error] });
+                return;
+            }
 
             const generated = new Discord.EmbedBuilder()
                 .setColor(client.config_embeds.default)
                 .setDescription(`${emoji.tick} Your API key has been generated!`)
                 .addFields (
-                    { name: "API Key", value: `\`${res.data.result}\`` },
-                    { name: "Note", value: "**Do not** share this key with anyone. If you believe it has been compromised, please regenerate it." }
+                    { name: "API Key", value: `\`${data.result}\`` },
+                    { name: "__WARNING__", value: "Do **NOT** share this API key with anyone.\nIf you believe it has been compromised, please contact an administrator." }
                 )
 
             await interaction.editReply({ embeds: [generated] });
