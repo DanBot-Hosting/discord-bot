@@ -64,7 +64,7 @@ const main = {
     autoCrosspost: [
         "898327108898684938" // #server-status
     ],
-    botAPIDomain: "10.10.10.3:1120" as string,
+    botAPIDomain: "bot-api.danbot.host" as string,
     legacyPrefix: "DBHB!" as string,
     primaryGuild: "639477525927690240" as Snowflake, // DanBot Hosting
     suggestionChannels: [

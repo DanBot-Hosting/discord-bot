@@ -13,7 +13,7 @@ const command: Command = {
     botPermissions: [],
     requiredRoles: ["betaTester"],
     cooldown: 120,
-    enabled: false,
+    enabled: true,
     deferReply: true,
     ephemeral: true,
     async execute(interaction: CommandInteraction, client: ExtendedClient, Discord: typeof import("discord.js")) {
@@ -24,7 +24,7 @@ const command: Command = {
 
             await interaction.editReply({ embeds: [generating] });
 
-            const res = await axios.post(`http://${client.config_main.botAPIDomain}/apikey`, {
+            const res = await axios.post(`https://${client.config_main.botAPIDomain}/apikey`, {
                 params: {
                     "discordid": interaction.user.id,
                     "key": process.env.bot_api_master_key
