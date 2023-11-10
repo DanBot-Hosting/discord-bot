@@ -52,13 +52,24 @@ const command: Command = {
 
             const generated = new Discord.EmbedBuilder()
                 .setColor(client.config_embeds.default)
-                .setDescription(`${emoji.tick} Your API key has been generated!`)
+                .setTitle("Bot API Key")
                 .addFields (
                     { name: "API Key", value: `\`${data.result}\`` },
+                    { name: "__NOTE__", value: "Please save this key someone secure as this will not be shown again!" },
                     { name: "__WARNING__", value: "Do **NOT** share this API key with anyone.\nIf you believe it has been compromised, please contact an administrator." }
                 )
 
-            await interaction.editReply({ embeds: [generated] });
+            try {
+                await interaction.user.send({ embeds: [generated] });
+
+                const sent = new Discord.EmbedBuilder()
+                    .setColor(client.config_embeds.default)
+                    .setDescription(`${emoji.tick} Check your DMs!`)
+
+                await interaction.editReply({ embeds: [sent] });
+            } catch(err) {
+                await interaction.editReply({ embeds: [generated] });
+            }
         } catch(err) {
             client.logCommandError(err, interaction, Discord);
         }
