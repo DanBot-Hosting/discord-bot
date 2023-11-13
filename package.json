@@ -10,7 +10,7 @@
   "author": "DanBot Hosting",
   "license": "MIT",
   "dependencies": {
-    "@discordjs/voice": "^0.16.0",
+    "@discordjs/voice": "^0.16.1",
     "@sentry/node": "^7.80.0",
     "axios": "^1.6.1",
     "discord.js": "^14.13.0",
