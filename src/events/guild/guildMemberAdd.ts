@@ -9,9 +9,9 @@ const event: Event = {
     once: false,
     async execute(client: ExtendedClient, Discord: typeof import("discord.js"), member: GuildMember) {
         try {
-            const requiredPerms: PermissionResolvable = ["SendMessages", "EmbedLinks"];
+            const requiredPerms: PermissionResolvable = ["SendMessages", "EmbedLinks", "ManageRoles"];
 
-            if(member.user.bot || !member.guild) return;
+            if(!member.guild) return;
             if(member.guild.id !== main.primaryGuild) return;
 
             // Return if the bot does not have the required permissions
@@ -20,6 +20,9 @@ const event: Event = {
             // Ignore members under 10 days old
             // Handled by the anti-raid system
             if(Date.now() - member.user.createdTimestamp < 10 * 24 * 60 * 60 * 1000) return;
+
+            // Add bots role to bots
+            if(member.user.bot) return await member.roles.add(client.config_roles.bots);
 
             const channel = member.guild.channels.cache.get(channels.welcome) as TextChannel;
 
