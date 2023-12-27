@@ -52,9 +52,6 @@ const emojis = {
     cross: "<:cross:1152422111030292561>",
     dbh_check: "<:DBH_Check:1124437152625868810>",
     dbh_cross: "<:DBH_Cross:1158710201529139281>",
-    discord: "<:discord:1165092853295357972>",
-    discordjs: "<:discordjs:1165090727609507860>",
-    nodejs: "<:nodejs:1165090732344885381>",
     ping: "<a:ping:1156039801523404850>",
     reply: "<:reply:1152422114792571070>",
     tick: "<:tick:1152422108291399761>"
@@ -89,8 +86,6 @@ const roles = {
     member: "898041757168697375",
     mod: "898041748817842176",
     owner: "898041741695926282",
-    pollPing: "898041781927682090",
-    pollPingPerms: "1157497265708093520",
     staff: "898041751099539497"
 }
 
@@ -103,8 +98,7 @@ const starboard = {
         "898041858666668092", // #pets
         "898041865616650240", // #dono-lounge
         "898354771927400538", // #beta-lounge
-        "898041875192234054", // #vps-chat
-        "1165092426625589279"
+        "898041875192234054" // #vps-chat
     ],
     emoji: "⭐", // The emoji to react with
     threshold: 5, // Reactions required to post on the starboard
