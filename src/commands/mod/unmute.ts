@@ -93,8 +93,8 @@ const command: Command = {
                 .setTitle("Unmute")
                 .addFields (
                     { name: "User", value: `${user} **|** \`${user.id}\``, inline: true },
-                    { name: "User Notified", value: sentDM ? emoji.tick : emoji.cross, inline: true },
-                    { name: "Reason", value: reason }
+                    { name: "Reason", value: reason },
+                    { name: "User Notified", value: sentDM ? emoji.tick : emoji.cross, inline: true }
                 )
                 .setTimestamp()
 

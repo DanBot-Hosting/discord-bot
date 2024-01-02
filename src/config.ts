@@ -11,9 +11,7 @@ const categories = {
 
 const channels = {
     accountLogs: "1168034234179539044",
-    announcements: "898050443446464532",
     changelogs: "960242064338092202",
-    devQuestions: "1083142107977486389",
     donations: "898041841939783732",
     donatorLogs: "898041923544162324",
     gettingStarted: "898041837535776788",
@@ -58,6 +56,7 @@ const emojis = {
 }
 
 const main = {
+    appealEmail: "dan@danbot.host",
     autoCrosspost: [
         "898327108898684938" // #server-status
     ],

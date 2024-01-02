@@ -278,10 +278,10 @@ const command: Command = {
                 .setTitle(`Mute ${extended ? "Extended" : ""}`)
                 .addFields (
                     { name: "User", value: `${user} **|** \`${user.id}\``, inline: true },
-                    { name: "User Notified", value: sentDM ? emoji.tick : emoji.cross, inline: true },
                     { name: "Reason", value: reason },
                     { name: "Duration", value: `${time}`, inline: true },
-                    { name: "Expires", value: `<t:${timeout.communicationDisabledUntilTimestamp.toString().slice(0, -3)}:f>`, inline: true }
+                    { name: "Expires", value: `<t:${timeout.communicationDisabledUntilTimestamp.toString().slice(0, -3)}:f>`, inline: true },
+                    { name: "User Notified", value: sentDM ? emoji.tick : emoji.cross, inline: true }
                 )
                 .setTimestamp()
 

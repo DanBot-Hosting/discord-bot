@@ -183,9 +183,9 @@ const command: Command = {
                 .setTitle("Ban")
                 .addFields (
                     { name: "User", value: `${user} **|** \`${user.id}\``, inline: true },
-                    { name: "User Notified", value: sentDM ? emoji.tick : emoji.cross, inline: true },
                     { name: "Reason", value: reason },
-                    { name: "Delete Messages", value: deleteMessages ? deleteMessages : emoji.cross, inline: true }
+                    { name: "Delete Messages", value: deleteMessages ? deleteMessages : emoji.cross, inline: true },
+                    { name: "User Notified", value: sentDM ? emoji.tick : emoji.cross, inline: true }
                 )
                 .setTimestamp()
 
