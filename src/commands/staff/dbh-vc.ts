@@ -1,6 +1,6 @@
 import Command from "../../classes/Command";
 import ExtendedClient from "../../classes/ExtendedClient";
-import { CommandInteraction, PermissionFlagsBits, VoiceChannel } from "discord.js";
+import { CommandInteraction, VoiceChannel } from "discord.js";
 
 import { emojis as emoji } from "../../config";
 
@@ -20,7 +20,7 @@ const command: Command = {
             description: "Unlock the discord.gg/dbh voice channel."
         }
     ],
-    default_member_permissions: PermissionFlagsBits.ManageChannels.toString(),
+    default_member_permissions: null,
     botPermissions: ["ManageChannels", "ManageRoles"],
     requiredRoles: ["staff"],
     cooldown: 10,

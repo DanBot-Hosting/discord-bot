@@ -7,7 +7,6 @@ import cap from "../../util/plainCap";
 import { exec } from "child_process";
 import globalCommands from "../../scripts/global-commands";
 import reactionRoles from "../../configs/reactionRoles";
-import testingChannels from "../../util/testingChannels";
 import vcStats from "../../util/vcStats";
 
 const event: Event = {
@@ -20,10 +19,6 @@ const event: Event = {
 
             // Register Commands
             await globalCommands(client);
-
-            // Check and update testing channel data every 5 minutes
-            await testingChannels(client);
-            setInterval(async () => await testingChannels(client), 300000);
 
             // Check and update VC Stats every 5 minutes
             await vcStats(client);
