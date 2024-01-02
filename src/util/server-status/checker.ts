@@ -1,7 +1,6 @@
 import ExtendedClient from "../../classes/ExtendedClient";
 
 import axios from "axios";
-import ping from "ping";
 
 import { servers } from "../../configs/server-status";
 import updateMessage from "./update-message";
