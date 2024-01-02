@@ -20,6 +20,11 @@ const command: Command = {
                 },
 
                 {
+                    name: "Bot Issue - I need help with the bot. (buttons and commands not working, etc.)",
+                    value: "bot-issue"
+                },
+
+                {
                     name: "Bug Report - I found a bug in the bot or website.",
                     value: "bug-report"
                 },
@@ -37,11 +42,6 @@ const command: Command = {
                 {
                     name: "Feature Request - I have a suggestion.",
                     value: "feature-request"
-                },
-
-                {
-                    name: "Feedback - I have some feedback.",
-                    value: "feedback"
                 },
 
                 {
@@ -148,16 +148,16 @@ const command: Command = {
             }
 
             const highPriority = ["missing-files", "security-issue"];
-            const mediumPriority = ["account-issue", "bug-report", "donation", "donation-issue", "server-issue"];
-            const lowPriority = ["feature-request", "feedback", "proxy"];
+            const mediumPriority = ["account-issue", "bot-issue", "bug-report", "donation", "donation-issue", "server-issue"];
+            const lowPriority = ["feature-request", "proxy", "question"];
 
             const reasons: any = {
                 "account-issue": "🔑 Account Issue",
+                "bot-issue": "🤖 Bot Issue",
                 "bug-report": "🐛 Bug Report",
                 "donation": "💰 Donation",
                 "donation-issue": "❗ Donation Issue",
                 "feature-request": "📝 Feature Request",
-                "feedback": "📜 Feedback",
                 "missing-files": "📁 Missing Files",
                 "other": "❓ Other",
                 "proxy": "🔗 Proxy",
@@ -168,8 +168,11 @@ const command: Command = {
 
             const requiredInfo: any = {
                 "account-issue": "👤 Username\n📨 Email",
+                "bot-issue": "❓ What the issue is\n🔄️ How to reproduce the issue\nℹ️ Any other information you think may be useful",
                 "bug-report": "❓ What the bug is\n👀 What you expected to happen\n💥 What actually happened\nℹ️ Any other information you think may be useful",
                 "donation": "🔢 Transaction ID\n📸 Screenshot of the transaction",
+                "donation-issue": "❓ What the issue is",
+                "feature-request": "📝 What you want to be added\n📄 Why you want it to be added\n📸 Example of the feature (if applicable)",
                 "missing-files": "🗄️ Node\n🪪 Server ID",
                 "other": "📄 Please describe your issue in as much detail as possible",
                 "proxy": "🪪 Server ID\n🗄️ Server Address\n🌐 Domain Name (e.g. example.com, subdomain.example.com)",
