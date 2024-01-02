@@ -174,7 +174,6 @@ const command: Command = {
                 "donation-issue": "❓ What the issue is",
                 "feature-request": "📝 What you want to be added\n📄 Why you want it to be added\n📸 Example of the feature (if applicable)",
                 "missing-files": "🗄️ Node\n🪪 Server ID",
-                "other": "📄 Please describe your issue in as much detail as possible",
                 "proxy": "🪪 Server ID\n🗄️ Server Address\n🌐 Domain Name (e.g. example.com, subdomain.example.com)",
                 "question": "❓ What is your question?\nℹ️ Any other information you think may be useful",
                 "security-issue": "❓ What the issue is\n🔄️ How to reproduce the issue\nℹ️ Any other information you think may be useful",

@@ -3,7 +3,7 @@ import ExtendedClient from "../../classes/ExtendedClient";
 import { Message, MessageReaction, PartialMessageReaction, PartialUser, PermissionResolvable, TextChannel } from "discord.js";
 
 import { channels, main, starboard } from "../../config";
-import reactionRoles from "../../configs/reactionRoles";
+import reactionRoles from "../../configs/reaction-roles";
 
 const event: Event = {
     name: "messageReactionAdd",

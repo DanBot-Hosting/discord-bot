@@ -4,9 +4,10 @@ import ExtendedClient from "../../classes/ExtendedClient";
 import { EmbedBuilder, TextChannel } from "discord.js";
 
 import cap from "../../util/plainCap";
+import checker from "../../util/server-status/checker";
 import { exec } from "child_process";
 import globalCommands from "../../scripts/global-commands";
-import reactionRoles from "../../configs/reactionRoles";
+import reactionRoles from "../../configs/reaction-roles";
 import vcStats from "../../util/vcStats";
 
 const event: Event = {
@@ -19,6 +20,12 @@ const event: Event = {
 
             // Register Commands
             await globalCommands(client);
+
+            // Check and update server status every 60 seconds
+            if(client.config_main.nodeStatus) {
+                await checker(client);
+                setInterval(async () => await checker(client), 60000);
+            }
 
             // Check and update VC Stats every 5 minutes
             await vcStats(client);

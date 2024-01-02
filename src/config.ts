@@ -18,6 +18,7 @@ const channels = {
     github: "898041843902742548",
     messageLogs: "898041913947602945",
     modLogs: "898041915600162826",
+    nodeStatus: "898041845878247487",
     otherLogs: "898041920071299142",
     reactionRoles: "898041838701781013",
     rules: "898041835002400768",
@@ -66,6 +67,7 @@ const main = {
     logIgnoredChannels: [
         "898041845878247487" // #node-status
     ],
+    nodeStatus: true,
     primaryGuild: "639477525927690240", // DanBot Hosting
     suggestionChannels: [
         "976371313901965373", // #vpn-suggestions
