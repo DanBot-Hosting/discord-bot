@@ -71,7 +71,6 @@ const command: Command = {
             if(!user) {
                 await new User({
                     _id: interaction.user.id,
-                    hide_credit: false,
                     credit_amount: drop.credits,
                     credit_used: 0
                 }).save()

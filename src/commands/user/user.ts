@@ -39,19 +39,10 @@ const command: Command = {
 
                 const data = await client.credit.get(user.id);
 
-                if(data.hidden && user.id !== interaction.user.id && !userRoles.staff) {
-                    const error = new Discord.EmbedBuilder()
-                        .setColor(client.config_embeds.error)
-                        .setDescription(`${emoji.cross} ${user}'s premium count is private!`)
-
-                    await interaction.editReply({ embeds: [error], ephemeral: true });
-                    return;
-                }
-
                 if(data.donated === 0) {
                     const count = new Discord.EmbedBuilder()
                         .setColor(user.id === interaction.user.id ? client.config_embeds.default : client.config_embeds.error)
-                        .setDescription(`${user.id === interaction.user.id ? "📊 You do not" : `${emoji.cross} ${user} does not`} have any credit.${user.id === interaction.user.id ? `\n💸 You can buy credits by donating on [**PayPal**](https://paypal.me/DanBotHosting) or [**Donation Alerts**](https://www.donationalerts.com/r/danbothosting).` : ""}`)
+                        .setDescription(`${user.id === interaction.user.id ? "📊 You do not" : `${emoji.cross} ${user} does not`} have any credits.${user.id === interaction.user.id ? `\n💸 You can buy credits by donating on [**PayPal**](https://paypal.me/DanBotHosting).` : ""}`)
 
                     if(user.id === interaction.user.id) {
                         count.addFields({ name: "Premium Server Price", value: `**${formatCurrency(premium.price)} USD** / server`, inline: true });
@@ -63,17 +54,12 @@ const command: Command = {
 
                 const count = new Discord.EmbedBuilder()
                     .setColor(client.config_embeds.default)
-                    .setDescription(`📊 **${formatCurrency(data.used)}** / **${formatCurrency(data.donated)}** used${user.id === interaction.user.id ? `\n💸 You can buy ${data.donated === 0 ? "" : "more"} credits by donating on [**PayPal**](https://paypal.me/DanBotHosting) or [**Donation Alerts**](https://www.donationalerts.com/r/danbothosting).` : ""}`)
+                    .setDescription(`📊 **${formatCurrency(data.used)}** / **${formatCurrency(data.donated)}** used${user.id === interaction.user.id ? `\n💸 You can buy${data.donated === 0 ? "" : " more"} credits by donating on [**PayPal**](https://paypal.me/DanBotHosting).` : ""}`)
 
                 if(user.id !== interaction.user.id) count.setAuthor({ name: user.tag, iconURL: user.displayAvatarURL({ extension: "png", forceStatic: false }), url: `https://discord.com/users/${user.id}` })
 
                 const buttons = new Discord.ActionRowBuilder()
                     .addComponents (
-                        new Discord.ButtonBuilder()
-                            .setStyle(Discord.ButtonStyle.Secondary)
-                            .setCustomId("credit-privacy-toggle")
-                            .setLabel("Toggle Public Visibility"),
-
                         new Discord.ButtonBuilder()
                             .setStyle(Discord.ButtonStyle.Danger)
                             .setCustomId(`credit-fix-${interaction.user.id}`)
@@ -82,8 +68,7 @@ const command: Command = {
 
                 if(user.id === interaction.user.id) {
                     count.addFields (
-                        { name: "Premium Server Price", value: `**${formatCurrency(premium.price)} USD** / server`, inline: true },
-                        { name: "Public Visibilty", value: data.hidden ? `${emoji.cross} Disabled` : `${emoji.tick} Enabled`, inline: true }
+                        { name: "Premium Server Price", value: `**${formatCurrency(premium.price)} USD** / server`, inline: true }
                     )
 
                     await interaction.editReply({ embeds: [count], components: [buttons] });

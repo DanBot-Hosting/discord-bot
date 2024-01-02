@@ -97,7 +97,7 @@ const command: Command = {
             await i.edit({ embeds: [verifyingTransfer] });
 
             let fromUser = await User.findOne({ _id: from.id });
-            let toUser = await User.findOne({ _id: to.id }) || new User({ _id: to.id, hide_credit: false, credit_amount: 0, credit_used: 0 });
+            let toUser = await User.findOne({ _id: to.id }) || new User({ _id: to.id, credit_amount: 0, credit_used: 0 });
 
             if(!fromUser) {
                 const error = new Discord.EmbedBuilder()
