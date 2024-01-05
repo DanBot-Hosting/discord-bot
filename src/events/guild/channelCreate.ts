@@ -5,7 +5,7 @@ import { AuditLogEvent, Channel, GuildChannel, PermissionResolvable, TextChannel
 import { channels, main } from "../../config";
 
 const event: Event = {
-    name: "channelDelete",
+    name: "channelCreate",
     once: false,
     async execute(client: ExtendedClient & any, Discord: typeof import("discord.js"), channel: Channel & GuildChannel) {
         try {
@@ -39,16 +39,16 @@ const event: Event = {
             if(ignoredTypes.includes(channel.type)) return;
 
             // Fetch channel creator from the audit log
-            const auditLogs = await channel.guild.fetchAuditLogs({ limit: 10, type: AuditLogEvent.ChannelDelete });
+            const auditLogs = await channel.guild.fetchAuditLogs({ limit: 10, type: AuditLogEvent.ChannelCreate });
             const auditLog = auditLogs.entries.find((entry) => entry.target.id === channel.id);
 
             const logChannel = client.channels.cache.get(channels.otherLogs) as TextChannel;
 
             const log = new Discord.EmbedBuilder()
                 .setColor(client.config_embeds.default)
-                .setTitle("Channel Deleted")
+                .setTitle("Channel Created")
                 .addFields (
-                    { name: "Channel", value: `#${channel.name} **|** \`${channel.id}\`` },
+                    { name: "Channel", value: `${channel} **|** \`${channel.id}\`` },
                     { name: "Type", value: channelTypes[channel.type] },
                     { name: "Category", value: channel.parent ? `${channel.parent} **|** \`${channel.parent.id}\`` : "*None*" }
                 )

@@ -10,6 +10,8 @@ import LegacyCommand from "./LegacyCommand";
 import { categories, channels, embeds, main, roles } from "../config";
 
 export default class ExtendedClient extends Client {
+    public allowJoining: boolean;
+    public autoKick: boolean;
     public buttons: Collection<string, any>;
     public commandIds: Collection<string, Snowflake>;
     public commands: Collection<string, Command>;
@@ -22,7 +24,6 @@ export default class ExtendedClient extends Client {
     public drops: Collection<string, CodeDrop>;
     public events: Collection<string, Event>;
     public keywords: Collection<string[], Keyword>;
-    public lastPoll: number;
     public legacyCommands: Collection<string, LegacyCommand>;
     public logButtonError: Function;
     public logCommandError: Function;

@@ -10,18 +10,16 @@
   "author": "DanBot Hosting",
   "license": "MIT",
   "dependencies": {
-    "@discordjs/voice": "^0.16.1",
     "@sentry/node": "^7.91.0",
     "axios": "^1.6.4",
     "discord.js": "^14.14.1",
     "dotenv": "^16.3.1",
-    "mongoose": "^8.0.3",
-    "node-os-utils": "^1.3.7"
+    "mongoose": "^8.0.3"
   },
   "devDependencies": {
+    "@danbot-hosting/ts-config": "^1.0.0",
     "@sentry/types": "^7.72.0",
     "@types/node": "^20.10.6",
-    "@types/node-os-utils": "^1.3.4",
     "typescript": "^5.3.3"
   }
 }

@@ -3,9 +3,9 @@ import ExtendedClient from "../classes/ExtendedClient";
 import { VoiceChannel } from "discord.js";
 
 import { categories, channels, main } from "../config";
-const channel = channels.vcStats;
 
 export default async function (client: ExtendedClient) {
+    const channel = channels.vcStats;
     const guild = client.guilds.cache.get(main.primaryGuild);
 
     const boosts = guild.channels.cache.get(channel.boosts) as VoiceChannel;

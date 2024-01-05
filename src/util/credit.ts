@@ -6,7 +6,7 @@ import { premium } from "../config";
 import User from "../models/User";
 
 export async function add(user: Snowflake, amount: number, client: ExtendedClient): Promise<number> {
-    const data = await User.findOne({ _id: user }) || new User({ _id: user, hide_credit: false, credit_amount: 0, credit_used: 0 });
+    const data = await User.findOne({ _id: user }) || new User({ _id: user, credit_amount: 0, credit_used: 0 });
 
     if(amount <= 0) throw new Error("Cannot add zero or negative credit.");
 
@@ -32,10 +32,9 @@ export async function fix(user: Snowflake): Promise<number> {
 }
 
 export async function get(user: Snowflake): Promise<PremiumData> {
-    const data = await User.findOne({ _id: user }) || { hide_credit: false, credit_amount: 0, credit_used: 0 };
+    const data = await User.findOne({ _id: user }) || { credit_amount: 0, credit_used: 0 };
 
     return {
-        hidden: data.hide_credit,
         donated: data.credit_amount,
         used: data.credit_used
     }
@@ -92,7 +91,6 @@ export async function set(user: Snowflake, amount: number, client: ExtendedClien
 }
 
 export type PremiumData = {
-    hidden: boolean;
     donated: number;
     used: number;
 }

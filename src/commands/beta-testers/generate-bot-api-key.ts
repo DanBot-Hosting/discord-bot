@@ -27,7 +27,7 @@ const command: Command = {
             let data = null;
 
             try {
-                const result = await axios.post(`https://${client.config_main.botAPIDomain}/apikey?discordid=${interaction.user.id}&key=${process.env.bot_api_master_key}`, {
+                const result = await axios.post(`https://${client.config_main.botAPI}/apikey?discordid=${interaction.user.id}&key=${process.env.bot_api_master_key}`, {
                     headers: {
                         "User-Agent": "DBH"
                     }

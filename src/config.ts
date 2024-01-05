@@ -1,25 +1,24 @@
-import { ColorResolvable, Snowflake } from "discord.js";
+import { ColorResolvable } from "discord.js";
 
 const categories = {
-    testing: "1158553893299556463",
     tickets: {
         high: "1160713638743658577",
         medium: "1160713549685989406",
         low: "1160710296986460171",
-        unknown: "1160716485065445406",
-        old: "924757852504096768"
+        unknown: "1160716485065445406"
     }
 }
 
 const channels = {
     accountLogs: "1168034234179539044",
-    announcements: "898050443446464532",
     changelogs: "960242064338092202",
-    devQuestions: "1083142107977486389",
     donations: "898041841939783732",
     donatorLogs: "898041923544162324",
     gettingStarted: "898041837535776788",
     github: "898041843902742548",
+    messageLogs: "898041913947602945",
+    modLogs: "898041915600162826",
+    nodeStatus: "898041845878247487",
     otherLogs: "898041920071299142",
     reactionRoles: "898041838701781013",
     rules: "898041835002400768",
@@ -52,18 +51,24 @@ const emojis = {
     cross: "<:cross:1152422111030292561>",
     dbh_check: "<:DBH_Check:1124437152625868810>",
     dbh_cross: "<:DBH_Cross:1158710201529139281>",
+    dot: "<:dot:1164732475675783278>",
     ping: "<a:ping:1156039801523404850>",
     reply: "<:reply:1152422114792571070>",
     tick: "<:tick:1152422108291399761>"
 }
 
 const main = {
+    appealEmail: "dan@danbot.host",
     autoCrosspost: [
         "898327108898684938" // #server-status
     ],
-    botAPIDomain: "bot-api.danbot.host" as string,
-    legacyPrefix: "DBHB!" as string,
-    primaryGuild: "639477525927690240" as Snowflake, // DanBot Hosting
+    botAPI: "bot-api.danbot.host",
+    legacyPrefix: "DBHB!",
+    logIgnoredChannels: [
+        "898041845878247487" // #node-status
+    ],
+    nodeStatus: false,
+    primaryGuild: "639477525927690240", // DanBot Hosting
     suggestionChannels: [
         "976371313901965373", // #vpn-suggestions
         "980595293768802327" // #staff-suggestions
@@ -86,7 +91,8 @@ const roles = {
     member: "898041757168697375",
     mod: "898041748817842176",
     owner: "898041741695926282",
-    staff: "898041751099539497"
+    staff: "898041751099539497",
+    ticketPing: "983825037050142782"
 }
 
 const starboard = {
@@ -97,11 +103,10 @@ const starboard = {
         "898041861040664576", // #setups
         "898041858666668092", // #pets
         "898041865616650240", // #dono-lounge
-        "898354771927400538", // #beta-lounge
-        "898041875192234054" // #vps-chat
+        "898354771927400538" // #beta-lounge
     ],
     emoji: "⭐", // The emoji to react with
-    threshold: 5, // Reactions required to post on the starboard
+    threshold: 5 // Reactions required to post on the starboard
 }
 
 export {
