@@ -11,7 +11,7 @@ const command: Command = {
     options: [],
     default_member_permissions: null,
     botPermissions: [],
-    requiredRoles: ["betaTester"],
+    requiredRoles: [],
     cooldown: 120,
     enabled: true,
     deferReply: true,
