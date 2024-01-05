@@ -22,13 +22,6 @@ export default async function (client: ExtendedClient): Promise<ServerStatus[]> 
                 online: 0
             })
         })
-
-        // const res = await ping.promise.probe(server.host, { timeout: 5 });
-
-        // statuses.push({
-        //     server: server,
-        //     online: res.alive
-        // })
     }
 
     await updateMessage(statuses, client);
