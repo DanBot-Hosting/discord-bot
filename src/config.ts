@@ -67,7 +67,7 @@ const main = {
     logIgnoredChannels: [
         "898041845878247487" // #node-status
     ],
-    nodeStatus: true,
+    nodeStatus: false,
     primaryGuild: "639477525927690240", // DanBot Hosting
     suggestionChannels: [
         "976371313901965373", // #vpn-suggestions
