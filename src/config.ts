@@ -60,7 +60,8 @@ const emojis = {
 const main = {
     appealEmail: "dan@danbot.host",
     autoCrosspost: [
-        "898327108898684938" // #server-status
+        "898327108898684938", // #server-status
+        "1165422634226434180" // #bot-status
     ],
     botAPI: "bot-api.danbot.host",
     legacyPrefix: "DBHB!",
