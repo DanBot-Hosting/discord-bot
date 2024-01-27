@@ -27,9 +27,9 @@ const event: Event = {
                 setInterval(async () => await checker(client), 60000);
             }
 
-            // Check and update VC Stats every 5 minutes
+            // Check and update VC Stats every 60 seconds
             await vcStats(client);
-            setInterval(async () => await vcStats(client), 300000);
+            setInterval(async () => await vcStats(client), 60000);
 
             // React on reaction roles
             const rrChannel = client.channels.cache.get(client.config_channels.reactionRoles) as TextChannel;
