@@ -27,7 +27,9 @@ const channels = {
     vcStats: {
         boosts: "898041831495974983",
         bots: "898041830241882112",
+        clients: "898041820309778462",
         members: "898041827561730069",
+        servers: "898041817503760444",
         staff: "898041828870348800",
         tickets: "898041832569700362"
     },
@@ -68,6 +70,7 @@ const main = {
         "898041845878247487" // #node-status
     ],
     nodeStatus: false,
+    panel: "panel.danbot.host",
     primaryGuild: "639477525927690240", // DanBot Hosting
     suggestionChannels: [
         "976371313901965373", // #vpn-suggestions
