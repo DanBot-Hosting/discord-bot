@@ -6,7 +6,7 @@ import { emojis as emoji } from "../../config";
 import getRoles from "../../functions/roles/get";
 
 const command: Command = {
-    name: "remove",
+    name: "remove-user",
     description: "Remove a user from your ticket.",
     options: [
         {
