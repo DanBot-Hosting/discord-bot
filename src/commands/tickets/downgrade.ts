@@ -18,6 +18,15 @@ const command: Command = {
     ephemeral: true,
     async execute(interaction: CommandInteraction, client: ExtendedClient, Discord: typeof import("discord.js")) {
         try {
+            if(interaction.guild.id !== client.config_main.primaryGuild) {
+                const error = new Discord.EmbedBuilder()
+                    .setColor(client.config_embeds.error)
+                    .setDescription(`${emoji.cross} This command can only be used in the main server!`)
+
+                await interaction.editReply({ embeds: [error] });
+                return;
+            }
+
             // Check if the command is being used in a ticket channel
             if(!interaction.channel.name.startsWith("🎫╏")) {
                 const error = new Discord.EmbedBuilder()

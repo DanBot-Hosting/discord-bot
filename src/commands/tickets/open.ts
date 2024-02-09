@@ -99,6 +99,26 @@ const command: Command = {
             const userRoles = await getRoles(user.id, client);
             const onBehalfOf = interaction.options.getUser("on-behalf-of");
 
+            if(interaction.guild.id !== client.config_main.primaryGuild) {
+                const error = new Discord.EmbedBuilder()
+                    .setColor(client.config_embeds.error)
+                    .setDescription(`${emoji.cross} This command can only be used in the main server!`)
+
+                await interaction.editReply({ embeds: [error] });
+                return;
+            }
+
+            const member = interaction.guild.members.cache.get(user.id);
+
+            if(member.roles.cache.get(client.config_roles.ticketBan)) {
+                const error = new Discord.EmbedBuilder()
+                    .setColor(client.config_embeds.error)
+                    .setDescription(`${emoji.cross} You are banned from opening tickets!`)
+
+                await interaction.editReply({ embeds: [error] });
+                return;
+            }
+
             // Check if the user is staff and if they are opening the ticket on behalf of someone
             if(onBehalfOf && userRoles.staff) user = onBehalfOf;
 
