@@ -11,7 +11,7 @@
   "license": "MIT",
   "dependencies": {
     "@sentry/node": "^7.100.1",
-    "axios": "^1.6.6",
+    "axios": "^1.6.7",
     "discord.js": "^14.14.1",
     "dotenv": "^16.4.1",
     "mongoose": "^8.1.0"
