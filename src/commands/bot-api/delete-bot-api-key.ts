@@ -13,7 +13,7 @@ const command: Command = {
     botPermissions: [],
     requiredRoles: [],
     cooldown: 120,
-    enabled: true,
+    enabled: false,
     deferReply: true,
     ephemeral: true,
     async execute(interaction: CommandInteraction, client: ExtendedClient, Discord: typeof import("discord.js")) {
