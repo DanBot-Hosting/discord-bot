@@ -7,7 +7,6 @@ import cap from "../../util/plainCap";
 import checker from "../../util/server-status/checker";
 import { exec } from "child_process";
 import globalCommands from "../../scripts/global-commands";
-import reactionRoles from "../../configs/reaction-roles";
 import vcStats from "../../util/vcStats";
 
 const event: Event = {
@@ -30,24 +29,6 @@ const event: Event = {
             // Check and update VC Stats every 60 seconds
             await vcStats(client);
             setInterval(async () => await vcStats(client), 60000);
-
-            // React on reaction roles
-            const rrChannel = client.channels.cache.get(client.config_channels.reactionRoles) as TextChannel;
-
-            for(const message in reactionRoles) {
-                const msg = await rrChannel.messages.fetch(message);
-
-                if(!msg) continue;
-
-                console.log(`[reactionRoles] Reacting on message: ${message}`);
-
-                // Remove all reactions
-                await msg.reactions.removeAll();
-
-                for(const emoji in reactionRoles[message]) {
-                    await msg.react(emoji);
-                }
-            }
 
             const githubChannel = client.channels.cache.get(client.config_channels.github) as TextChannel;
 

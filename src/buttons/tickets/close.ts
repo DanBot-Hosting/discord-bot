@@ -86,6 +86,28 @@ const button: Button = {
                         )
                         .setTimestamp()
 
+                    const dm = new Discord.EmbedBuilder()
+                        .setColor(client.config_embeds.default)
+                        .setTitle("Ticket Closed")
+                        .setDescription(`Your ticket in **${interaction.guild.name}** has been closed. If you need further assistance, feel free to open another ticket.`)
+                        .setTimestamp()
+
+                    const row: any = new Discord.ActionRowBuilder()
+                        .addComponents(
+                            new Discord.StringSelectMenuBuilder()
+                                .setCustomId(`rating-${user}`)
+                                .setPlaceholder("Rate our support")
+                                .addOptions(
+                                    { label: "Terrible", value: "1", description: "⭐️"},
+                                    { label: "Bad", value: "2", description: "⭐️⭐️"},
+                                    { label: "Okay", value: "3", description: "⭐️⭐️⭐️"},
+                                    { label: "Good", value: "4", description: "⭐️⭐️⭐️⭐️"},
+                                    { label: "Excellent", value: "5", description: "⭐️⭐️⭐️⭐️⭐️"}
+                                )
+                        )
+
+                    await ticketAuthor.send({ embeds: [dm], components: [row] });
+
                     const transcriptChannel = await client.channels.fetch(client.config_channels.ticketLogs) as TextChannel;
                     const transcriptFile = new Discord.AttachmentBuilder(Buffer.from(transcript), { name: `transcript-${Date.now()}.txt` });
 

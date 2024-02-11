@@ -3,7 +3,6 @@ import ExtendedClient from "../../classes/ExtendedClient";
 import { Message, MessageReaction, PartialMessageReaction, PartialUser, PermissionResolvable, TextChannel } from "discord.js";
 
 import { channels, main, starboard } from "../../config";
-import reactionRoles from "../../configs/reaction-roles";
 
 const event: Event = {
     name: "messageReactionAdd",
@@ -20,47 +19,6 @@ const event: Event = {
 
             // Return if the bot does not have the required permissions
             if(!message.guild.members.me.permissions.has(requiredPerms)) return;
-
-            // Reaction Roles
-            if(message.channel.id === channels.reactionRoles) {
-                // Return if the message ID is not in the reaction roles config
-                if(!reactionRoles[message.id]) return;
-
-                // Return if the reaction emoji is not a valid reaction role emoji
-                if(!Object.keys(reactionRoles[message.id]).includes(reaction.emoji.name)) return;
-
-                // Return if the user is a bot
-                if(user.bot) return;
-
-                // Give the user the role
-                const role = message.guild.roles.cache.get(reactionRoles[message.id][reaction.emoji.name]);
-
-                if(!role) return;
-
-                const member = message.guild.members.cache.get(user.id);
-
-                let added = false;
-
-                if(!member.roles.cache.has(role.id)) {
-                    await member.roles.add(role, `Reaction roles in #${(message.channel as TextChannel).name} (${message.channel.id})`);
-                    console.log(`[reactionRoles] [add] ${member.user.tag} (${member.id}): ${role.name} (${role.id})`);
-                    added = true;
-                } else {
-                    await member.roles.remove(role, `Reaction roles in #${(message.channel as TextChannel).name} (${message.channel.id})`);
-                    console.log(`[reactionRoles] [remove] ${member.user.tag} (${member.id}): ${role.name} (${role.id})`);
-                }
-
-                try {
-                    const dm = new Discord.EmbedBuilder()
-                        .setColor(client.config_embeds.default)
-                        .setDescription(`You have been ${added ? "added to" : "removed from"} the **${role.name}** role.`)
-
-                    member.send({ embeds: [dm] });
-                } catch {}
-
-                await reaction.users.remove(user.id);
-                return;
-            }
 
             // Starboard
             // Return if the reaction emoji is not the starboard emoji
