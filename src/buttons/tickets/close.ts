@@ -106,7 +106,9 @@ const button: Button = {
                                 )
                         )
 
-                    await ticketAuthor.send({ embeds: [dm], components: [row] });
+                    try {
+                        await ticketAuthor.send({ embeds: [dm], components: [row] });
+                    } catch {}
 
                     const transcriptChannel = await client.channels.fetch(client.config_channels.ticketLogs) as TextChannel;
                     const transcriptFile = new Discord.AttachmentBuilder(Buffer.from(transcript), { name: `transcript-${Date.now()}.txt` });
