@@ -1,21 +1,17 @@
 {
-    "extends": "@danbot-hosting/ts-config",
     "compilerOptions": {
         "allowJs": true,
+        "esModuleInterop": true,
         "lib": ["ES6"],
         "module": "CommonJS",
-        "moduleResolution": "Node",
-        "noImplicitReturns": false,
-        "noUnusedLocals": false,
-        "noUnusedParameters": false,
+        "noImplicitAny": true,
         "outDir": "dist",
+        "resolveJsonModule": true,
         "rootDir": "src",
         "skipLibCheck": true,
         "strict": false,
         "target": "ES2020",
-        "typeRoots": ["typings/"],
-        "useUnknownInCatchVariables": false,
-        "verbatimModuleSyntax": false
+        "typeRoots": ["typings/"]
     },
     "include": ["src/", "typings/"]
 }
