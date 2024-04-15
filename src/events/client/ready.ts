@@ -27,8 +27,8 @@ const event: Event = {
             }
 
             // Check and update VC Stats every 60 seconds
-            await vcStats(client);
-            setInterval(async () => await vcStats(client), 60000);
+            vcStats(client);
+            setInterval(async () => vcStats(client), 60000);
 
             const githubChannel = client.channels.cache.get(client.config_channels.github) as TextChannel;
 
