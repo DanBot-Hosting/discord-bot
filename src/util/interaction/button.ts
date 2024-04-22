@@ -13,12 +13,10 @@ export = async (client: ExtendedClient, Discord: typeof import("discord.js"), in
         const button: Button = client.buttons.get(interaction.customId);
         const userRoles: Roles = await getRoles(interaction.user.id, client);
 
-        const member = await interaction.guild.members.fetch(interaction.user.id);
-
         if(button) {
             const requiredRoles: Role[] = button.requiredRoles;
 
-            if(requiredRoles.length && !member.roles.cache.has(client.config_roles.botAdmin)) {
+            if(requiredRoles.length && !userRoles.botAdmin) {
                 const hasRoles = [];
 
                 for(const role of requiredRoles) {
@@ -50,7 +48,7 @@ export = async (client: ExtendedClient, Discord: typeof import("discord.js"), in
             if(interaction.customId.startsWith(btn[0]) && btn[1].startsWith) {
                 const requiredRoles: Role[] = btn[1].requiredRoles;
 
-                if(requiredRoles.length && !member.roles.cache.has(client.config_roles.botAdmin)) {
+                if(requiredRoles.length && !userRoles.botAdmin) {
                     const hasRoles = [];
 
                     for(const role of requiredRoles) {

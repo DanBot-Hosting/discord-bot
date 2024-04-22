@@ -19,9 +19,7 @@ export = async (client: ExtendedClient, Discord: typeof import("discord.js"), in
         const requiredRoles: Role[] = command.requiredRoles;
         const userRoles: Roles = await getRoles(interaction.user.id, client);
 
-        const member = await interaction.guild.members.fetch(interaction.user.id);
-
-        if(requiredRoles.length && !member.roles.cache.has(client.config_roles.botAdmin)) {
+        if(requiredRoles.length && !userRoles.botAdmin) {
             const hasRoles = [];
 
             for(const role of requiredRoles) {

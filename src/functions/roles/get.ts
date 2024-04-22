@@ -5,7 +5,7 @@ import { roles as role } from "../../config";
 
 import Roles from "../../classes/Roles";
 
-export default async function (userId: Snowflake, client: ExtendedClient & any): Promise<Roles> {
+export default async function (userId: Snowflake, client: ExtendedClient): Promise<Roles> {
     try {
         // Fetch user roles
         const guild = await client.guilds.fetch(client.config_main.primaryGuild);
@@ -13,7 +13,7 @@ export default async function (userId: Snowflake, client: ExtendedClient & any):
 
         return {
             owner: roles.includes(role.owner),
-            botAdmin: roles.includes(role.botAdmin),
+            botAdmin: client.config_main.botAdmins.includes(userId),
             admin: roles.includes(role.admin),
             dev: roles.includes(role.dev),
             mod: roles.includes(role.mod),
@@ -25,7 +25,7 @@ export default async function (userId: Snowflake, client: ExtendedClient & any):
     } catch(err) {
         return {
             owner: false,
-            botAdmin: false,
+            botAdmin: client.config_main.botAdmins.includes(userId),
             admin: false,
             dev: false,
             mod: false,

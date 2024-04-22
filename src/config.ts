@@ -64,6 +64,11 @@ const main = {
         "898327108898684938", // #server-status
         "1165422634226434180" // #bot-status
     ],
+    botAdmins: [
+        "137624084572798976", // dan_420
+        "757296951925538856", // devdibster
+        "853158265466257448" // williamharrison
+    ],
     botAPI: "bot-api.danbot.host",
     legacyPrefix: "DBHB!",
     logIgnoredChannels: [
@@ -86,7 +91,6 @@ const premium = {
 const roles = {
     admin: "898041747219828796",
     betaTester: "898041755419693126",
-    botAdmin: "898041743566594049",
     bots: "898041770082959432",
     dev: "898041747597295667",
     donator: "898041754564046869",
