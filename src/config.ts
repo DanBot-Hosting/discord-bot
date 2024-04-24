@@ -106,12 +106,15 @@ const roles = {
 const starboard = {
     allowed: [
         "898041849783148585", // #lounge
+        "898041850890440725", // #commands
         "898041854262648842", // #thank-you-dan
         "898041857550995506", // #memes
         "898041861040664576", // #setups
         "898041858666668092", // #pets
         "898041865616650240", // #dono-lounge
-        "898354771927400538" // #beta-lounge
+        "898041866589700128", // #commands
+        "898354771927400538", // #beta-lounge
+        "898041878447013948" // #commands
     ],
     emoji: "⭐", // The emoji to react with
     threshold: 5 // Reactions required to post on the starboard
