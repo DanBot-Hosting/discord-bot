@@ -13,9 +13,8 @@ const event: Event = {
             const message: Message = await reaction.message.fetch();
             const requiredPerms: PermissionResolvable = ["SendMessages", "EmbedLinks"];
 
-            // Ignore messages not in the primary guild and messages by bots
-            if(message.author.bot || !message.guild) return;
-            if(message.guild.id !== main.primaryGuild) return;
+            // Ignore messages not in the primary guild
+            if(!message.guild || message.guild.id !== main.primaryGuild) return;
 
             // Return if the bot does not have the required permissions
             if(!message.guild.members.me.permissions.has(requiredPerms)) return;
@@ -24,6 +23,9 @@ const event: Event = {
             if(reaction.emoji.name === "🇮🇱" || reaction.emoji.name === "🇵🇸") return await reaction.remove();
 
             // Starboard
+            // Ignore messages created by bots
+            if(message.author.bot) return;
+
             // Return if the reaction emoji is not the starboard emoji
             if(reaction.emoji.name !== starboard.emoji) return;
 
