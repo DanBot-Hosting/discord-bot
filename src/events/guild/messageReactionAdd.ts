@@ -21,7 +21,7 @@ const event: Event = {
             if(!message.guild.members.me.permissions.has(requiredPerms)) return;
 
             // This is not a politics Discord server, go fight in the war instead of sitting your fat ass on Discord if you care that much.
-            if(reaction.emoji.name === "flag_il" || reaction.emoji.name === "flag_ps") return await reaction.remove();
+            if(reaction.emoji.name === "🇮🇱" || reaction.emoji.name === "🇵🇸") return await reaction.remove();
 
             // Starboard
             // Return if the reaction emoji is not the starboard emoji
