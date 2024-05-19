@@ -49,9 +49,7 @@ async function getUserCount() {
             Authorization: `Bearer ${process.env.panel_application_api_key}`,
             "Content-Type": "application/json"
         }
-    }).catch(error => {
-        //Do nothing, as it's just a server error.
-    });
+    }).catch(() => null);
 
     return res.data.meta.pagination.total;
 }
