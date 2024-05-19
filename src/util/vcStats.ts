@@ -49,7 +49,7 @@ async function getUserCount() {
             Authorization: `Bearer ${process.env.panel_application_api_key}`,
             "Content-Type": "application/json"
         }
-    })
+    }).catch(() => null);
 
     return res.data.meta.pagination.total;
 }
@@ -64,7 +64,7 @@ async function getServerCount() {
             Authorization: `Bearer ${process.env.panel_application_api_key}`,
             "Content-Type": "application/json"
         }
-    })
+    }).catch(() => null);
 
     return res.data.meta.pagination.total;
 }
