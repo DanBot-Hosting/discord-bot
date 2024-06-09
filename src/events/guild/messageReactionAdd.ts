@@ -19,9 +19,6 @@ const event: Event = {
             // Return if the bot does not have the required permissions
             if(!message.guild.members.me.permissions.has(requiredPerms)) return;
 
-            // This is not a politics Discord server, go fight in the war instead of sitting your fat ass on Discord if you care that much.
-            if(reaction.emoji.name === "🇮🇱" || reaction.emoji.name === "🇵🇸") return await reaction.remove();
-
             // Starboard
             // Ignore messages created by bots
             if(message.author.bot) return;
