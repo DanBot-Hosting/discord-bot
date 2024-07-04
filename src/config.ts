@@ -117,7 +117,7 @@ const starboard = {
         "898041878447013948" // #commands
     ],
     emoji: "⭐", // The emoji to react with
-    threshold: 5 // Reactions required to post on the starboard
+    threshold: 10 // Reactions required to post on the starboard
 }
 
 export {
