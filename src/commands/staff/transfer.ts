@@ -1,6 +1,6 @@
 import Command from "../../classes/Command";
 import ExtendedClient from "../../classes/ExtendedClient";
-import { CommandInteraction, TextChannel } from "discord.js";
+import { ChatInputCommandInteraction, TextChannel } from "discord.js";
 
 import { emojis as emoji } from "../../config";
 import formatCurrency from "../../util/formatCurrency";
@@ -32,7 +32,7 @@ const command: Command = {
     enabled: true,
     deferReply: true,
     ephemeral: false,
-    async execute(interaction: CommandInteraction, client: ExtendedClient, Discord: typeof import("discord.js")) {
+    async execute(interaction: ChatInputCommandInteraction, client: ExtendedClient, Discord: typeof import("discord.js")) {
         try {
             const fetching = new Discord.EmbedBuilder()
                 .setColor(client.config_embeds.default)

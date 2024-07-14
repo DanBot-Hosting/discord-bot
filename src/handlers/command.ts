@@ -1,5 +1,5 @@
 import ExtendedClient from "../classes/ExtendedClient";
-import { CommandInteraction } from "discord.js";
+import { ChatInputCommandInteraction } from "discord.js";
 
 import fs from "fs";
 import { getDirs } from "../util/functions";
@@ -32,7 +32,7 @@ export = async (client: ExtendedClient) => {
     await loadRoot();
     (await getDirs("./dist/commands")).forEach((dir: String) => loadDir(dir));
 
-    client.logCommandError = async function (err: Error, interaction: CommandInteraction, Discord: typeof import("discord.js")) {
+    client.logCommandError = async function (err: Error, interaction: ChatInputCommandInteraction, Discord: typeof import("discord.js")) {
         const id = client.sentry.captureException(err);
         console.error(err);
 

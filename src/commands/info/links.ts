@@ -1,6 +1,6 @@
 import Command from "../../classes/Command";
 import ExtendedClient from "../../classes/ExtendedClient";
-import { CommandInteraction } from "discord.js";
+import { ChatInputCommandInteraction } from "discord.js";
 
 const command: Command = {
     name: "links",
@@ -13,7 +13,7 @@ const command: Command = {
     enabled: true,
     deferReply: true,
     ephemeral: true,
-    async execute(interaction: CommandInteraction, client: ExtendedClient, Discord: typeof import("discord.js")) {
+    async execute(interaction: ChatInputCommandInteraction, client: ExtendedClient, Discord: typeof import("discord.js")) {
         try {
             const buttons: any = new Discord.ActionRowBuilder()
                 .addComponents (

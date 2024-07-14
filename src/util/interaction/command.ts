@@ -1,5 +1,5 @@
 import ExtendedClient from "../../classes/ExtendedClient";
-import { CommandInteraction } from "discord.js";
+import { ChatInputCommandInteraction } from "discord.js";
 
 import Command from "../../classes/Command";
 
@@ -10,7 +10,7 @@ import { noPermissionCommand } from "../embeds";
 
 const cooldowns = new Map();
 
-export = async (client: ExtendedClient, Discord: typeof import("discord.js"), interaction: CommandInteraction) => {
+export = async (client: ExtendedClient, Discord: typeof import("discord.js"), interaction: ChatInputCommandInteraction) => {
     try {
         const command: Command = client.commands.get(interaction.commandName);
 

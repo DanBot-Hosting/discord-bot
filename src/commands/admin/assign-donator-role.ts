@@ -1,6 +1,6 @@
 import Command from "../../classes/Command";
 import ExtendedClient from "../../classes/ExtendedClient";
-import { CommandInteraction, PermissionFlagsBits, TextChannel } from "discord.js";
+import { ChatInputCommandInteraction, PermissionFlagsBits, TextChannel } from "discord.js";
 
 import { emojis as emoji } from "../../config";
 
@@ -17,7 +17,7 @@ const command: Command = {
     enabled: true,
     deferReply: true,
     ephemeral: false,
-    async execute(interaction: CommandInteraction, client: ExtendedClient, Discord: typeof import("discord.js")) {
+    async execute(interaction: ChatInputCommandInteraction, client: ExtendedClient, Discord: typeof import("discord.js")) {
         try {
             // Return if the comand is not being used in the primary guild
             if(interaction.guild.id !== client.config_main.primaryGuild) {

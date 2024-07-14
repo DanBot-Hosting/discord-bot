@@ -1,6 +1,6 @@
 import Command from "../../classes/Command";
 import ExtendedClient from "../../classes/ExtendedClient";
-import { CategoryChannel, CommandInteraction, ChannelType } from "discord.js";
+import { CategoryChannel, ChatInputCommandInteraction, ChannelType } from "discord.js";
 
 import { emojis as emoji } from "../../config";
 
@@ -54,7 +54,7 @@ const command: Command = {
     enabled: true,
     deferReply: true,
     ephemeral: true,
-    async execute(interaction: CommandInteraction, client: ExtendedClient, Discord: typeof import("discord.js")) {
+    async execute(interaction: ChatInputCommandInteraction, client: ExtendedClient, Discord: typeof import("discord.js")) {
         try {
             const name = interaction.options.get("name").value as string;
             const type = interaction.options.get("type").value as string;

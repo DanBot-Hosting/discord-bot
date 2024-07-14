@@ -1,6 +1,6 @@
 import Command from "../../classes/Command";
 import ExtendedClient from "../../classes/ExtendedClient";
-import { CommandInteraction } from "discord.js";
+import { ChatInputCommandInteraction } from "discord.js";
 
 import axios from "axios";
 import { emojis as emoji } from "../../config";
@@ -16,7 +16,7 @@ const command: Command = {
     enabled: false,
     deferReply: true,
     ephemeral: true,
-    async execute(interaction: CommandInteraction, client: ExtendedClient, Discord: typeof import("discord.js")) {
+    async execute(interaction: ChatInputCommandInteraction, client: ExtendedClient, Discord: typeof import("discord.js")) {
         try {
             const deleting = new Discord.EmbedBuilder()
                 .setColor(client.config_embeds.default)

@@ -1,6 +1,6 @@
 import Command from "../../classes/Command";
 import ExtendedClient from "../../classes/ExtendedClient";
-import { AutocompleteInteraction, CommandInteraction } from "discord.js";
+import { AutocompleteInteraction, ChatInputCommandInteraction } from "discord.js";
 
 import Keyword from "../../classes/Keyword";
 
@@ -27,7 +27,7 @@ const command: Command = {
     enabled: true,
     deferReply: true,
     ephemeral: false,
-    async execute(interaction: CommandInteraction, client: ExtendedClient, Discord: typeof import("discord.js")) {
+    async execute(interaction: ChatInputCommandInteraction, client: ExtendedClient, Discord: typeof import("discord.js")) {
         try {
             const question = interaction.options.get("question").value as string;
 

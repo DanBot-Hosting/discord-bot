@@ -88,7 +88,7 @@ const button: Button = {
             client.on("interactionCreate", listener);
 
             setTimeout(async () => {
-                client.removeListener("interactionCreate", listener);
+                client.off("interactionCreate", listener);
 
                 const expired = new Discord.EmbedBuilder()
                     .setColor(client.config_embeds.error)
