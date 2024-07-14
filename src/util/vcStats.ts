@@ -40,31 +40,39 @@ export default async function (client: ExtendedClient) {
 }
 
 async function getUserCount() {
-    const res = await axios({
-        url: `https://${main.panel}/api/application/users`,
-        method: "GET",
-        maxRedirects: 5,
-        headers: {
-            Accept: "Application/vnd.pterodactyl.v1+json",
-            Authorization: `Bearer ${process.env.panel_application_api_key}`,
-            "Content-Type": "application/json"
-        }
-    }).catch(() => null);
+    try {
+        const res = await axios({
+            url: `https://${main.panel}/api/application/users`,
+            method: "GET",
+            maxRedirects: 5,
+            headers: {
+                Accept: "Application/vnd.pterodactyl.v1+json",
+                Authorization: `Bearer ${process.env.panel_application_api_key}`,
+                "Content-Type": "application/json"
+            }
+        })
 
-    return res.data.meta.pagination.total;
+        return res.data.meta.pagination.total;
+    } catch {
+        return "Error";
+    }
 }
 
 async function getServerCount() {
-    const res = await axios({
-        url: `https://${main.panel}/api/application/servers`,
-        method: "GET",
-        maxRedirects: 5,
-        headers: {
-            Accept: "Application/vnd.pterodactyl.v1+json",
-            Authorization: `Bearer ${process.env.panel_application_api_key}`,
-            "Content-Type": "application/json"
-        }
-    }).catch(() => null);
+    try {
+        const res = await axios({
+            url: `https://${main.panel}/api/application/servers`,
+            method: "GET",
+            maxRedirects: 5,
+            headers: {
+                Accept: "Application/vnd.pterodactyl.v1+json",
+                Authorization: `Bearer ${process.env.panel_application_api_key}`,
+                "Content-Type": "application/json"
+            }
+        })
 
-    return res.data.meta.pagination.total;
+        return res.data.meta.pagination.total;
+    } catch {
+        return "Error";
+    }
 }
