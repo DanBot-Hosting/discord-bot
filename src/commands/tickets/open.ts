@@ -55,7 +55,7 @@ const command: Command = {
                 },
 
                 {
-                    name: "Proxy - I need help to proxy a domain name to my server.",
+                    name: "Proxy - I need help to unproxy a domain name from my server.",
                     value: "proxy"
                 },
 
@@ -72,6 +72,11 @@ const command: Command = {
                 {
                     name: "Server Issue - I am having an issue with my server. (crashes, errors, etc.)",
                     value: "server-issue"
+                },
+
+                {
+                    name: "VPS - I want to enquire about or purchase a VPS.",
+                    value: "vps"
                 }
             ],
             required: true
@@ -167,7 +172,7 @@ const command: Command = {
                 return;
             }
 
-            const highPriority = ["missing-files", "security-issue"];
+            const highPriority = ["missing-files", "security-issue", "vps"];
             const mediumPriority = ["account-issue", "bot-issue", "bug-report", "donation", "donation-issue", "server-issue"];
             const lowPriority = ["feature-request", "proxy", "question"];
 
@@ -183,7 +188,8 @@ const command: Command = {
                 "proxy": "🔗 Proxy",
                 "question": "🆘 Question",
                 "security-issue": "🔒 Security Issue",
-                "server-issue": "🖥️ Server Issue"
+                "server-issue": "🖥️ Server Issue",
+                "vps": "💻 VPS"
             }
 
             const requiredInfo: any = {
@@ -194,7 +200,7 @@ const command: Command = {
                 "donation-issue": "❓ What the issue is",
                 "feature-request": "📝 What you want to be added\n📄 Why you want it to be added\n📸 Example of the feature (if applicable)",
                 "missing-files": "🗄️ Node\n🪪 Server ID",
-                "proxy": "🪪 Server ID\n🗄️ Server Address\n🌐 Domain Name (e.g. example.com, subdomain.example.com)",
+                "proxy": "🪪 Server ID\n🗄️ Server Address\n🌐 Domain Name (e.g. example.com, subdomain.example.com)\n🔗 The proxy that the domain name is linked to",
                 "question": "❓ What is your question?\nℹ️ Any other information you think may be useful",
                 "security-issue": "❓ What the issue is\n🔄️ How to reproduce the issue\nℹ️ Any other information you think may be useful",
                 "server-issue": "🗄️ Node\n🪪 Server ID\n💥 The problem"
