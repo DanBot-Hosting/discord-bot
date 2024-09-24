@@ -68,7 +68,8 @@ const button: Button = {
                         high: client.config_categories.tickets.high,
                         medium: client.config_categories.tickets.medium,
                         low: client.config_categories.tickets.low,
-                        unknown: client.config_categories.tickets.unknown
+                        unknown: client.config_categories.tickets.unknown,
+                        vps: client.config_categories.tickets.vps
                     }
 
                     const category = categories[priority];
