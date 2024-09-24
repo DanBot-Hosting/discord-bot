@@ -159,6 +159,7 @@ const command: Command = {
             const mediumTickets = interaction.guild.channels.cache.get(client.config_categories.tickets.medium) as CategoryChannel;
             const lowTickets = interaction.guild.channels.cache.get(client.config_categories.tickets.low) as CategoryChannel;
             const unknownTickets = interaction.guild.channels.cache.get(client.config_categories.tickets.unknown) as CategoryChannel;
+            const vpsTickets = interaction.guild.channels.cache.get(client.config_categories.tickets.vps) as CategoryChannel;
 
             // Check if the user has an open ticket
             const openTicket = interaction.guild.channels.cache.find((c: TextChannel) => c.type === 0 && c.name.startsWith("🎫╏") && c.topic === `${user.id}`);
@@ -172,9 +173,10 @@ const command: Command = {
                 return;
             }
 
-            const highPriority = ["missing-files", "security-issue", "vps"];
+            const highPriority = ["missing-files", "security-issue"];
             const mediumPriority = ["account-issue", "bot-issue", "bug-report", "donation", "donation-issue", "server-issue"];
             const lowPriority = ["feature-request", "proxy", "question"];
+            const vpsPriority = ["vps"];
 
             const reasons: any = {
                 "account-issue": "🔑 Account Issue",
@@ -214,6 +216,8 @@ const command: Command = {
                 priority = mediumTickets.id;
             } else if(lowPriority.includes(reason)) {
                 priority = lowTickets.id;
+            } else if(vpsPriority.includes(reason)) {
+                priority = vpsTickets.id;
             } else {
                 priority = unknownTickets.id;
             }
