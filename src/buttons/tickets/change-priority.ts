@@ -48,7 +48,7 @@ const button: Button = {
                     new Discord.StringSelectMenuOptionBuilder()
                         .setEmoji("🔵")
                         .setLabel("VPS")
-                        .setValue("low")
+                        .setValue("vps")
                 )
             }
 
