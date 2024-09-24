@@ -43,6 +43,15 @@ const button: Button = {
                 )
             }
 
+            if(currentPriority !== client.config_categories.tickets.vps) {
+                menu.addOptions (
+                    new Discord.StringSelectMenuOptionBuilder()
+                        .setEmoji("🔵")
+                        .setLabel("VPS")
+                        .setValue("low")
+                )
+            }
+
             const row: any = new Discord.ActionRowBuilder().addComponents(menu);
 
             await interaction.reply({ components: [row], ephemeral: true });
