@@ -15,7 +15,7 @@
     "axios": "^1.20.0",
     "discord.js": "^14.27.0",
     "dotenv": "^17.4.2",
-    "mongoose": "^9.10.0"
+    "mongoose": "^9.10.1"
   },
   "devDependencies": {
     "@sentry/types": "^10.74.0",
